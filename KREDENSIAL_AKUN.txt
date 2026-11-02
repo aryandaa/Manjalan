@@ -78,16 +78,29 @@ Hak Akses Pengelola:
 
 
 --------------------------------------------------------------------------------
-4. AKUN HASIL PENDAFTARAN BARU OLEH WISATAWAN / CALON MITRA
+4. AKUN HASIL PENDAFTARAN BARU & FITUR DIRECT NOTIFIKASI WHATSAPP
 --------------------------------------------------------------------------------
-Alur Pendaftaran:
-  1. Calon mitra / wisatawan buka menu "Mitra" -> tab "Ajukan Kemitraan Baru".
-  2. Isi No. WhatsApp (contoh: 081234567899) dan buat 6 digit PIN (contoh: 123456).
-  3. Kirim pengajuan.
-  4. Petugas masuk ke URL rahasia /login, lalu klik "ACC & Buat Akun Mitra".
-  5. Akun langsung aktif! Mitra bisa langsung login di /mitra dengan:
-     - No. WhatsApp : Sesuai yang didaftarkan (contoh: 081234567899)
-     - PIN          : 6 digit yang didaftarkan (contoh: 123456)
+Alur Lengkap Pembuatan Akun & Pengiriman Kredensial:
+  1. Calon mitra / wisatawan membuka menu "Mitra" -> tab "Ajukan Kemitraan Baru".
+  2. Mengisi formulir dengan:
+     - Nomor WhatsApp Pemohon : (Misal: 081234567899) -> INI AKAN JADI ID LOGIN
+     - PIN Rahasia (6 Digit)  : (Misal: 123456)       -> INI AKAN JADI PIN LOGIN
+     - Nama Usaha & Fasilitas
+  3. Setelah dikirim, sistem memunculkan dialog konfirmasi yang merangkum
+     Nomor WhatsApp & PIN tersebut agar dicatat oleh pendaftar.
+  4. Petugas masuk ke URL rahasia /login:
+     - Di kartu antrean, Petugas dapat melihat Nomor WhatsApp & PIN yang diajukan.
+     - Petugas menekan tombol "ACC & Buat Akun".
+     - Akun otomatis aktif seketika di server!
+  5. Sistem langsung memunculkan POPUP NOTIFIKASI WHATSAPP untuk Petugas:
+     - Menampilkan rincian ID Login & PIN akun mitra baru.
+     - Menyediakan tombol hijau "Kirim Kredensial via WhatsApp":
+       Sekali klik, WhatsApp Web / Aplikasi WA akan terbuka otomatis dengan nomor
+       pemohon dan pesan resmi yang sudah terisi otomatis berisi rincian:
+       * Tautan Masuk (/mitra)
+       * ID Login (No. WhatsApp)
+       * PIN Keamanan (6 Digit)
+     - Tersedia juga tombol "Salin Pesan" untuk copy-paste instan.
 
 
 --------------------------------------------------------------------------------

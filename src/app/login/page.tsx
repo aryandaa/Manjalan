@@ -31,6 +31,56 @@ export default function PetugasLoginPage() {
   const [rejectingReqId, setRejectingReqId] = useState<string | null>(null);
   const [rejectReason, setRejectReason] = useState('');
 
+  // ACC Success & WhatsApp Notification Modal
+  const [approvedNotification, setApprovedNotification] = useState<{
+    applicantName: string;
+    businessName: string;
+    whatsapp: string;
+    pin: string;
+    type: string;
+    isExistingOwner: boolean;
+  } | null>(null);
+  const [copiedNotification, setCopiedNotification] = useState(false);
+
+  const formatWhatsappNumber = (phone: string) => {
+    let clean = phone.replace(/[^0-9]/g, '');
+    if (clean.startsWith('0')) {
+      clean = '62' + clean.slice(1);
+    }
+    return clean;
+  };
+
+  const getWhatsappApprovalMessage = (info: {
+    applicantName: string;
+    businessName: string;
+    whatsapp: string;
+    pin: string;
+    isExistingOwner: boolean;
+  }) => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://manjalan.vercel.app';
+    if (info.isExistingOwner) {
+      return `Halo Bapak/Ibu ${info.applicantName}, selamat!\n\nPengajuan penambahan tempat/layanan Anda "*${info.businessName}*" telah DISANGGUPI & DISETUJUI (ACC) oleh Petugas Balai Konservasi Manjalan.\n\nTempat ini sekarang sudah otomatis aktif di bawah akun kelolaan Anda. Silakan masuk ke:\n• Ruang Kerja: ${origin}/mitra\n• ID Mitra: ${info.whatsapp}\n\nTerima kasih atas kerja samanya mendukung ekowisata Kalimantan Tengah!`;
+    }
+
+    return `Halo Bapak/Ibu ${info.applicantName}, selamat!\n\nPengajuan kemitraan Anda untuk "*${info.businessName}*" telah DISANGGUPI & DISETUJUI (ACC) oleh Petugas Balai Konservasi Manjalan.\n\nAkun mitra Anda telah otomatis aktif dengan rincian kredensial login berikut:\n• Halaman Masuk: ${origin}/mitra\n• ID Login (No. WhatsApp): ${info.whatsapp}\n• PIN Keamanan (6 Digit): ${info.pin}\n\nSilakan buka tautan di atas untuk mulai melengkapi fasilitas, memperbarui tarif, status sinyal, dan metode pembayaran Anda. Terima kasih!`;
+  };
+
+  const handleSendWhatsapp = () => {
+    if (!approvedNotification) return;
+    const phone = formatWhatsappNumber(approvedNotification.whatsapp);
+    const msg = getWhatsappApprovalMessage(approvedNotification);
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  };
+
+  const handleCopyNotification = () => {
+    if (!approvedNotification) return;
+    const msg = getWhatsappApprovalMessage(approvedNotification);
+    navigator.clipboard.writeText(msg);
+    setCopiedNotification(true);
+    setTimeout(() => setCopiedNotification(false), 3000);
+  };
+
   // Check existing session
   useEffect(() => {
     try {
@@ -149,6 +199,18 @@ export default function PetugasLoginPage() {
       if (!res.ok || !data.success) {
         showToast(data.error || 'Gagal menyetujui pengajuan.');
         return;
+      }
+
+      const targetReq = requests.find((r) => r.id === reqId) || data.data?.request;
+      if (targetReq) {
+        setApprovedNotification({
+          applicantName: targetReq.applicantName,
+          businessName: targetReq.businessName,
+          whatsapp: targetReq.whatsapp,
+          pin: targetReq.desiredPin || '123456',
+          type: targetReq.type,
+          isExistingOwner: Boolean(targetReq.targetExistingOwnerId),
+        });
       }
 
       showToast(data.message || 'Pengajuan berhasil di-ACC! Akun mitra otomatis aktif.');
@@ -477,6 +539,12 @@ export default function PetugasLoginPage() {
                                   <strong className="text-primary font-mono">{req.whatsapp}</strong>
                                 </p>
                                 <p>
+                                  PIN Keamanan Akun:{' '}
+                                  <strong className="font-mono text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded text-[11px] font-bold">
+                                    {req.desiredPin || 'Tersimpan'}
+                                  </strong>
+                                </p>
+                                <p>
                                   Kategori: <strong className="text-on-surface">{req.category}</strong>
                                 </p>
                                 <p>
@@ -633,6 +701,95 @@ export default function PetugasLoginPage() {
               >
                 Konfirmasi Tolak
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ACC Success & WhatsApp Notification Modal */}
+      {approvedNotification && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-surface max-w-lg w-full rounded-3xl p-6 shadow-2xl border border-outline-variant/30 space-y-4 animate-in zoom-in-95 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-700 flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-[28px]">verified</span>
+              </div>
+              <div>
+                <h3 className="font-extrabold text-base sm:text-lg text-on-surface">
+                  Pengajuan Kemitraan Di-ACC!
+                </h3>
+                <p className="text-xs text-on-surface-variant">
+                  Akun mitra telah otomatis aktif dan terdaftar di server.
+                </p>
+              </div>
+            </div>
+
+            {/* Credential Card */}
+            <div className="p-4 rounded-2xl bg-surface-container-low border border-outline-variant/40 space-y-2 text-xs">
+              <div className="flex justify-between items-center pb-2 border-b border-outline-variant/30">
+                <span className="text-on-surface-variant">Usaha / Destinasi:</span>
+                <span className="font-bold text-on-surface text-right">{approvedNotification.businessName}</span>
+              </div>
+              <div className="flex justify-between items-center pb-2 border-b border-outline-variant/30">
+                <span className="text-on-surface-variant">Pemilik / Pengelola:</span>
+                <span className="font-bold text-on-surface">{approvedNotification.applicantName}</span>
+              </div>
+              <div className="flex justify-between items-center pb-2 border-b border-outline-variant/30">
+                <span className="text-on-surface-variant">ID Login (No. WhatsApp):</span>
+                <span className="font-mono font-bold text-primary bg-primary/10 px-2 py-0.5 rounded text-sm">
+                  {approvedNotification.whatsapp}
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-on-surface-variant">PIN Keamanan (6 Digit):</span>
+                <span className="font-mono font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded text-sm tracking-wider">
+                  {approvedNotification.pin}
+                </span>
+              </div>
+            </div>
+
+            {/* Notification Dispatch Callout */}
+            <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 space-y-2">
+              <div className="flex items-center gap-1.5 font-bold text-emerald-900">
+                <span className="material-symbols-outlined text-[18px] text-emerald-700">outgoing_mail</span>
+                <span>Kirimkan Kredensial Langsung ke Mitra</span>
+              </div>
+              <p className="text-[11px] leading-relaxed text-emerald-800">
+                Kirim pesan konfirmasi resmi melalui WhatsApp agar pemilik dapat langsung login dan mengelola fasilitasnya di halaman <code>/mitra</code>.
+              </p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-2 pt-1">
+              <button
+                type="button"
+                onClick={handleSendWhatsapp}
+                className="w-full h-12 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all"
+              >
+                <span className="material-symbols-outlined text-[20px]">chat</span>
+                <span>Kirim Kredensial via WhatsApp</span>
+              </button>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleCopyNotification}
+                  className="flex-1 h-10 rounded-xl bg-surface-container hover:bg-surface-container-high text-xs font-bold text-on-surface flex items-center justify-center gap-1.5 transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[16px]">
+                    {copiedNotification ? 'done' : 'content_copy'}
+                  </span>
+                  <span>{copiedNotification ? 'Pesan Tersalin!' : 'Salin Pesan'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setApprovedNotification(null)}
+                  className="flex-1 h-10 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors"
+                >
+                  Tutup / Selesai
+                </button>
+              </div>
             </div>
           </div>
         </div>

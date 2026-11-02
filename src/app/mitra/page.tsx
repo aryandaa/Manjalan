@@ -40,6 +40,14 @@ export default function MitraPortalPage() {
   const [regDesiredPin, setRegDesiredPin] = useState('');
   const [isSubmittingReg, setIsSubmittingReg] = useState(false);
 
+  // Registration Submitted Dialog State
+  const [regSuccessModal, setRegSuccessModal] = useState<{
+    whatsapp: string;
+    pin: string;
+    applicant: string;
+    businessName: string;
+  } | null>(null);
+
   // Managed Places State (1 Owner -> Many Places)
   const [myPlaces, setMyPlaces] = useState<ManagedPlace[]>([]);
   const [isLoadingPlaces, setIsLoadingPlaces] = useState(false);
@@ -197,6 +205,15 @@ export default function MitraPortalPage() {
       }
 
       showToast('Pengajuan kemitraan terkirim! Menunggu persetujuan (ACC) petugas.');
+      
+      // Save data for success confirmation dialog
+      setRegSuccessModal({
+        whatsapp: regWhatsapp.trim(),
+        pin: regDesiredPin.trim(),
+        applicant: regApplicant.trim(),
+        businessName: regBusinessName.trim(),
+      });
+
       // Reset form & switch to login tab with pre-filled ID
       setMerchantId(regWhatsapp.trim());
       setPin(regDesiredPin.trim());
@@ -1092,6 +1109,65 @@ export default function MitraPortalPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Registration Submitted Success Dialog */}
+      {regSuccessModal && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-surface max-w-md w-full rounded-3xl p-6 shadow-2xl border border-outline-variant/30 space-y-4 animate-in zoom-in-95">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-700 flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-[28px]">mark_email_read</span>
+              </div>
+              <div>
+                <h3 className="font-extrabold text-base sm:text-lg text-on-surface">
+                  Pendaftaran Mitra Terkirim!
+                </h3>
+                <p className="text-xs text-on-surface-variant">
+                  Permohonan masuk ke antrean verifikasi Petugas Balai.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-surface-container-low border border-outline-variant/40 space-y-2.5 text-xs">
+              <p className="font-bold text-on-surface">Kredensial Akun yang Didaftarkan:</p>
+              <div className="flex justify-between items-center pb-2 border-b border-outline-variant/30">
+                <span className="text-on-surface-variant">Usaha / Destinasi:</span>
+                <span className="font-bold text-on-surface">{regSuccessModal.businessName}</span>
+              </div>
+              <div className="flex justify-between items-center pb-2 border-b border-outline-variant/30">
+                <span className="text-on-surface-variant">ID Login (No. WhatsApp):</span>
+                <span className="font-mono font-bold text-primary bg-primary/10 px-2 py-0.5 rounded text-sm">
+                  {regSuccessModal.whatsapp}
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-on-surface-variant">PIN Keamanan (6 Digit):</span>
+                <span className="font-mono font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded text-sm tracking-wider">
+                  {regSuccessModal.pin}
+                </span>
+              </div>
+            </div>
+
+            <div className="p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-950 leading-relaxed space-y-1">
+              <p className="font-bold flex items-center gap-1.5 text-amber-900">
+                <span className="material-symbols-outlined text-[16px]">schedule</span>
+                <span>Alur Aktivasi Akun (ACC):</span>
+              </p>
+              <p className="text-[11px] text-amber-900/90">
+                Begitu Petugas Otoritas menyetujui (ACC) pengajuan Anda, akun Anda langsung aktif otomatis. Petugas juga dapat mengirimkan konfirmasi via WhatsApp ke nomor Anda.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setRegSuccessModal(null)}
+              className="w-full h-11 rounded-xl bg-primary text-white font-bold text-xs shadow-sm hover:bg-primary/95 transition-all"
+            >
+              Saya Paham &amp; Siap Masuk
+            </button>
           </div>
         </div>
       )}
