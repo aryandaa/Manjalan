@@ -758,9 +758,32 @@ export default function PetugasLoginPage() {
                               </span>
                             </div>
 
-                            <h4 className="text-lg sm:text-xl font-black text-on-surface">
-                              {req.businessName}
-                            </h4>
+                            <div className="flex items-start gap-3">
+                              {req.image && (
+                                <img
+                                  src={req.image}
+                                  alt={req.businessName}
+                                  className="w-16 h-16 rounded-xl object-cover bg-surface-container shrink-0 border border-outline-variant/30"
+                                />
+                              )}
+                              <div className="min-w-0 flex-1">
+                                <h4 className="text-lg sm:text-xl font-black text-on-surface">
+                                  {req.businessName}
+                                </h4>
+                                {req.gmapsUrl && (
+                                  <a
+                                    href={req.gmapsUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 font-bold text-xs mt-1 transition-colors"
+                                  >
+                                    <span className="material-symbols-outlined text-[14px] text-emerald-700">map</span>
+                                    <span>Review Google Maps</span>
+                                    <span className="material-symbols-outlined text-[12px] text-emerald-600">open_in_new</span>
+                                  </a>
+                                )}
+                              </div>
+                            </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-xs text-on-surface-variant pt-1">
                               <p>
@@ -996,17 +1019,41 @@ export default function PetugasLoginPage() {
                           </span>
                         </div>
 
-                        <h4 className="text-base font-black text-on-surface">{plc.name}</h4>
-                        <p className="text-xs text-on-surface-variant flex items-center gap-1">
-                          <span className="material-symbols-outlined text-[14px]">location_on</span>
-                          <span>{plc.location}</span>
-                        </p>
+                        <div className="flex items-start gap-3">
+                          {plc.image && (
+                            <img
+                              src={plc.image}
+                              alt={plc.name}
+                              className="w-16 h-16 rounded-xl object-cover bg-surface-container shrink-0 border border-outline-variant/30"
+                            />
+                          )}
+                          <div className="min-w-0 flex-1">
+                            <h4 className="text-base font-black text-on-surface truncate">{plc.name}</h4>
+                            <p className="text-xs text-on-surface-variant flex items-center gap-1 mt-0.5 truncate">
+                              <span className="material-symbols-outlined text-[14px]">location_on</span>
+                              <span>{plc.location}</span>
+                            </p>
+                          </div>
+                        </div>
 
                         <p className="text-xs text-on-surface-variant line-clamp-2 leading-relaxed">
                           {plc.description}
                         </p>
 
                         <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px]">
+                          {plc.gmapsUrl && (
+                            <a
+                              href={plc.gmapsUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 font-bold"
+                              title="Buka review di Google Maps"
+                            >
+                              <span className="material-symbols-outlined text-[13px] text-emerald-700">map</span>
+                              <span>Review Google Maps</span>
+                              <span className="material-symbols-outlined text-[11px] text-emerald-600">open_in_new</span>
+                            </a>
+                          )}
                           <span className="px-2 py-0.5 rounded-lg bg-surface-container text-on-surface font-bold">
                             Tarif: {plc.priceRange}
                           </span>

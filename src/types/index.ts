@@ -83,6 +83,7 @@ export interface Umkm {
   whatsapp?: string;
   offlineNotes?: string;
   featured?: boolean;
+  gmapsUrl?: string;
 }
 
 export interface BudgetCalculation {
@@ -152,6 +153,8 @@ export interface PartnerRequest {
   priceRange?: string;
   desiredPin?: string; // legacy support
   desiredPassword?: string; // Alphanumeric password (letters + numbers)
+  image?: string;
+  gmapsUrl?: string;
   status: 'pending' | 'approved' | 'rejected';
   rejectionReason?: string;
   targetExistingOwnerId?: string; // If an existing manager is requesting an additional place
@@ -176,6 +179,7 @@ export interface ManagedPlace {
   signalOk: boolean;
   whatsapp: string;
   image: string;
+  gmapsUrl?: string;
   status: 'active' | 'pending_approval';
   createdAt: string;
   updatedAt?: string;

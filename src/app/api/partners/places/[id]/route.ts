@@ -15,6 +15,8 @@ const updatePlaceSchema = z.object({
   signalStatus: z.string().trim().max(100).optional(),
   signalOk: z.boolean().optional(),
   whatsapp: z.string().trim().max(30).optional(),
+  image: z.string().trim().optional(),
+  gmapsUrl: z.string().trim().min(5, 'Link Google Maps tidak valid').optional(),
 });
 
 export async function PUT(

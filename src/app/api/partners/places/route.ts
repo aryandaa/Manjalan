@@ -39,6 +39,8 @@ const addPlaceRequestSchema = z.object({
   location: z.string().trim().min(3).max(200),
   description: z.string().trim().min(10).max(1000),
   priceRange: z.string().trim().max(100).optional(),
+  image: z.string().trim().optional(),
+  gmapsUrl: z.string().trim().min(5, 'Link Google Maps tempat wajib disertakan (contoh: https://maps.app.goo.gl/... atau https://maps.google.com/...)'),
   type: z.enum(['umkm', 'destinasi']),
 });
 
@@ -69,6 +71,12 @@ export async function POST(request: NextRequest) {
       location: validated.location,
       description: validated.description,
       priceRange: validated.priceRange || 'Standar Lapangan',
+      image:
+        validated.image ||
+        (validated.type === 'umkm'
+          ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=800&auto=format&fit=crop'
+          : 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop'),
+      gmapsUrl: validated.gmapsUrl,
       desiredPin: '000000', // not used since partner already has an account
       targetExistingOwnerId: partner.merchantId,
       status: 'pending',

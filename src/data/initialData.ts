@@ -526,7 +526,8 @@ export const INITIAL_UMKM: Umkm[] = [
     needsCash: true,
     whatsapp: '+6281234567890',
     offlineNotes: 'Pilihan pas santap siang sebelum boarding ke perahu Kelotok.',
-    featured: true
+    featured: true,
+    gmapsUrl: 'https://maps.google.com/?q=Pelabuhan+Kumai+Kotawaringin+Barat'
   },
   {
     id: 'umkm-2',
@@ -549,7 +550,8 @@ export const INITIAL_UMKM: Umkm[] = [
     needsCash: true,
     whatsapp: '+6281351239876',
     offlineNotes: 'DP bisa transfer saat di kota; pelunasan dan tips awak disarankan uang tunai pecahan Rp 50.000/100.000.',
-    featured: true
+    featured: true,
+    gmapsUrl: 'https://maps.google.com/?q=Dermaga+Sekonyer+Tanjung+Puting'
   },
   {
     id: 'umkm-3',
@@ -573,7 +575,8 @@ export const INITIAL_UMKM: Umkm[] = [
     needsCash: true,
     whatsapp: '+6285249001122',
     offlineNotes: 'Memiliki lembar barcode QRIS fisik, tetapi jika sinyal drop wajib bayar tunai.',
-    featured: true
+    featured: true,
+    gmapsUrl: 'https://maps.google.com/?q=Desa+Sekonyer+Kotawaringin+Barat'
   },
   {
     id: 'umkm-4',
@@ -597,7 +600,8 @@ export const INITIAL_UMKM: Umkm[] = [
     needsCash: true,
     whatsapp: '+628115203344',
     offlineNotes: 'Bawa uang saku pecahan kecil untuk belanja di pondok konservasi.',
-    featured: false
+    featured: false,
+    gmapsUrl: 'https://maps.google.com/?q=Balai+Taman+Nasional+Tanjung+Puting'
   },
   {
     id: 'umkm-5',
@@ -621,7 +625,8 @@ export const INITIAL_UMKM: Umkm[] = [
     needsCash: true,
     whatsapp: '+6281255443322',
     offlineNotes: 'QRIS lancar dipindai dari semua aplikasi m-banking dan e-wallet.',
-    featured: true
+    featured: true,
+    gmapsUrl: 'https://maps.google.com/?q=Dermaga+Kereng+Bangkirai+Sebangau'
   },
   {
     id: 'umkm-6',
@@ -645,6 +650,7 @@ export const INITIAL_UMKM: Umkm[] = [
     needsCash: false,
     whatsapp: '+6281344556677',
     offlineNotes: 'Menerima pembayaran digital penuh (QRIS, Kartu Debit, Transfer).',
-    featured: true
+    featured: true,
+    gmapsUrl: 'https://maps.google.com/?q=TWA+Bukit+Tangkiling+Palangka+Raya'
   }
 ];

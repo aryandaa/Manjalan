@@ -190,6 +190,23 @@ export default function UmkmDirectoryPage() {
                         </span>
                         <span className="font-bold text-on-surface shrink-0">{item.priceRange}</span>
                       </div>
+
+                      {item.gmapsUrl && (
+                        <div className="pt-1">
+                          <a
+                            href={item.gmapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-[11px] transition-colors shadow-xs active:scale-95"
+                            title="Buka ulasan & peta di Google Maps"
+                          >
+                            <span className="material-symbols-outlined text-[15px] text-emerald-700">map</span>
+                            <span>Review Google Maps</span>
+                            <span className="material-symbols-outlined text-[13px] text-emerald-600">open_in_new</span>
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -316,6 +333,20 @@ export default function UmkmDirectoryPage() {
                 <div className="p-3.5 bg-blue-50 rounded-xl border border-blue-200 text-xs text-primary leading-relaxed">
                   <strong>Catatan Lapangan:</strong> {selectedUmkm.offlineNotes}
                 </div>
+              )}
+
+              {/* Action Google Maps Review */}
+              {selectedUmkm.gmapsUrl && (
+                <a
+                  href={selectedUmkm.gmapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full h-11 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-xs"
+                >
+                  <span className="material-symbols-outlined text-[18px] text-emerald-700">location_on</span>
+                  <span>Lihat Lokasi &amp; Ulasan di Google Maps</span>
+                  <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+                </a>
               )}
 
               {/* Action WhatsApp */}

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getServerRequests, updateServerRequest, addServerPlace, addServerAccount } from '@/lib/serverStore';
 import { registerApprovedPartner, verifyPartnerToken } from '@/lib/auth';
-import { ManagedPlace, PartnerAccount } from '@/types';
+import { ManagedPlace } from '@/types';
 
 const patchSchema = z.object({
   status: z.enum(['approved', 'rejected']),
@@ -100,9 +100,11 @@ export async function PATCH(
         signalOk: true,
         whatsapp: targetReq.whatsapp,
         image:
-          targetReq.type === 'umkm'
+          targetReq.image ||
+          (targetReq.type === 'umkm'
             ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=800&auto=format&fit=crop'
-            : 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
+            : 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop'),
+        gmapsUrl: targetReq.gmapsUrl,
         status: 'active',
         createdAt: new Date().toISOString(),
       };

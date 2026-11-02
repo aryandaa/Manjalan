@@ -16,6 +16,8 @@ const partnerRequestSchema = z.object({
   location: z.string().trim().min(3).max(200),
   description: z.string().trim().min(10, 'Deskripsi minimal 10 karakter').max(1000),
   priceRange: z.string().trim().max(100).optional(),
+  image: z.string().trim().optional(),
+  gmapsUrl: z.string().trim().min(5, 'Link Google Maps tempat wajib disertakan (contoh: https://maps.app.goo.gl/... atau https://maps.google.com/...)'),
   desiredPin: z.string().min(6, 'Password minimal 6 karakter kombinasi huruf & angka').max(50).optional(),
   desiredPassword: z.string().min(6, 'Password minimal 6 karakter kombinasi huruf & angka').max(50).optional(),
   targetExistingOwnerId: z.string().optional(),
@@ -60,6 +62,12 @@ export async function POST(request: NextRequest) {
       location: validated.location,
       description: validated.description,
       priceRange: validated.priceRange || 'Sesuai Kesepakatan',
+      image:
+        validated.image ||
+        (validated.type === 'umkm'
+          ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=800&auto=format&fit=crop'
+          : 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop'),
+      gmapsUrl: validated.gmapsUrl,
       desiredPin: (validated.desiredPassword || validated.desiredPin || '').trim(),
       desiredPassword: (validated.desiredPassword || validated.desiredPin || '').trim(),
       status: 'pending',

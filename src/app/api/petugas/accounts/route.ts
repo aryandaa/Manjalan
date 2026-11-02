@@ -15,6 +15,8 @@ const createAccountSchema = z.object({
   password: z.string().min(6).optional(),
   initialPlaceCategory: z.string().optional(),
   initialPlaceLocation: z.string().optional(),
+  initialPlaceGmapsUrl: z.string().optional(),
+  initialPlaceImage: z.string().optional(),
 });
 
 // GET /api/petugas/accounts - List all partner accounts
@@ -106,9 +108,13 @@ export async function POST(request: NextRequest) {
       signalOk: true,
       whatsapp: cleanWa,
       image:
-        validated.role === 'umkm'
+        validated.initialPlaceImage ||
+        (validated.role === 'umkm'
           ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=800&auto=format&fit=crop'
-          : 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
+          : 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop'),
+      gmapsUrl:
+        validated.initialPlaceGmapsUrl ||
+        'https://maps.google.com/?q=Kumai+Kotawaringin+Barat',
       status: 'active',
       createdAt: new Date().toISOString(),
     };

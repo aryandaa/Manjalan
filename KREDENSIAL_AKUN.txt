@@ -93,11 +93,14 @@ Alur Lengkap:
   2. Mengisi formulir dengan:
      - Nomor WhatsApp Pemohon : (Misal: 081345678910) -> INI AKAN JADI ID LOGIN
      - Password Diinginkan    : (Kombinasi huruf & angka, misal: Borneo2026)
+     - Link Google Maps       : (Wajib, misal: https://maps.app.goo.gl/... atau https://maps.google.com/...)
+     - Foto Cover Tempat      : (Upload dari file perangkat lokal atau tempel URL gambar web)
      - Nama Usaha & Fasilitas
   3. Setelah dikirim, sistem memunculkan dialog konfirmasi yang merangkum
      Nomor WhatsApp & Password tersebut agar dicatat oleh pendaftar.
   4. Petugas masuk ke URL rahasia /login:
      - Di kartu antrean, password disembunyikan (••••••••) demi privasi.
+     - Foto cover dan tautan Google Maps dapat langsung ditinjau oleh petugas.
      - Petugas menekan tombol "ACC & Buat Akun".
      - Akun otomatis aktif seketika di server!
   5. POPUP KREDENSIAL (SEKALI LIHAT):
@@ -109,6 +112,11 @@ Alur Lengkap:
        * ID Login (No. WhatsApp)
        * Password Keamanan
      - Tersedia juga tombol "Salin Pesan" untuk copy-paste instan.
+  6. POV WISATAWAN (DIREKTORI UMKM & DESTINASI):
+     - Pada setiap kartu UMKM/destinasi di /umkm dan dashboard, terdapat badge khusus:
+       "Review Google Maps" (dengan ikon peta & panah buka tab baru).
+     - Saat diklik, wisatawan langsung diarahkan ke ulasan Google Maps tempat tersebut
+       sebelum memutuskan untuk singgah atau booking perahu kelotok/layanan.
 
 
 --------------------------------------------------------------------------------

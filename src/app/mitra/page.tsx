@@ -38,6 +38,8 @@ export default function MitraPortalPage() {
   const [regDescription, setRegDescription] = useState('');
   const [regPriceRange, setRegPriceRange] = useState('');
   const [regDesiredPin, setRegDesiredPin] = useState('');
+  const [regImage, setRegImage] = useState('');
+  const [regGmapsUrl, setRegGmapsUrl] = useState('');
   const [isSubmittingReg, setIsSubmittingReg] = useState(false);
 
   // Registration Submitted Dialog State
@@ -63,7 +65,31 @@ export default function MitraPortalPage() {
   const [newPlaceLocation, setNewPlaceLocation] = useState('');
   const [newPlaceDescription, setNewPlaceDescription] = useState('');
   const [newPlacePrice, setNewPlacePrice] = useState('');
+  const [newPlaceImage, setNewPlaceImage] = useState('');
+  const [newPlaceGmapsUrl, setNewPlaceGmapsUrl] = useState('');
   const [isSubmittingNewPlace, setIsSubmittingNewPlace] = useState(false);
+
+  // File to Base64 image reader helper
+  const handleImageFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    onLoad: (_url: string) => void
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('Ukuran gambar maksimal 5 MB.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const res = ev.target?.result as string;
+      if (res) {
+        onLoad(res);
+        showToast('Foto cover berhasil dimuat!');
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
   // Check existing session
   useEffect(() => {
@@ -167,8 +193,8 @@ export default function MitraPortalPage() {
     e.preventDefault();
     setErrorMessage(null);
 
-    if (!regApplicant || !regWhatsapp || !regBusinessName || !regDescription || !regDesiredPin) {
-      setErrorMessage('Harap lengkapi semua kolom wajib termasuk password akun.');
+    if (!regApplicant || !regWhatsapp || !regBusinessName || !regDescription || !regDesiredPin || !regGmapsUrl) {
+      setErrorMessage('Harap lengkapi semua kolom wajib termasuk link Google Maps dan password akun.');
       return;
     }
 
@@ -192,6 +218,8 @@ export default function MitraPortalPage() {
           location: regLocation.trim() || 'Kalimantan Tengah',
           description: regDescription.trim(),
           priceRange: regPriceRange.trim() || 'Standar Lapangan',
+          image: regImage.trim() || undefined,
+          gmapsUrl: regGmapsUrl.trim(),
           desiredPin: regDesiredPin.trim(),
           desiredPassword: regDesiredPin.trim(),
         }),
@@ -234,8 +262,8 @@ export default function MitraPortalPage() {
     e.preventDefault();
     if (!partnerSession) return;
 
-    if (!newPlaceName || !newPlaceDescription) {
-      showToast('Harap isi nama tempat dan deskripsi.');
+    if (!newPlaceName || !newPlaceDescription || !newPlaceGmapsUrl) {
+      showToast('Harap isi nama tempat, deskripsi, dan link Google Maps.');
       return;
     }
 
@@ -256,6 +284,8 @@ export default function MitraPortalPage() {
           location: newPlaceLocation.trim() || 'Kalimantan Tengah',
           description: newPlaceDescription.trim(),
           priceRange: newPlacePrice.trim() || 'Standar Lapangan',
+          image: newPlaceImage.trim() || undefined,
+          gmapsUrl: newPlaceGmapsUrl.trim(),
         }),
       });
 
@@ -273,6 +303,8 @@ export default function MitraPortalPage() {
       setNewPlaceDescription('');
       setNewPlacePrice('');
       setNewPlaceLocation('');
+      setNewPlaceImage('');
+      setNewPlaceGmapsUrl('');
     } catch (e) {
       showToast('Gagal menghubungi server.');
     } finally {
@@ -301,6 +333,8 @@ export default function MitraPortalPage() {
           hasQris: editingPlace.hasQris,
           needsCash: editingPlace.needsCash,
           whatsapp: editingPlace.whatsapp,
+          image: editingPlace.image,
+          gmapsUrl: editingPlace.gmapsUrl,
         }),
       });
 
@@ -579,6 +613,8 @@ export default function MitraPortalPage() {
                           setRegLocation('Dermaga Pelabuhan Panglima Utar, Kumai');
                           setRegPriceRange('Rp 2.200.000 / hari');
                           setRegDesiredPin('Borneo2026');
+                          setRegGmapsUrl('https://maps.google.com/?q=Pelabuhan+Panglima+Utar+Kumai');
+                          setRegImage('https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=800&auto=format&fit=crop');
                           setRegDescription('Armada kelotok 2 tingkat kapasitas 10 wisatawan dengan solar panel ramah lingkungan, kasur berpelindung kelambu, toilet bersih, dan sajian kuliner khas ikan sungai Sekonyer.');
                           showToast('Data simulasi UMKM berhasil diisi!');
                         }}
@@ -598,6 +634,8 @@ export default function MitraPortalPage() {
                           setRegLocation('Katingan Hilir, Kabupaten Katingan');
                           setRegPriceRange('Tiket Simaksi Rp 15.000');
                           setRegDesiredPin('Gambut2026');
+                          setRegGmapsUrl('https://maps.google.com/?q=Danau+Bulat+Katingan+Hilir');
+                          setRegImage('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop');
                           setRegDescription('Kawasan konservasi rawa gambut purba dengan jembatan titian kayu ulin sepanjang 800 meter, menara pantau burung enggang, dan susur rawa menggunakan kano tradisional.');
                           showToast('Data simulasi Destinasi berhasil diisi!');
                         }}
@@ -730,6 +768,73 @@ export default function MitraPortalPage() {
                         required
                         className="w-full h-11 px-3.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-outline-variant/50 outline-none focus:border-primary font-mono tracking-wider"
                       />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-on-surface flex items-center justify-between">
+                      <span>Link Google Maps Tempat / Usaha *</span>
+                      <span className="text-[10px] text-emerald-700 font-bold">Wajib untuk ulasan wisatawan</span>
+                    </label>
+                    <div className="relative">
+                      <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">
+                        location_on
+                      </span>
+                      <input
+                        type="url"
+                        value={regGmapsUrl}
+                        onChange={(e) => setRegGmapsUrl(e.target.value)}
+                        placeholder="Contoh: https://maps.app.goo.gl/... atau https://maps.google.com/..."
+                        required
+                        className="w-full h-11 pl-10 pr-3 rounded-xl bg-surface-container-low text-on-surface text-xs border border-outline-variant/50 outline-none focus:border-primary font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Foto Cover Tempat */}
+                  <div className="space-y-2 p-3 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                    <label className="block text-xs font-bold text-on-surface flex items-center justify-between">
+                      <span>Foto Cover Tempat (Upload / Tautan)</span>
+                      <span className="text-[10px] text-on-surface-variant">Tampil di pov wisatawan</span>
+                    </label>
+                    <div className="flex flex-col sm:flex-row gap-3 items-center">
+                      {regImage ? (
+                        <div className="relative w-28 h-20 rounded-xl overflow-hidden border border-outline-variant/40 shrink-0 bg-surface-container">
+                          <img src={regImage} alt="Cover Preview" className="w-full h-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => setRegImage('')}
+                            className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-black"
+                            title="Hapus foto"
+                          >
+                            <span className="material-symbols-outlined text-[14px]">close</span>
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="w-28 h-20 rounded-xl border-2 border-dashed border-outline-variant/60 flex flex-col items-center justify-center text-outline shrink-0 bg-surface-container/50">
+                          <span className="material-symbols-outlined text-[24px]">add_photo_alternate</span>
+                          <span className="text-[9px] font-semibold">Belum Ada Cover</span>
+                        </div>
+                      )}
+                      <div className="flex-1 w-full space-y-1.5">
+                        <label className="w-full h-9 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 text-on-surface text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all">
+                          <span className="material-symbols-outlined text-[16px] text-primary">upload_file</span>
+                          <span>Upload dari HP / Laptop</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) => handleImageFileChange(e, setRegImage)}
+                          />
+                        </label>
+                        <input
+                          type="url"
+                          value={regImage}
+                          onChange={(e) => setRegImage(e.target.value)}
+                          placeholder="Atau tempel tautan gambar web (https://...)"
+                          className="w-full h-8 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface text-[11px] border border-outline-variant/40 outline-none focus:border-primary"
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -892,8 +997,21 @@ export default function MitraPortalPage() {
                             {place.description}
                           </p>
 
-                          {/* Payment Readiness Chips */}
+                          {/* Payment Readiness Chips & Google Maps Link */}
                           <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+                            {place.gmapsUrl && (
+                              <a
+                                href={place.gmapsUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 font-bold transition-colors shadow-xs"
+                                title="Buka review di Google Maps"
+                              >
+                                <span className="material-symbols-outlined text-[14px] text-emerald-700">map</span>
+                                <span>Review Google Maps</span>
+                                <span className="material-symbols-outlined text-[12px] text-emerald-600">open_in_new</span>
+                              </a>
+                            )}
                             {place.hasQris ? (
                               <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-800 border border-blue-200 font-bold flex items-center gap-1">
                                 <span className="material-symbols-outlined text-[13px]">qr_code_2</span>
@@ -1007,6 +1125,73 @@ export default function MitraPortalPage() {
                 </div>
               </div>
 
+              <div className="space-y-1">
+                <label className="block text-xs font-bold text-on-surface flex items-center justify-between">
+                  <span>Link Google Maps Tempat *</span>
+                  <span className="text-[10px] text-emerald-700 font-bold">Ulasan langsung dari wisatawan</span>
+                </label>
+                <div className="relative">
+                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">
+                    location_on
+                  </span>
+                  <input
+                    type="url"
+                    value={editingPlace.gmapsUrl || ''}
+                    onChange={(e) => setEditingPlace({ ...editingPlace, gmapsUrl: e.target.value })}
+                    placeholder="https://maps.app.goo.gl/... atau https://maps.google.com/..."
+                    className="w-full h-11 pl-10 pr-3 rounded-xl bg-surface-container-low text-on-surface text-xs border border-outline-variant/50 outline-none focus:border-primary font-mono"
+                  />
+                </div>
+              </div>
+
+              {/* Cover Image Editor */}
+              <div className="space-y-2 p-3 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                <label className="block text-xs font-bold text-on-surface">Foto Cover Tempat</label>
+                <div className="flex flex-col sm:flex-row gap-3 items-center">
+                  {editingPlace.image ? (
+                    <div className="relative w-28 h-20 rounded-xl overflow-hidden border border-outline-variant/40 shrink-0 bg-surface-container">
+                      <img src={editingPlace.image} alt="Cover Preview" className="w-full h-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => setEditingPlace({ ...editingPlace, image: '' })}
+                        className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-black"
+                        title="Hapus foto"
+                      >
+                        <span className="material-symbols-outlined text-[14px]">close</span>
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="w-28 h-20 rounded-xl border-2 border-dashed border-outline-variant/60 flex flex-col items-center justify-center text-outline shrink-0 bg-surface-container/50">
+                      <span className="material-symbols-outlined text-[24px]">add_photo_alternate</span>
+                      <span className="text-[9px] font-semibold">Belum Ada Cover</span>
+                    </div>
+                  )}
+                  <div className="flex-1 w-full space-y-1.5">
+                    <label className="w-full h-9 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 text-on-surface text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all">
+                      <span className="material-symbols-outlined text-[16px] text-primary">upload_file</span>
+                      <span>Ganti Foto dari Perangkat</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) =>
+                          handleImageFileChange(e, (dataUrl) =>
+                            setEditingPlace({ ...editingPlace, image: dataUrl })
+                          )
+                        }
+                      />
+                    </label>
+                    <input
+                      type="url"
+                      value={editingPlace.image || ''}
+                      onChange={(e) => setEditingPlace({ ...editingPlace, image: e.target.value })}
+                      placeholder="Atau tempel tautan gambar..."
+                      className="w-full h-8 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface text-[11px] border border-outline-variant/40 outline-none focus:border-primary"
+                    />
+                  </div>
+                </div>
+              </div>
+
               {/* Payment Methods Checkboxes */}
               <div className="p-3 bg-surface-container-low rounded-xl space-y-2">
                 <span className="text-xs font-bold text-on-surface block">Kesiapan Pembayaran:</span>
@@ -1113,6 +1298,73 @@ export default function MitraPortalPage() {
                     required
                     className="w-full h-11 px-3.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-outline-variant/50 outline-none focus:border-primary"
                   />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block text-xs font-bold text-on-surface flex items-center justify-between">
+                  <span>Link Google Maps Tempat Baru *</span>
+                  <span className="text-[10px] text-emerald-700 font-bold">Wajib untuk ulasan wisatawan</span>
+                </label>
+                <div className="relative">
+                  <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">
+                    location_on
+                  </span>
+                  <input
+                    type="url"
+                    value={newPlaceGmapsUrl}
+                    onChange={(e) => setNewPlaceGmapsUrl(e.target.value)}
+                    placeholder="Contoh: https://maps.app.goo.gl/... atau https://maps.google.com/..."
+                    required
+                    className="w-full h-11 pl-10 pr-3 rounded-xl bg-surface-container-low text-on-surface text-xs border border-outline-variant/50 outline-none focus:border-primary font-mono"
+                  />
+                </div>
+              </div>
+
+              {/* Cover Image Uploader for New Place */}
+              <div className="space-y-2 p-3 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                <label className="block text-xs font-bold text-on-surface flex items-center justify-between">
+                  <span>Foto Cover Tempat (Upload / Tautan)</span>
+                  <span className="text-[10px] text-on-surface-variant">Tampil di pov wisatawan</span>
+                </label>
+                <div className="flex flex-col sm:flex-row gap-3 items-center">
+                  {newPlaceImage ? (
+                    <div className="relative w-28 h-20 rounded-xl overflow-hidden border border-outline-variant/40 shrink-0 bg-surface-container">
+                      <img src={newPlaceImage} alt="Cover Preview" className="w-full h-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => setNewPlaceImage('')}
+                        className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-black"
+                        title="Hapus foto"
+                      >
+                        <span className="material-symbols-outlined text-[14px]">close</span>
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="w-28 h-20 rounded-xl border-2 border-dashed border-outline-variant/60 flex flex-col items-center justify-center text-outline shrink-0 bg-surface-container/50">
+                      <span className="material-symbols-outlined text-[24px]">add_photo_alternate</span>
+                      <span className="text-[9px] font-semibold">Belum Ada Cover</span>
+                    </div>
+                  )}
+                  <div className="flex-1 w-full space-y-1.5">
+                    <label className="w-full h-9 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 text-on-surface text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all">
+                      <span className="material-symbols-outlined text-[16px] text-primary">upload_file</span>
+                      <span>Upload dari HP / Laptop</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => handleImageFileChange(e, setNewPlaceImage)}
+                      />
+                    </label>
+                    <input
+                      type="url"
+                      value={newPlaceImage}
+                      onChange={(e) => setNewPlaceImage(e.target.value)}
+                      placeholder="Atau tempel tautan gambar..."
+                      className="w-full h-8 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface text-[11px] border border-outline-variant/40 outline-none focus:border-primary"
+                    />
+                  </div>
                 </div>
               </div>
 
