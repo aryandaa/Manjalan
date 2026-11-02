@@ -4,29 +4,23 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
-import { getTravelPacks, deleteTravelPack, getBudgetPlans, deleteBudgetPlan, getStorageUsage } from '@/lib/indexeddb';
+import { getTravelPacks, deleteTravelPack, getBudgetPlans, deleteBudgetPlan } from '@/lib/indexeddb';
 import { TravelPack, BudgetCalculation } from '@/types';
 
 export default function TravelPackPage() {
   const [packs, setPacks] = useState<TravelPack[]>([]);
   const [budgets, setBudgets] = useState<BudgetCalculation[]>([]);
-  const [storage, setStorage] = useState({ usageMb: '24.6 MB', totalMb: '512 MB', countPacks: 2 });
-  const [isSimulatedOffline, setIsSimulatedOffline] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     loadAll();
-    const sim = localStorage.getItem('manjalan_offline_simulation') === 'true';
-    setIsSimulatedOffline(sim);
   }, []);
 
   const loadAll = async () => {
     const p = await getTravelPacks();
     const b = await getBudgetPlans();
-    const s = await getStorageUsage();
     setPacks(p);
     setBudgets(b);
-    setStorage(s);
   };
 
   const handleDeletePack = async (id: string, name: string) => {
@@ -41,17 +35,6 @@ export default function TravelPackPage() {
     await deleteBudgetPlan(id);
     await loadAll();
     showToast('Rencana budget dihapus.');
-  };
-
-  const toggleSimulation = () => {
-    const nextVal = !isSimulatedOffline;
-    setIsSimulatedOffline(nextVal);
-    localStorage.setItem('manjalan_offline_simulation', String(nextVal));
-    showToast(
-      nextVal
-        ? 'Mode Simulasi Lapangan Aktif (Semua data dari IndexedDB)'
-        : 'Mode Online Sync Aktif'
-    );
   };
 
   const showToast = (msg: string) => {
@@ -205,50 +188,8 @@ export default function TravelPackPage() {
               )}
             </div>
 
-            {/* Right Column: Storage Gauge, Simulator & Emergency Sheet (4-5 cols on desktop) */}
+            {/* Right Column: Emergency Sheet (4-5 cols on desktop) */}
             <div className="lg:col-span-5 xl:col-span-4 mt-6 lg:mt-0 flex flex-col gap-5 lg:sticky lg:top-24">
-              {/* Storage Gauge & Simulator Card */}
-              <div className="p-5 sm:p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col gap-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-10 h-10 rounded-xl bg-secondary-container/50 text-secondary flex items-center justify-center">
-                      <span className="material-symbols-outlined text-[24px]">sd_card</span>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-sm text-on-surface">Penyimpanan IndexedDB</h3>
-                      <p className="text-xs text-on-surface-variant">
-                        {storage.usageMb} terpakai dari ~{storage.totalMb}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={toggleSimulation}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                      isSimulatedOffline
-                        ? 'bg-amber-600 text-white shadow-sm'
-                        : 'bg-surface-container-high text-primary hover:bg-surface-variant'
-                    }`}
-                  >
-                    <span className="material-symbols-outlined text-[16px]">
-                      {isSimulatedOffline ? 'cloud_off' : 'wifi'}
-                    </span>
-                    <span>{isSimulatedOffline ? 'Simulasi Aktif' : 'Tes Offline'}</span>
-                  </button>
-                </div>
-
-                <div className="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
-                  <div
-                    className="bg-secondary h-full rounded-full transition-all duration-500"
-                    style={{ width: `${Math.min(packs.length * 40, 100)}%` }}
-                  ></div>
-                </div>
-
-                <p className="text-xs text-on-surface-variant leading-relaxed">
-                  Status: <strong>{packs.length} destinasi</strong> siap diakses saat ponsel Anda di mode pesawat atau di kedalaman sungai Sekonyer.
-                </p>
-              </div>
-
               {/* Emergency Cheat Sheet */}
               <div className="p-5 sm:p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col gap-3.5">
                 <div className="flex items-center gap-2 text-error">
