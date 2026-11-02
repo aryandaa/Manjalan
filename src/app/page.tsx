@@ -12,6 +12,7 @@ export default function HomePage() {
   const [umkmList, setUmkmList] = useState<Umkm[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [storageInfo, setStorageInfo] = useState({ usageMb: '24.6 MB', countPacks: 2 });
+  const [downloadedDestIds, setDownloadedDestIds] = useState<string[]>([]);
   const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function HomePage() {
 
       setDestinations(dests);
       setUmkmList(umkms.slice(0, 4));
+      setDownloadedDestIds(packs.map((p) => p.destinationId));
       setStorageInfo({
         usageMb: storage.usageMb,
         countPacks: packs.length,
@@ -260,13 +262,15 @@ export default function HomePage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
-                    {/* Pack Size Pill */}
-                    <div className="absolute top-3.5 right-3.5 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[14px] text-emerald-400">
-                        download_done
-                      </span>
-                      <span>{dest.packSize}</span>
-                    </div>
+                    {/* Show badge ONLY if actually downloaded */}
+                    {downloadedDestIds.includes(dest.id) && (
+                      <div className="absolute top-3.5 right-3.5 bg-emerald-600/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px]">
+                          offline_pin
+                        </span>
+                        <span>Tersimpan Offline</span>
+                      </div>
+                    )}
 
                     {/* Category & Title */}
                     <div className="absolute bottom-3.5 left-4 right-4 text-white">

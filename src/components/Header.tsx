@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { getTravelPacks } from '@/lib/indexeddb';
 
 interface HeaderProps {
   title?: string;
@@ -15,8 +16,21 @@ export default function Header({ subtitle, showBack = false }: HeaderProps) {
   const pathname = usePathname();
   const [isOfflineSimulated, setIsOfflineSimulated] = useState(false);
   const [showSimNotice, setShowSimNotice] = useState(false);
+  const [hasDownloadedData, setHasDownloadedData] = useState(false);
 
   useEffect(() => {
+    async function checkSavedData() {
+      try {
+        const packs = await getTravelPacks();
+        if (packs && packs.length > 0) {
+          setHasDownloadedData(true);
+        }
+      } catch {
+        // ignore
+      }
+    }
+    checkSavedData();
+
     const saved = localStorage.getItem('manjalan_offline_simulation');
     if (saved === 'true') {
       setIsOfflineSimulated(true);
@@ -96,27 +110,28 @@ export default function Header({ subtitle, showBack = false }: HeaderProps) {
             })}
           </nav>
 
-          {/* Right Action Tools */}
+          {/* Right Action Tools: Only visible when offline data exists or simulation is active */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Offline Readiness Switcher Pill */}
-            <button
-              onClick={toggleOfflineSimulation}
-              title="Klik untuk simulasi mode tanpa sinyal di pedalaman"
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${
-                isOfflineSimulated
-                  ? 'bg-amber-100 text-amber-800 border border-amber-300'
-                  : 'bg-secondary-container/40 text-secondary border border-secondary-container'
-              }`}
-            >
-              <span
-                className={`w-2 h-2 rounded-full ${
-                  isOfflineSimulated ? 'bg-amber-600' : 'bg-secondary animate-pulse'
+            {(hasDownloadedData || isOfflineSimulated) && (
+              <button
+                onClick={toggleOfflineSimulation}
+                title="Klik untuk simulasi mode tanpa sinyal di pedalaman"
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${
+                  isOfflineSimulated
+                    ? 'bg-amber-100 text-amber-800 border border-amber-300'
+                    : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                 }`}
-              ></span>
-              <span className="font-label-sm text-xs">
-                {isOfflineSimulated ? 'Offline Sim' : 'Siap Offline'}
-              </span>
-            </button>
+              >
+                <span
+                  className={`w-2 h-2 rounded-full ${
+                    isOfflineSimulated ? 'bg-amber-600' : 'bg-emerald-500 animate-pulse'
+                  }`}
+                ></span>
+                <span className="font-label-sm text-xs">
+                  {isOfflineSimulated ? 'Offline Sim' : 'Data Tersimpan'}
+                </span>
+              </button>
+            )}
           </div>
         </div>
       </header>

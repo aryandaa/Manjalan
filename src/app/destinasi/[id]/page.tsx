@@ -111,10 +111,13 @@ export default function DestinationDetailPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent"></div>
 
-            <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-surface-container-lowest/90 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md text-xs font-bold text-on-surface">
-              <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
-              <span>GPS Siap Offline</span>
-            </div>
+            {/* Only show badge if actually downloaded */}
+            {isDownloaded && (
+              <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-surface-container-lowest/90 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md text-xs font-bold text-emerald-800 border border-emerald-200">
+                <span className="material-symbols-outlined text-[15px] text-emerald-600">offline_pin</span>
+                <span>Tersimpan Offline</span>
+              </div>
+            )}
 
             <div className="absolute bottom-5 left-5 right-5 sm:bottom-8 sm:left-8 sm:right-8 flex flex-col gap-2 text-white">
               <div className="flex flex-wrap items-center gap-2 mb-1">
