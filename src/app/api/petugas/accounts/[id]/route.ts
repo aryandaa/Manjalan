@@ -128,12 +128,13 @@ export async function DELETE(
     // Revoke from auth
     removeApprovedPartner(existing.merchantId);
 
-    // Remove from server store
-    deleteServerAccount(existing.id);
+    // Cascading delete: removes account AND all places owned by this account
+    const { deletedPlacesCount } = deleteServerAccount(existing.id);
 
     return NextResponse.json({
       success: true,
-      message: `Akun mitra "${existing.name}" (${existing.merchantId}) berhasil dihapus dari sistem.`,
+      message: `Akun mitra "${existing.name}" dan ${deletedPlacesCount} tempat kelolaannya berhasil dihapus dari platform.`,
+      deletedPlacesCount,
     });
   } catch (err: any) {
     return NextResponse.json(

@@ -106,9 +106,30 @@ export function updateServerAccount(
   return g.__serverAccounts[idx];
 }
 
-export function deleteServerAccount(id: string): boolean {
-  if (!g.__serverAccounts) return false;
+export function deletePlacesByOwner(ownerMerchantId: string): number {
+  if (!g.__serverPlaces) return 0;
+  const initialLen = g.__serverPlaces.length;
+  g.__serverPlaces = g.__serverPlaces.filter(
+    (p) => p.ownerMerchantId.toLowerCase() !== ownerMerchantId.trim().toLowerCase()
+  );
+  return initialLen - g.__serverPlaces.length;
+}
+
+export function deleteServerAccount(id: string): { success: boolean; deletedPlacesCount: number } {
+  if (!g.__serverAccounts) return { success: false, deletedPlacesCount: 0 };
+  const target = g.__serverAccounts.find(
+    (a) => a.id === id || a.merchantId.toLowerCase() === id.toLowerCase()
+  );
+  let deletedPlacesCount = 0;
+  if (target) {
+    deletedPlacesCount = deletePlacesByOwner(target.merchantId);
+  }
   const initialLen = g.__serverAccounts.length;
-  g.__serverAccounts = g.__serverAccounts.filter((a) => a.id !== id && a.merchantId.toLowerCase() !== id.toLowerCase());
-  return g.__serverAccounts.length < initialLen;
+  g.__serverAccounts = g.__serverAccounts.filter(
+    (a) => a.id !== id && a.merchantId.toLowerCase() !== id.toLowerCase()
+  );
+  return {
+    success: g.__serverAccounts.length < initialLen,
+    deletedPlacesCount,
+  };
 }

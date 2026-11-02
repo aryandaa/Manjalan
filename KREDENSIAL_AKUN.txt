@@ -35,7 +35,7 @@ Hak Akses Petugas:
       - Reset Kata Sandi jika mitra lupa sandi (menghasilkan password acak alfanumerik baru
         yang tampil sekali dengan tombol kirim langsung ke WhatsApp mitra).
       - Membuat akun mitra secara manual langsung dari portal petugas.
-      - Menghapus akun mitra dari sistem jika melanggar ketentuan.
+      - Menghapus akun mitra dari sistem (otomatis menghapus seluruh tempat/usaha binaan yang dikelola akun tersebut).
   [v] Direktori Supervisi Tempat: Melihat status seluruh UMKM & Destinasi (Read-Only).
   [X] DILARANG KERAS / DIBLOKIR: Petugas TIDAK DAPAT mengedit atau menghapus tempat mitra.
 

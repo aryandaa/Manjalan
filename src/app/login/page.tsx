@@ -1438,9 +1438,9 @@ export default function PetugasLoginPage() {
               <span className="material-symbols-outlined text-[28px]">warning</span>
             </div>
             <div>
-              <h3 className="font-extrabold text-base text-on-surface">Hapus Akun Mitra?</h3>
+              <h3 className="font-extrabold text-base text-on-surface">Hapus Akun Mitra &amp; Tempatnya?</h3>
               <p className="text-xs text-on-surface-variant mt-1 leading-relaxed">
-                Anda akan menghapus akun <strong>{deletingAccount.name}</strong> ({deletingAccount.whatsapp}). Mitra tidak akan bisa login lagi ke ruang kerjanya.
+                Anda akan menghapus akun <strong>{deletingAccount.name}</strong> ({deletingAccount.whatsapp}). Seluruh tempat/layanan yang dikelola akun ini ({deletingAccount.placesCount || 0} tempat) juga akan <strong>otomatis terhapus</strong> dari direktori platform.
               </p>
             </div>
 
