@@ -52,16 +52,16 @@ export default function OnboardingModal() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 w-full pt-2">
+          <div className="flex flex-col-reverse sm:flex-row items-center gap-2.5 sm:gap-3 w-full pt-2">
             <button
               onClick={handleDismiss}
-              className="flex-1 h-12 rounded-2xl bg-surface-container-high text-on-surface font-bold text-xs sm:text-sm hover:bg-surface-container-highest active:scale-95 transition-all"
+              className="w-full sm:flex-1 h-11 sm:h-12 rounded-2xl bg-surface-container-high text-on-surface font-bold text-xs sm:text-sm hover:bg-surface-container-highest active:scale-95 transition-all"
             >
               Tidak Perlu
             </button>
             <button
               onClick={handleOpenGuide}
-              className="flex-1 h-12 rounded-2xl bg-primary text-white font-bold text-xs sm:text-sm shadow-md hover:bg-primary/90 active:scale-95 transition-all flex items-center justify-center gap-1.5"
+              className="w-full sm:flex-1 h-11 sm:h-12 rounded-2xl bg-primary text-white font-bold text-xs sm:text-sm shadow-md hover:bg-primary/90 active:scale-95 transition-all flex items-center justify-center gap-1.5"
             >
               <span>Ya, Baca Panduan</span>
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>

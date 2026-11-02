@@ -105,7 +105,7 @@ export default function TravelPackPage() {
                           <div className="flex flex-col">
                             <div className="flex items-center gap-1.5">
                               <span className="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold">
-                                100% Siap Offline
+                                Tersimpan Offline
                               </span>
                               <span className="text-xs text-outline font-mono">{pack.sizeMb}</span>
                             </div>

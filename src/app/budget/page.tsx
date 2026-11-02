@@ -305,55 +305,59 @@ Rencanakan Saat Online, Tetap Siap Saat Offline!`;
                 </div>
 
                 {/* Stepper Matrix: Peserta & Durasi */}
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-1">
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-4 pt-1">
                   {/* Stepper: Peserta */}
-                  <div className="flex flex-col p-3.5 rounded-xl bg-surface-container-low gap-2">
-                    <span className="text-xs font-semibold text-on-surface-variant">
+                  <div className="flex flex-col p-2.5 sm:p-3.5 rounded-xl bg-surface-container-low gap-1.5 sm:gap-2">
+                    <span className="text-[11px] sm:text-xs font-semibold text-on-surface-variant truncate">
                       Jumlah Peserta
                     </span>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-1">
                       <button
                         onClick={() => setGuests((g) => Math.max(1, g - 1))}
-                        className="w-9 h-9 rounded-lg bg-surface-container text-on-surface flex items-center justify-center active:scale-95 transition-transform hover:bg-surface-container-high"
+                        className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-surface-container text-on-surface flex items-center justify-center shrink-0 active:scale-95 transition-transform hover:bg-surface-container-high"
                         type="button"
+                        aria-label="Kurangi Peserta"
                       >
-                        <span className="material-symbols-outlined text-[18px]">remove</span>
+                        <span className="material-symbols-outlined text-[16px] sm:text-[18px]">remove</span>
                       </button>
-                      <span className="text-base sm:text-lg font-bold text-on-surface">
+                      <span className="text-xs sm:text-base font-bold text-on-surface text-center truncate px-1">
                         {guests} Orang
                       </span>
                       <button
                         onClick={() => setGuests((g) => Math.min(12, g + 1))}
-                        className="w-9 h-9 rounded-lg bg-primary-fixed text-on-primary-fixed flex items-center justify-center active:scale-95 transition-transform hover:bg-primary-fixed-dim"
+                        className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-primary-fixed text-on-primary-fixed flex items-center justify-center shrink-0 active:scale-95 transition-transform hover:bg-primary-fixed-dim"
                         type="button"
+                        aria-label="Tambah Peserta"
                       >
-                        <span className="material-symbols-outlined text-[18px]">add</span>
+                        <span className="material-symbols-outlined text-[16px] sm:text-[18px]">add</span>
                       </button>
                     </div>
                   </div>
 
                   {/* Stepper: Durasi */}
-                  <div className="flex flex-col p-3.5 rounded-xl bg-surface-container-low gap-2">
-                    <span className="text-xs font-semibold text-on-surface-variant">
+                  <div className="flex flex-col p-2.5 sm:p-3.5 rounded-xl bg-surface-container-low gap-1.5 sm:gap-2">
+                    <span className="text-[11px] sm:text-xs font-semibold text-on-surface-variant truncate">
                       Durasi Ekspedisi
                     </span>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-1">
                       <button
                         onClick={() => setDurationDays((d) => Math.max(1, d - 1))}
-                        className="w-9 h-9 rounded-lg bg-surface-container text-on-surface flex items-center justify-center active:scale-95 transition-transform hover:bg-surface-container-high"
+                        className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-surface-container text-on-surface flex items-center justify-center shrink-0 active:scale-95 transition-transform hover:bg-surface-container-high"
                         type="button"
+                        aria-label="Kurangi Durasi"
                       >
-                        <span className="material-symbols-outlined text-[18px]">remove</span>
+                        <span className="material-symbols-outlined text-[16px] sm:text-[18px]">remove</span>
                       </button>
-                      <span className="text-base sm:text-lg font-bold text-on-surface">
+                      <span className="text-xs sm:text-base font-bold text-on-surface text-center truncate px-1">
                         {durationDays}H {Math.max(0, durationDays - 1)}M
                       </span>
                       <button
                         onClick={() => setDurationDays((d) => Math.min(7, d + 1))}
-                        className="w-9 h-9 rounded-lg bg-primary-fixed text-on-primary-fixed flex items-center justify-center active:scale-95 transition-transform hover:bg-primary-fixed-dim"
+                        className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-primary-fixed text-on-primary-fixed flex items-center justify-center shrink-0 active:scale-95 transition-transform hover:bg-primary-fixed-dim"
                         type="button"
+                        aria-label="Tambah Durasi"
                       >
-                        <span className="material-symbols-outlined text-[18px]">add</span>
+                        <span className="material-symbols-outlined text-[16px] sm:text-[18px]">add</span>
                       </button>
                     </div>
                   </div>
@@ -462,14 +466,14 @@ Rencanakan Saat Online, Tetap Siap Saat Offline!`;
 
                   {/* Pos 1 */}
                   <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-surface-bright flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[16px] text-primary-fixed-dim">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 sm:gap-2 text-xs">
+                      <span className="text-surface-bright flex items-center gap-1.5 truncate">
+                        <span className="material-symbols-outlined text-[16px] text-primary-fixed-dim shrink-0">
                           directions_boat
                         </span>
-                        Transport & Sewa Kelotok
+                        <span className="truncate">Transport &amp; Sewa Kelotok</span>
                       </span>
-                      <span className="font-bold text-white">
+                      <span className="font-bold text-white shrink-0 sm:text-right">
                         Rp {transportKelotok.toLocaleString('id-ID')} ({pKelotok}%)
                       </span>
                     </div>
@@ -483,14 +487,14 @@ Rencanakan Saat Online, Tetap Siap Saat Offline!`;
 
                   {/* Pos 2 */}
                   <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-surface-bright flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[16px] text-secondary-fixed">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 sm:gap-2 text-xs">
+                      <span className="text-surface-bright flex items-center gap-1.5 truncate">
+                        <span className="material-symbols-outlined text-[16px] text-secondary-fixed shrink-0">
                           confirmation_number
                         </span>
-                        Tiket Masuk & Konservasi
+                        <span className="truncate">Tiket Masuk &amp; Konservasi</span>
                       </span>
-                      <span className="font-bold text-white">
+                      <span className="font-bold text-white shrink-0 sm:text-right">
                         Rp {parkTickets.toLocaleString('id-ID')} ({pTickets}%)
                       </span>
                     </div>
@@ -504,14 +508,14 @@ Rencanakan Saat Online, Tetap Siap Saat Offline!`;
 
                   {/* Pos 3 */}
                   <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-surface-bright flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[16px] text-tertiary-fixed">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 sm:gap-2 text-xs">
+                      <span className="text-surface-bright flex items-center gap-1.5 truncate">
+                        <span className="material-symbols-outlined text-[16px] text-tertiary-fixed shrink-0">
                           restaurant
                         </span>
-                        Konsumsi & Logistik Kapal
+                        <span className="truncate">Konsumsi &amp; Logistik Kapal</span>
                       </span>
-                      <span className="font-bold text-white">
+                      <span className="font-bold text-white shrink-0 sm:text-right">
                         Rp {meals.toLocaleString('id-ID')} ({pMeals}%)
                       </span>
                     </div>
@@ -525,14 +529,14 @@ Rencanakan Saat Online, Tetap Siap Saat Offline!`;
 
                   {/* Pos 4 */}
                   <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-surface-bright flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[16px] text-secondary-fixed">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 sm:gap-2 text-xs">
+                      <span className="text-surface-bright flex items-center gap-1.5 truncate">
+                        <span className="material-symbols-outlined text-[16px] text-secondary-fixed shrink-0">
                           handshake
                         </span>
-                        Pemandu & Kru Lokal (UMKM)
+                        <span className="truncate">Pemandu &amp; Kru Lokal (UMKM)</span>
                       </span>
-                      <span className="font-bold text-white">
+                      <span className="font-bold text-white shrink-0 sm:text-right">
                         Rp {guideCrew.toLocaleString('id-ID')} ({pGuide}%)
                       </span>
                     </div>
@@ -546,14 +550,14 @@ Rencanakan Saat Online, Tetap Siap Saat Offline!`;
 
                   {/* Pos 5 */}
                   <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-surface-bright flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[16px] text-amber-300">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 sm:gap-2 text-xs">
+                      <span className="text-surface-bright flex items-center gap-1.5 truncate">
+                        <span className="material-symbols-outlined text-[16px] text-amber-300 shrink-0">
                           payments
                         </span>
-                        Dana Darurat Tunai (Blackout Net)
+                        <span className="truncate">Dana Darurat Tunai (Blackout Net)</span>
                       </span>
-                      <span className="font-bold text-amber-300">
+                      <span className="font-bold text-amber-300 shrink-0 sm:text-right">
                         Rp {emergencyCash.toLocaleString('id-ID')} ({pCash}%)
                       </span>
                     </div>

@@ -276,18 +276,18 @@ export default function DestinationDetailPage() {
                       {destination.emergencyContacts.map((contact, idx) => (
                         <div
                           key={idx}
-                          className="p-3.5 rounded-xl bg-surface-container-low flex items-center justify-between gap-3"
+                          className="p-3.5 rounded-xl bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3"
                         >
-                          <div>
-                            <p className="font-bold text-xs sm:text-sm text-on-surface">{contact.name}</p>
-                            <p className="text-[11px] text-on-surface-variant mt-0.5">
+                          <div className="min-w-0">
+                            <p className="font-bold text-xs sm:text-sm text-on-surface truncate">{contact.name}</p>
+                            <p className="text-[11px] text-on-surface-variant mt-0.5 truncate">
                               {contact.role} • <span className="font-semibold text-primary">{contact.channel}</span>
                             </p>
                           </div>
                           {contact.phone && (
                             <a
                               href={`tel:${contact.phone}`}
-                              className="px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold flex items-center gap-1 shrink-0 hover:bg-primary/90"
+                              className="w-full sm:w-auto justify-center px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold flex items-center gap-1 shrink-0 hover:bg-primary/90"
                             >
                               <span className="material-symbols-outlined text-[15px]">call</span>
                               Hubungi
@@ -329,21 +329,21 @@ export default function DestinationDetailPage() {
                       Standar Tarif Resmi Lapangan
                     </h3>
                     <div className="divide-y divide-outline-variant/20 text-xs sm:text-sm">
-                      <div className="py-3 flex justify-between">
-                        <span className="text-on-surface-variant">Sewa Kelotok River Safari</span>
-                        <span className="font-bold text-on-surface">{destination.logistics.kelotokFormatted}</span>
+                      <div className="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                        <span className="text-on-surface-variant text-xs sm:text-sm">Sewa Kelotok River Safari</span>
+                        <span className="font-bold text-on-surface text-xs sm:text-sm sm:text-right">{destination.logistics.kelotokFormatted}</span>
                       </div>
-                      <div className="py-3 flex justify-between">
-                        <span className="text-on-surface-variant">Tiket Masuk / Simaksi Balai TNTP</span>
-                        <span className="font-bold text-on-surface">{destination.logistics.simaksiFormatted}</span>
+                      <div className="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                        <span className="text-on-surface-variant text-xs sm:text-sm">Tiket Masuk / Simaksi Balai TNTP</span>
+                        <span className="font-bold text-on-surface text-xs sm:text-sm sm:text-right">{destination.logistics.simaksiFormatted}</span>
                       </div>
-                      <div className="py-3 flex justify-between">
-                        <span className="text-on-surface-variant">Estimasi Makan & Kru Kapal</span>
-                        <span className="font-bold text-on-surface">Rp {destination.logistics.mealsEstPerDay.toLocaleString('id-ID')} / hari</span>
+                      <div className="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                        <span className="text-on-surface-variant text-xs sm:text-sm">Estimasi Makan &amp; Kru Kapal</span>
+                        <span className="font-bold text-on-surface text-xs sm:text-sm sm:text-right">Rp {destination.logistics.mealsEstPerDay.toLocaleString('id-ID')} / hari</span>
                       </div>
-                      <div className="py-3 flex justify-between">
-                        <span className="text-on-surface-variant">Jasa Pemandu Berlisensi HPI</span>
-                        <span className="font-bold text-on-surface">Rp {destination.logistics.localGuidePerDay.toLocaleString('id-ID')} / hari</span>
+                      <div className="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                        <span className="text-on-surface-variant text-xs sm:text-sm">Jasa Pemandu Berlisensi HPI</span>
+                        <span className="font-bold text-on-surface text-xs sm:text-sm sm:text-right">Rp {destination.logistics.localGuidePerDay.toLocaleString('id-ID')} / hari</span>
                       </div>
                     </div>
                   </div>

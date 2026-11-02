@@ -177,9 +177,9 @@ export default function HomePage() {
 
                   <Link
                     href="/mitra"
-                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-primary hover:shadow-md group col-span-2 sm:col-span-1"
+                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-row sm:flex-col items-center sm:items-start gap-2.5 sm:gap-2 active:scale-[0.98] transition-all hover:border-primary hover:shadow-md group col-span-2 sm:col-span-1"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                    <div className="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform">
                       <span className="material-symbols-outlined text-[22px]">admin_panel_settings</span>
                     </div>
                     <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-primary transition-colors">
@@ -363,7 +363,7 @@ export default function HomePage() {
                       {item.name}
                     </h3>
                     <div className="flex items-center justify-between text-xs pt-1">
-                      <span className="text-secondary font-medium truncate max-w-[120px]">
+                      <span className="text-secondary font-medium truncate flex-1 min-w-0 mr-2">
                         {item.distanceDesc}
                       </span>
                       <span className="font-bold text-on-surface shrink-0">

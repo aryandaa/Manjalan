@@ -185,7 +185,7 @@ export default function UmkmDirectoryPage() {
                       </div>
 
                       <div className="flex items-center justify-between text-xs pt-1">
-                        <span className="text-secondary font-medium truncate max-w-[150px]">
+                        <span className="text-secondary font-medium truncate flex-1 min-w-0 mr-2">
                           {item.distanceDesc}
                         </span>
                         <span className="font-bold text-on-surface shrink-0">{item.priceRange}</span>

@@ -346,10 +346,10 @@ export default function MapComponent() {
         </div>
       )}
 
-      {/* Top Controls Toolbar (Filters & GPS Toggle) */}
-      <div className="absolute top-3 left-3 right-3 sm:left-6 sm:right-auto z-[990] flex flex-wrap items-center gap-2">
+      {/* Top Controls Toolbar (Filters & GPS Toggle) - Responsive for Mobile & Desktop */}
+      <div className="absolute top-3 left-3 right-3 sm:left-6 sm:right-auto z-[990] flex flex-col sm:flex-row sm:items-center gap-2 max-w-full pointer-events-none">
         {/* Category Filter Pills */}
-        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-surface-container-lowest/90 backdrop-blur-md shadow-md border border-outline-variant/30 overflow-x-auto max-w-full">
+        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-surface-container-lowest/95 backdrop-blur-md shadow-md border border-outline-variant/30 overflow-x-auto no-scrollbar max-w-full pointer-events-auto">
           {[
             { id: 'all', label: 'Semua', icon: 'explore' },
             { id: 'destinasi', label: 'Wisata', icon: 'forest' },
@@ -372,42 +372,45 @@ export default function MapComponent() {
           ))}
         </div>
 
-        {/* Live GPS Button */}
-        <button
-          onClick={handleToggleGps}
-          disabled={isLocating}
-          className={`h-10 px-3.5 rounded-2xl font-bold text-xs flex items-center gap-1.5 shadow-md border transition-all ${
-            userLocation.isLive
-              ? 'bg-blue-600 text-white border-blue-600'
-              : 'bg-surface-container-lowest/95 backdrop-blur-md text-on-surface border-outline-variant/30 hover:bg-slate-50'
-          }`}
-        >
-          <span
-            className={`material-symbols-outlined text-[18px] ${
-              userLocation.isLive ? 'animate-pulse text-white' : 'text-blue-600'
+        {/* Action Buttons Row */}
+        <div className="flex items-center gap-2 self-start pointer-events-auto">
+          {/* Live GPS Button */}
+          <button
+            onClick={handleToggleGps}
+            disabled={isLocating}
+            className={`h-9 sm:h-10 px-3 sm:px-3.5 rounded-2xl font-bold text-xs flex items-center gap-1.5 shadow-md border transition-all ${
+              userLocation.isLive
+                ? 'bg-blue-600 text-white border-blue-600'
+                : 'bg-surface-container-lowest/95 backdrop-blur-md text-on-surface border-outline-variant/30 hover:bg-slate-50'
             }`}
           >
-            {isLocating ? 'sync' : userLocation.isLive ? 'my_location' : 'location_searching'}
-          </span>
-          <span>{isLocating ? 'Mencari Satelit...' : userLocation.isLive ? 'GPS Aktif' : 'GPS Saya'}</span>
-        </button>
+            <span
+              className={`material-symbols-outlined text-[18px] ${
+                userLocation.isLive ? 'animate-pulse text-white' : 'text-blue-600'
+              }`}
+            >
+              {isLocating ? 'sync' : userLocation.isLive ? 'my_location' : 'location_searching'}
+            </span>
+            <span>{isLocating ? 'Satelit...' : userLocation.isLive ? 'GPS Aktif' : 'GPS Saya'}</span>
+          </button>
 
-        {/* Save to Offline Button */}
-        <button
-          onClick={handleSaveOffline}
-          className={`h-10 px-3.5 rounded-2xl font-bold text-xs flex items-center gap-1.5 shadow-md border transition-all ${
-            isSavedOffline
-              ? 'bg-secondary-container text-on-secondary-container border-secondary/30'
-              : 'bg-surface-container-lowest/95 backdrop-blur-md text-primary border-outline-variant/30 hover:bg-slate-50'
-          }`}
-        >
-          <span className="material-symbols-outlined text-[18px]">
-            {isSavedOffline ? 'offline_pin' : 'download'}
-          </span>
-          <span className="hidden sm:inline">
-            {isSavedOffline ? 'Data sudah tersimpan secara offline' : 'Simpan Peta Offline'}
-          </span>
-        </button>
+          {/* Save to Offline Button */}
+          <button
+            onClick={handleSaveOffline}
+            className={`h-9 sm:h-10 px-3 sm:px-3.5 rounded-2xl font-bold text-xs flex items-center gap-1.5 shadow-md border transition-all ${
+              isSavedOffline
+                ? 'bg-secondary-container text-on-secondary-container border-secondary/30'
+                : 'bg-surface-container-lowest/95 backdrop-blur-md text-primary border-outline-variant/30 hover:bg-slate-50'
+            }`}
+          >
+            <span className="material-symbols-outlined text-[18px]">
+              {isSavedOffline ? 'offline_pin' : 'download'}
+            </span>
+            <span>
+              {isSavedOffline ? 'Tersimpan' : 'Simpan Offline'}
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* Main Map Canvas */}
@@ -433,22 +436,22 @@ export default function MapComponent() {
             </div>
 
             {/* Metrics Grid */}
-            <div className="grid grid-cols-3 gap-2 py-1 text-center bg-surface-container-lowest/10 rounded-2xl p-2.5">
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2 py-1 text-center bg-surface-container-lowest/10 rounded-2xl p-2 sm:p-2.5">
               <div>
                 <span className="text-[10px] text-surface-variant block">Titik Singgah</span>
-                <strong className="text-sm sm:text-base font-black text-white">
+                <strong className="text-xs sm:text-base font-black text-white truncate block">
                   {routeMetrics.waypointsCount} Lokasi
                 </strong>
               </div>
-              <div className="border-x border-white/10">
+              <div className="border-x border-white/10 px-1">
                 <span className="text-[10px] text-surface-variant block">Total Jarak</span>
-                <strong className="text-sm sm:text-base font-black text-secondary-fixed">
+                <strong className="text-xs sm:text-base font-black text-secondary-fixed truncate block">
                   {routeMetrics.totalKm} km
                 </strong>
               </div>
               <div>
-                <span className="text-[10px] text-surface-variant block">Est. Waktu Kelotok</span>
-                <strong className="text-sm sm:text-base font-black text-primary-fixed">
+                <span className="text-[10px] text-surface-variant block">Est. Waktu</span>
+                <strong className="text-xs sm:text-base font-black text-primary-fixed truncate block">
                   {routeMetrics.estimatedTime}
                 </strong>
               </div>
@@ -483,7 +486,7 @@ export default function MapComponent() {
       {/* Selected Point Detail Drawer / Modal */}
       {selectedPoint && (
         <div className="absolute bottom-20 md:bottom-6 right-3 sm:right-6 left-3 sm:left-auto sm:w-96 z-[995] animate-in fade-in slide-in-from-bottom duration-200">
-          <div className="p-5 rounded-3xl bg-surface-container-lowest shadow-2xl border border-outline-variant/30 flex flex-col gap-4">
+          <div className="p-4 sm:p-5 rounded-3xl bg-surface-container-lowest shadow-2xl border border-outline-variant/30 flex flex-col gap-3.5 sm:gap-4 max-h-[75vh] overflow-y-auto">
             
             {/* Header & Close */}
             <div className="flex items-start justify-between gap-2">
