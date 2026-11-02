@@ -109,4 +109,22 @@ Alur Lengkap Pembuatan Akun & Pengiriman Kredensial:
 Untuk keperluan pengujian cepat kapan pun tanpa perlu mendaftar terlebih dahulu:
   - ID / No. WA: Ketik ID apa saja (misal: DEMO-USER atau nomor HP sembarang)
   - PIN        : 123456 (PIN fallback universal untuk testing)
+
+
+--------------------------------------------------------------------------------
+6. DATA AKUN SIMULASI DEMO KEMITRAAN (SIAP DIUJI LANGSUNG)
+--------------------------------------------------------------------------------
+Tersedia tombol pintas 1-klik di formulir /mitra:
+  • Simulasi 1 (UMKM Kelotok Safari):
+    - Nama Pemohon : Pak Hendra Saputra
+    - ID / No. WA  : 081345678910
+    - PIN          : 123456
+    - Usaha        : Kelotok Wisata Rimba Borneo 03
+    - Status       : Sudah dimasukkan ke antrean ACC Petugas di /login!
+
+  • Simulasi 2 (Pengelola Destinasi):
+    - Nama Pemohon : Pokdarwis Danau Gambut Lestari
+    - ID / No. WA  : 085211223344
+    - PIN          : 654321
+    - Usaha        : Ekowisata Danau Rawa Gambut Biru
 ================================================================================

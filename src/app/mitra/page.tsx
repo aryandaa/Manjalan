@@ -557,6 +557,54 @@ export default function MitraPortalPage() {
                     </span>
                   </div>
 
+                  {/* Quick Simulation Fill Buttons */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-xs">
+                    <span className="font-bold text-amber-900 flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-[16px] text-amber-700">science</span>
+                      <span>Bahan Simulasi &amp; Demo:</span>
+                    </span>
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setRegType('umkm');
+                          setRegApplicant('Pak Hendra Saputra');
+                          setRegWhatsapp('081345678910');
+                          setRegBusinessName('Kelotok Wisata Rimba Borneo 03');
+                          setRegCategory('Perahu Kelotok Safari');
+                          setRegLocation('Dermaga Pelabuhan Panglima Utar, Kumai');
+                          setRegPriceRange('Rp 2.200.000 / hari');
+                          setRegDesiredPin('123456');
+                          setRegDescription('Armada kelotok 2 tingkat kapasitas 10 wisatawan dengan solar panel ramah lingkungan, kasur berpelindung kelambu, toilet bersih, dan sajian kuliner khas ikan sungai Sekonyer.');
+                          showToast('Data simulasi UMKM berhasil diisi!');
+                        }}
+                        className="px-2.5 py-1.5 rounded-lg bg-amber-200/90 hover:bg-amber-300 text-amber-950 font-bold text-[11px] transition-colors flex items-center gap-1"
+                      >
+                        <span className="material-symbols-outlined text-[14px]">directions_boat</span>
+                        <span>Isi Simulasi UMKM</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setRegType('destinasi');
+                          setRegApplicant('Pokdarwis Danau Gambut Lestari');
+                          setRegWhatsapp('085211223344');
+                          setRegBusinessName('Ekowisata Danau Rawa Gambut Biru');
+                          setRegCategory('Konservasi Rawa Gambut');
+                          setRegLocation('Katingan Hilir, Kabupaten Katingan');
+                          setRegPriceRange('Tiket Simaksi Rp 15.000');
+                          setRegDesiredPin('654321');
+                          setRegDescription('Kawasan konservasi rawa gambut purba dengan jembatan titian kayu ulin sepanjang 800 meter, menara pantau burung enggang, dan susur rawa menggunakan kano tradisional.');
+                          showToast('Data simulasi Destinasi berhasil diisi!');
+                        }}
+                        className="px-2.5 py-1.5 rounded-lg bg-emerald-200/90 hover:bg-emerald-300 text-emerald-950 font-bold text-[11px] transition-colors flex items-center gap-1"
+                      >
+                        <span className="material-symbols-outlined text-[14px]">forest</span>
+                        <span>Isi Simulasi Destinasi</span>
+                      </button>
+                    </div>
+                  </div>
+
                   {/* Jenis Kemitraan */}
                   <div className="space-y-1.5">
                     <label className="block text-xs font-bold text-on-surface">Jenis Kemitraan</label>
