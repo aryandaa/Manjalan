@@ -186,17 +186,13 @@ Rencanakan Saat Online, Tetap Siap Saat Offline!`;
 
       <main className="flex-1 pt-20 pb-24 md:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-6 md:gap-8">
-          {/* Header Context */}
-          <div className="flex flex-col gap-1 sm:gap-2">
-            <div className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed">
-              <span className="material-symbols-outlined text-[16px]">calculate</span>
-              <span className="text-xs font-bold">Kalkulator Logistik Cerdas</span>
-            </div>
+          {/* Header Context (Clean & Minimal) */}
+          <div className="flex flex-col gap-1">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-on-surface">
               Smart Budget Planner
             </h1>
-            <p className="text-xs sm:text-sm text-on-surface-variant max-w-2xl">
-              Hitung estimasi pengeluaran nyata sebelum berangkat ke Kalimantan Tengah: bahan bakar kelotok, simaksi balai konservasi, dan cadangan tunai.
+            <p className="text-xs sm:text-sm text-on-surface-variant">
+              Estimasi biaya sewa kelotok, tiket konservasi, dan kebutuhan uang tunai.
             </p>
           </div>
 
@@ -205,14 +201,10 @@ Rencanakan Saat Online, Tetap Siap Saat Offline!`;
             {/* Left Column: Parameter Inputs (7 cols on desktop) */}
             <div className="lg:col-span-7 flex flex-col gap-6">
               {/* Parameter Config Card */}
-              <div className="flex flex-col p-5 sm:p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm gap-5">
+              <div className="flex flex-col p-5 sm:p-6 rounded-3xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm gap-5">
                 <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20">
                   <span className="text-base sm:text-lg font-bold text-on-surface">
                     Rencana Perjalanan
-                  </span>
-                  <span className="text-xs text-primary flex items-center gap-1 font-semibold">
-                    <span className="material-symbols-outlined text-[16px]">tune</span>
-                    Otomatisasi Riil Lapangan
                   </span>
                 </div>
 
@@ -409,19 +401,19 @@ Rencanakan Saat Online, Tetap Siap Saat Offline!`;
                 </div>
 
                 {/* Realism Status Chip */}
-                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-surface-container-lowest/10">
-                  <span className="material-symbols-outlined text-secondary-fixed text-[20px] shrink-0">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surface-container-lowest/10 w-fit">
+                  <span className="material-symbols-outlined text-secondary-fixed text-[18px]">
                     verified_user
                   </span>
-                  <span className="text-xs text-surface-bright leading-snug">
-                    Estimasi realistis termasuk buffer darurat sinyal lemah di pedalaman
+                  <span className="text-xs text-surface-bright font-medium">
+                    Termasuk Buffer Lapangan
                   </span>
                 </div>
 
                 {/* Breakdown Bars */}
                 <div className="flex flex-col gap-3 pt-1">
                   <span className="text-xs font-bold text-primary-fixed uppercase tracking-wider">
-                    Rincian Pos Biaya Pengeluaran
+                    Rincian Biaya
                   </span>
 
                   {/* Pos 1 */}

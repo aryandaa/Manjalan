@@ -53,36 +53,15 @@ export default function UmkmDirectoryPage() {
 
       <main className="flex-1 pt-20 pb-24 md:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-6 md:gap-8">
-          {/* Title Header & Advisory Notice */}
-          <div className="lg:flex lg:items-center lg:justify-between lg:gap-8">
-            <div className="max-w-2xl">
-              <div className="flex items-center gap-1.5 mb-1.5 text-secondary">
-                <span className="material-symbols-outlined text-[18px]">verified</span>
-                <span className="text-xs uppercase tracking-wider font-extrabold">
-                  Ekonomi Lokal Kalimantan Tengah
-                </span>
-              </div>
+          {/* Title Header (Clean & Minimal) */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-on-surface tracking-tight">
-                Direktori UMKM Sekitar Destinasi
+                Direktori UMKM Destinasi
               </h1>
-              <p className="text-xs sm:text-sm text-on-surface-variant mt-1.5 leading-snug">
-                Dukung pelaku usaha lokal Kalteng: perahu kelotok, kuliner Dayak, dan pengrajin rotan dengan kepastian metode pembayaran.
+              <p className="text-xs sm:text-sm text-on-surface-variant mt-1">
+                Perahu kelotok, kuliner lokal, dan pemandu terpercaya Kalimantan Tengah.
               </p>
-            </div>
-
-            {/* Signal & Wallet Notice (Side card on desktop) */}
-            <div className="mt-4 lg:mt-0 p-4 rounded-2xl bg-surface-container-high text-on-surface flex items-start gap-3 shadow-sm border border-outline-variant/30 max-w-md shrink-0">
-              <div className="w-10 h-10 rounded-xl bg-primary-container text-white flex items-center justify-center shrink-0 mt-0.5">
-                <span className="material-symbols-outlined text-[22px]">offline_bolt</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-bold text-xs sm:text-sm text-primary">
-                  Kesiapan Sinyal & Dompet
-                </span>
-                <p className="text-xs text-on-surface-variant mt-0.5 leading-relaxed">
-                  Sebagian rute Sekonyer & pedalaman berstatus blankspot. Periksa badge pembayaran sebelum berangkat.
-                </p>
-              </div>
             </div>
           </div>
 
@@ -195,26 +174,21 @@ export default function UmkmDirectoryPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 sm:p-5 flex flex-col gap-2.5">
+                    <div className="p-4 sm:p-5 flex flex-col gap-2">
                       <div>
                         <span className="text-[10px] font-bold text-primary uppercase tracking-wider">
                           {item.categoryLabel}
                         </span>
-                        <h3 className="font-bold text-base sm:text-lg text-on-surface leading-snug mt-0.5">
+                        <h3 className="font-bold text-base sm:text-lg text-on-surface leading-snug mt-0.5 truncate">
                           {item.name}
                         </h3>
-                        <p className="text-xs text-on-surface-variant line-clamp-2 mt-1 leading-relaxed">
-                          {item.description}
-                        </p>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-on-surface-variant text-xs pt-1">
-                        <span className="material-symbols-outlined text-[16px] text-secondary">
-                          location_on
+                      <div className="flex items-center justify-between text-xs pt-1">
+                        <span className="text-secondary font-medium truncate max-w-[150px]">
+                          {item.distanceDesc}
                         </span>
-                        <span>{item.distanceDesc}</span>
-                        <span className="mx-1">•</span>
-                        <span className="font-bold text-on-surface">{item.priceRange}</span>
+                        <span className="font-bold text-on-surface shrink-0">{item.priceRange}</span>
                       </div>
                     </div>
                   </div>

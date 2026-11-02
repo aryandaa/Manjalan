@@ -62,11 +62,8 @@ export default function Header({ subtitle, showBack = false }: HeaderProps) {
                 className="h-8 sm:h-9 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform"
               />
               {subtitle && (
-                <div className="hidden sm:flex flex-col truncate pl-2.5 border-l border-outline-variant/40">
-                  <span className="text-[10px] font-bold text-secondary uppercase tracking-wider">
-                    Borneo Edition
-                  </span>
-                  <span className="font-body-sm text-xs text-on-surface-variant truncate">
+                <div className="hidden sm:flex items-center pl-2.5 border-l border-outline-variant/40">
+                  <span className="font-body-sm text-xs font-semibold text-on-surface-variant truncate">
                     {subtitle}
                   </span>
                 </div>

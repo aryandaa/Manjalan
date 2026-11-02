@@ -65,17 +65,13 @@ export default function TravelPackPage() {
 
       <main className="flex-1 pt-20 pb-24 md:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-6 md:gap-8">
-          {/* Header context */}
-          <div className="flex flex-col gap-1.5 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full bg-secondary-container/40 text-secondary border border-secondary/20">
-              <span className="material-symbols-outlined text-[16px]">offline_pin</span>
-              <span className="text-xs font-bold">Resiliensi Tanpa Sinyal</span>
-            </div>
+          {/* Header context (Clean & Minimal) */}
+          <div className="flex flex-col gap-1">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-on-surface">
               Travel Pack Offline
             </h1>
-            <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-              Semua rute susur sungai, nomor kontak darurat radio nahkoda, dan daftar UMKM tersimpan aman di basis data lokal IndexedDB browser Anda.
+            <p className="text-xs sm:text-sm text-on-surface-variant">
+              Panduan rute, frekuensi radio darurat, dan data tersimpan di IndexedDB.
             </p>
           </div>
 

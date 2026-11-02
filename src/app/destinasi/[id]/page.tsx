@@ -446,10 +446,10 @@ export default function DestinationDetailPage() {
                     </div>
                     <div>
                       <h2 className="text-base sm:text-lg font-bold text-on-surface">
-                        Paket Kesiapan Wisata
+                        Travel Pack Offline
                       </h2>
                       <p className="text-xs text-on-surface-variant">
-                        Travel Pack Mandiri Tanpa Sinyal
+                        Peta rute, UMKM, & kontak darurat
                       </p>
                     </div>
                   </div>
@@ -458,27 +458,18 @@ export default function DestinationDetailPage() {
                   </span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-                  Termasuk peta navigasi offline rute perahu, protokol darurat hutan, katalog UMKM lokal, dan frekuensi radio darurat maritim.
-                </p>
-
                 {/* Readiness Meter */}
                 <div className="flex flex-col gap-2 bg-surface-container-low p-3.5 rounded-xl">
                   <div className="flex justify-between items-center text-xs">
-                    <span className="text-on-surface-variant flex items-center gap-1 font-medium">
-                      <span className="material-symbols-outlined text-[16px] text-secondary">
-                        cloud_done
-                      </span>
-                      Integritas Berkas IndexedDB
-                    </span>
+                    <span className="text-on-surface-variant font-medium">Status Penyimpanan</span>
                     <span className="text-secondary font-bold">
-                      {isDownloaded ? '100% Siap di Cache' : 'Siap Diunduh'}
+                      {isDownloaded ? '100% Tersimpan' : 'Belum Diunduh'}
                     </span>
                   </div>
-                  <div className="w-full h-2.5 bg-surface-container-high rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
                     <div
                       className="h-full bg-secondary rounded-full transition-all duration-500"
-                      style={{ width: isDownloaded ? '100%' : '35%' }}
+                      style={{ width: isDownloaded ? '100%' : '20%' }}
                     ></div>
                   </div>
                 </div>
