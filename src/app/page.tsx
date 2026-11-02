@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
+import OnboardingModal from '@/components/OnboardingModal';
 import { getDestinations, getTravelPacks, getStorageUsage, getUmkmList } from '@/lib/indexeddb';
 import { Destination, Umkm } from '@/types';
 
@@ -399,6 +400,7 @@ export default function HomePage() {
         </div>
       </main>
 
+      <OnboardingModal />
       <BottomNav />
     </div>
   );
