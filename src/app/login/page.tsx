@@ -252,15 +252,6 @@ export default function PetugasLoginPage() {
                 </p>
               </div>
 
-              {/* Demo Hint */}
-              <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
-                <span className="material-symbols-outlined text-[18px] text-amber-700 shrink-0 mt-0.5">info</span>
-                <div>
-                  <p className="font-bold">Kredensial Demo Petugas:</p>
-                  <p className="text-[11px] mt-0.5">ID: <strong>PETUGAS-01</strong> • PIN: <strong>992024</strong></p>
-                </div>
-              </div>
-
               {errorMessage && (
                 <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2 font-medium">
                   <span className="material-symbols-outlined text-[18px] text-red-600 shrink-0">error</span>
@@ -281,7 +272,7 @@ export default function PetugasLoginPage() {
                       type="text"
                       value={officerId}
                       onChange={(e) => setOfficerId(e.target.value)}
-                      placeholder="PETUGAS-01 atau TNTP-01"
+                      placeholder="Masukkan ID Petugas Otoritas"
                       required
                       className="w-full h-12 pl-11 pr-4 rounded-xl bg-surface-container-low text-on-surface placeholder:text-outline text-sm border border-outline-variant/60 outline-none focus:border-amber-600 transition-colors"
                     />
@@ -320,17 +311,6 @@ export default function PetugasLoginPage() {
 
                 <div className="flex items-center justify-between text-xs pt-1">
                   <span className="text-on-surface-variant text-[11px]">Sesi Terenkripsi Balai</span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOfficerId('PETUGAS-01');
-                      setPin('992024');
-                      setErrorMessage(null);
-                    }}
-                    className="text-amber-700 font-bold hover:underline"
-                  >
-                    Gunakan Demo ID
-                  </button>
                 </div>
 
                 <button

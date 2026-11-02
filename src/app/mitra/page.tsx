@@ -468,7 +468,7 @@ export default function MitraPortalPage() {
                           type="text"
                           value={merchantId}
                           onChange={(e) => setMerchantId(e.target.value)}
-                          placeholder={role === 'umkm' ? 'KLTK-01 atau nomor WA Anda' : 'TNTP-01'}
+                          placeholder={role === 'umkm' ? 'Masukkan No. WhatsApp / ID Mitra' : 'Masukkan ID Pengelola'}
                           required
                           className="w-full h-12 pl-11 pr-4 rounded-xl bg-surface-container-low text-on-surface placeholder:text-outline text-sm border border-outline-variant/60 outline-none focus:border-primary transition-colors"
                         />
@@ -507,22 +507,6 @@ export default function MitraPortalPage() {
 
                     <div className="flex items-center justify-between text-xs pt-1">
                       <span className="text-on-surface-variant text-[11px]">Sesi Terenkripsi SHA-256</span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (role === 'umkm') {
-                            setMerchantId('KLTK-01');
-                            setPin('882024');
-                          } else {
-                            setMerchantId('TNTP-01');
-                            setPin('992024');
-                          }
-                          setErrorMessage(null);
-                        }}
-                        className="text-primary font-bold hover:underline"
-                      >
-                        Gunakan Demo ID
-                      </button>
                     </div>
 
                     <button
@@ -674,7 +658,7 @@ export default function MitraPortalPage() {
                         maxLength={6}
                         value={regDesiredPin}
                         onChange={(e) => setRegDesiredPin(e.target.value)}
-                        placeholder="6 digit angka (misal: 123456)"
+                        placeholder="6 digit angka rahasia"
                         required
                         className="w-full h-11 px-3.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-outline-variant/50 outline-none focus:border-primary font-mono tracking-widest"
                       />

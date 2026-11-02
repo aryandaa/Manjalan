@@ -1,0 +1,99 @@
+================================================================================
+                    MANJALAN - DAFTAR KREDENSIAL LENGKAP AKUN
+================================================================================
+Dokumen ini menyimpan seluruh kredensial akses untuk pengujian, demonstrasi, dan
+operasional aplikasi Manjalan (Ekowisata & Petualangan Kalimantan Tengah).
+Semua placeholder pada antarmuka web telah dikosongkan demi keamanan.
+================================================================================
+
+--------------------------------------------------------------------------------
+1. AKUN PETUGAS OTORITAS (OFFICER / PENGAWAS BALAI)
+--------------------------------------------------------------------------------
+Halaman Akses  : /login (Ketik manual di address bar browser)
+Perhatian      : Tidak ada tombol/link redirect di web menuju ke halaman ini!
+
+• Akun Petugas 1:
+  - ID Petugas : PETUGAS-01
+  - PIN        : 992024
+  - Nama       : Rahmat Subekti (Pengawas Lapangan)
+  - Instansi   : Balai Konservasi & Otoritas Wisata Kalteng
+
+• Akun Petugas 2:
+  - ID Petugas : TNTP-01
+  - PIN        : 992024
+  - Nama       : Koordinator Pos Kumai Balai TNTP
+  - Instansi   : Balai Taman Nasional Tanjung Puting
+
+Hak Akses Petugas:
+  [v] Meninjau & menyetujui (ACC) permohonan kemitraan baru (UMKM / Destinasi).
+      *Saat di-ACC, akun mitra otomatis aktif seketika tanpa input database manual.*
+  [v] Meninjau & menyetujui permohonan penambahan tempat baru dari mitra aktif.
+  [v] Menolak pengajuan kemitraan dengan memberikan catatan evaluasi.
+  [v] Direktori Supervisi Lapangan: Melihat status seluruh UMKM & Destinasi (Read-Only).
+  [X] DILARANG KERAS / DIBLOKIR: Petugas TIDAK DAPAT mengedit atau menghapus tempat mitra.
+
+
+--------------------------------------------------------------------------------
+2. AKUN MITRA UMKM (PERAHU KELOTOK / KULINER / HOMESTAY)
+--------------------------------------------------------------------------------
+Halaman Akses  : /mitra (Pilih tab "Pelaku Usaha UMKM")
+
+• Akun Mitra 1 (Contoh 1 Akun Mengelola Banyak Tempat):
+  - ID / No. WA: KLTK-01 (atau: +6281234567890)
+  - PIN        : 882024
+  - Nama       : Pak Joko (Kelotok Berkah)
+  - Usaha Aktif yang Dikelola (1-to-Many):
+    1. Kelotok Wisata Berkah Sekonyer (Transport Perahu Air Susur Sungai)
+    2. Warung Apung Berkah Sekonyer (Kuliner Ikan Baung & Rimbang Tradisional)
+
+Hak Akses Mitra UMKM:
+  [v] Mengubah deskripsi usaha, kisaran tarif, kesiapan sinyal, & metode bayar (QRIS/Cash).
+  [v] Mengajukan tempat/layanan kedua dan seterusnya lewat tombol "+ Ajukan Tempat Baru"
+      (Akan masuk antrean ACC Petugas, dan otomatis terhubung ke akun yang sama).
+  [v] Menghapus tempat/layanan yang berada di bawah kepemilikan akunnya sendiri.
+
+
+--------------------------------------------------------------------------------
+3. AKUN PENGELOLA DESTINASI WISATA
+--------------------------------------------------------------------------------
+Halaman Akses  : /mitra (Pilih tab "Pengelola Destinasi")
+
+• Akun Pengelola 1:
+  - ID         : TNTP-01
+  - PIN        : 992024
+  - Nama       : Petugas Balai Pos Kumai
+  - Instansi   : Balai Konservasi TN Tanjung Puting
+  - Tempat     : Dermaga & Pos Jaga Sekonyer TNTP
+
+• Akun Pengelola 2:
+  - ID         : TNTP-2024-001
+  - PIN        : 992024
+  - Nama       : Jagawana Balai Pos Kumai
+  - Instansi   : Balai Konservasi TN Tanjung Puting
+
+Hak Akses Pengelola:
+  [v] Mengelola fasilitas ekowisata, tiket konservasi, dan laporan kesiapan lapangan.
+  [v] Mengajukan pos atau destinasi binaan baru ke antrean petugas.
+  [v] Menghapus destinasi yang dikelola akunnya.
+
+
+--------------------------------------------------------------------------------
+4. AKUN HASIL PENDAFTARAN BARU OLEH WISATAWAN / CALON MITRA
+--------------------------------------------------------------------------------
+Alur Pendaftaran:
+  1. Calon mitra / wisatawan buka menu "Mitra" -> tab "Ajukan Kemitraan Baru".
+  2. Isi No. WhatsApp (contoh: 081234567899) dan buat 6 digit PIN (contoh: 123456).
+  3. Kirim pengajuan.
+  4. Petugas masuk ke URL rahasia /login, lalu klik "ACC & Buat Akun Mitra".
+  5. Akun langsung aktif! Mitra bisa langsung login di /mitra dengan:
+     - No. WhatsApp : Sesuai yang didaftarkan (contoh: 081234567899)
+     - PIN          : 6 digit yang didaftarkan (contoh: 123456)
+
+
+--------------------------------------------------------------------------------
+5. KREDENSIAL DEMO / UNIVERSAL TESTING FALLBACK
+--------------------------------------------------------------------------------
+Untuk keperluan pengujian cepat kapan pun tanpa perlu mendaftar terlebih dahulu:
+  - ID / No. WA: Ketik ID apa saja (misal: DEMO-USER atau nomor HP sembarang)
+  - PIN        : 123456 (PIN fallback universal untuk testing)
+================================================================================
