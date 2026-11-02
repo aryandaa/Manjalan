@@ -15,6 +15,12 @@ export default function BottomNav() {
       isActive: pathname === '/',
     },
     {
+      name: 'Peta',
+      href: '/peta',
+      icon: 'map',
+      isActive: pathname.startsWith('/peta'),
+    },
+    {
       name: 'Budget',
       href: '/budget',
       icon: 'account_balance_wallet',
@@ -32,12 +38,6 @@ export default function BottomNav() {
       href: '/umkm',
       icon: 'storefront',
       isActive: pathname.startsWith('/umkm'),
-    },
-    {
-      name: 'Profil',
-      href: '/profil',
-      icon: 'person',
-      isActive: pathname.startsWith('/profil') || pathname.startsWith('/mitra'),
     },
   ];
 

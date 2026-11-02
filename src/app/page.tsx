@@ -5,11 +5,10 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
 import { getDestinations, getTravelPacks, getStorageUsage, getUmkmList } from '@/lib/indexeddb';
-import { Destination, Umkm, TravelPack } from '@/types';
+import { Destination, Umkm } from '@/types';
 
 export default function HomePage() {
   const [destinations, setDestinations] = useState<Destination[]>([]);
-  const [travelPacks, setTravelPacks] = useState<TravelPack[]>([]);
   const [umkmList, setUmkmList] = useState<Umkm[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [storageInfo, setStorageInfo] = useState({ usageMb: '24.6 MB', countPacks: 2 });
@@ -23,7 +22,6 @@ export default function HomePage() {
       const storage = await getStorageUsage();
 
       setDestinations(dests);
-      setTravelPacks(packs);
       setUmkmList(umkms.slice(0, 4));
       setStorageInfo({
         usageMb: storage.usageMb,
@@ -124,11 +122,23 @@ export default function HomePage() {
                   </Link>
                 </div>
 
-                {/* 4 Action Cards (Clean, Bold, Zero Clutter) */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {/* 5 Action Cards (Clean, Bold, Zero Clutter) */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
+                  <Link
+                    href="/peta"
+                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-emerald-500 hover:shadow-md group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-800 group-hover:scale-110 transition-transform">
+                      <span className="material-symbols-outlined text-[22px]">map</span>
+                    </div>
+                    <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-emerald-700 transition-colors">
+                      Peta Interaktif
+                    </span>
+                  </Link>
+
                   <Link
                     href="/budget"
-                    className="p-3.5 sm:p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2.5 active:scale-[0.98] transition-all hover:border-primary hover:shadow-md group"
+                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-primary hover:shadow-md group"
                   >
                     <div className="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                       <span className="material-symbols-outlined text-[22px]">calculate</span>
@@ -140,7 +150,7 @@ export default function HomePage() {
 
                   <Link
                     href="/pack"
-                    className="p-3.5 sm:p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2.5 active:scale-[0.98] transition-all hover:border-secondary hover:shadow-md group"
+                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-secondary hover:shadow-md group"
                   >
                     <div className="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container group-hover:scale-110 transition-transform">
                       <span className="material-symbols-outlined text-[22px]">cloud_sync</span>
@@ -152,7 +162,7 @@ export default function HomePage() {
 
                   <Link
                     href="/umkm"
-                    className="p-3.5 sm:p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2.5 active:scale-[0.98] transition-all hover:border-amber-400 hover:shadow-md group"
+                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-amber-400 hover:shadow-md group"
                   >
                     <div className="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
                       <span className="material-symbols-outlined text-[22px]">storefront</span>
@@ -164,7 +174,7 @@ export default function HomePage() {
 
                   <Link
                     href="/mitra"
-                    className="p-3.5 sm:p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2.5 active:scale-[0.98] transition-all hover:border-primary hover:shadow-md group"
+                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-primary hover:shadow-md group col-span-2 sm:col-span-1"
                   >
                     <div className="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                       <span className="material-symbols-outlined text-[22px]">admin_panel_settings</span>

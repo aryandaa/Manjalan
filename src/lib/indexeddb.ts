@@ -199,6 +199,38 @@ export async function deleteBudgetPlan(id: string): Promise<void> {
   await db.delete('budget_plans', id);
 }
 
+// Offline Map & Waypoint Trip API
+export async function saveOfflineMapTrip(tripData: {
+  waypoints: any[];
+  totalDistanceKm: number;
+  estimatedTime: string;
+  savedAt: string;
+}): Promise<void> {
+  const db = await getDB();
+  if (!db) return;
+  await db.put('settings', { key: 'offline_map_trip', data: tripData });
+}
+
+export async function getOfflineMapTrip(): Promise<any | null> {
+  const db = await getDB();
+  if (!db) return null;
+  const res = await db.get('settings', 'offline_map_trip');
+  return res ? res.data : null;
+}
+
+export async function saveOfflineMapPoints(points: any[]): Promise<void> {
+  const db = await getDB();
+  if (!db) return;
+  await db.put('settings', { key: 'offline_map_points', data: points, updatedAt: new Date().toISOString() });
+}
+
+export async function getOfflineMapPoints(): Promise<any[] | null> {
+  const db = await getDB();
+  if (!db) return null;
+  const res = await db.get('settings', 'offline_map_points');
+  return res ? res.data : null;
+}
+
 // Storage Estimator
 export async function getStorageUsage(): Promise<{ usageMb: string; totalMb: string; countPacks: number }> {
   try {

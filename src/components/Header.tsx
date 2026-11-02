@@ -33,6 +33,7 @@ export default function Header({ subtitle, showBack = false }: HeaderProps) {
 
   const navLinks = [
     { name: 'Beranda', href: '/', icon: 'explore' },
+    { name: 'Peta Interaktif', href: '/peta', icon: 'map' },
     { name: 'Smart Budget', href: '/budget', icon: 'account_balance_wallet' },
     { name: 'Travel Pack', href: '/pack', icon: 'cloud_download', hasDot: true },
     { name: 'Direktori UMKM', href: '/umkm', icon: 'storefront' },
