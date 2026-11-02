@@ -34,6 +34,38 @@ export function hashPin(pin: string, salt: string = 'manjalan_pin_salt'): string
   return crypto.createHmac('sha256', AUTH_SECRET).update(`${salt}:${pin}`).digest('hex');
 }
 
+type DynamicPartnerRecord = {
+  pinHash: string;
+  role: 'umkm' | 'pengelola';
+  name: string;
+  businessName: string;
+};
+
+const gAuth = globalThis as unknown as {
+  __dynamicPartners?: Map<string, DynamicPartnerRecord>;
+};
+
+if (!gAuth.__dynamicPartners) {
+  gAuth.__dynamicPartners = new Map();
+}
+
+const DYNAMIC_PARTNERS = gAuth.__dynamicPartners;
+
+export function registerApprovedPartner(
+  merchantId: string,
+  pin: string,
+  role: 'umkm' | 'pengelola',
+  name: string,
+  businessName: string
+) {
+  DYNAMIC_PARTNERS.set(merchantId.trim().toLowerCase(), {
+    pinHash: hashPin(pin),
+    role,
+    name,
+    businessName,
+  });
+}
+
 /**
  * Pre-hashed credentials for known local/offline partners
  */
@@ -75,6 +107,48 @@ const VERIFIED_LOCAL_PARTNERS: Record<
 };
 
 /**
+ * Verify Petugas (Officer) credentials for secret /login page
+ */
+export function verifyPetugasCredentials(
+  officerId: string,
+  pin: string
+): { isValid: boolean; officer?: { officerId: string; name: string; role: 'petugas'; agency: string } } {
+  const normId = officerId.trim().toLowerCase();
+  const validPetugas: Record<string, { pinHash: string; name: string; agency: string }> = {
+    'petugas-01': {
+      pinHash: hashPin('992024'),
+      name: 'Rahmat Subekti (Pengawas Lapangan)',
+      agency: 'Balai Konservasi & Otoritas Wisata Kalteng',
+    },
+    'tntp-01': {
+      pinHash: hashPin('992024'),
+      name: 'Koordinator Pos Kumai Balai TNTP',
+      agency: 'Balai Taman Nasional Tanjung Puting',
+    },
+  };
+
+  const officer = validPetugas[normId];
+  if (!officer) {
+    return { isValid: false };
+  }
+
+  const inputHash = hashPin(pin);
+  if (!safeCompare(inputHash, officer.pinHash)) {
+    return { isValid: false };
+  }
+
+  return {
+    isValid: true,
+    officer: {
+      officerId: officerId.trim(),
+      name: officer.name,
+      role: 'petugas',
+      agency: officer.agency,
+    },
+  };
+}
+
+/**
  * Verify partner PIN credentials against local verified store or custom validator
  */
 export function verifyPartnerCredentials(
@@ -83,7 +157,7 @@ export function verifyPartnerCredentials(
   role: 'umkm' | 'pengelola'
 ): { isValid: boolean; partner?: { merchantId: string; role: 'umkm' | 'pengelola'; name: string; businessName: string } } {
   const normalizedId = merchantId.trim().toLowerCase();
-  const candidate = VERIFIED_LOCAL_PARTNERS[normalizedId];
+  const candidate = VERIFIED_LOCAL_PARTNERS[normalizedId] || DYNAMIC_PARTNERS.get(normalizedId);
 
   if (!candidate) {
     // If not in standard list, allow demo pin '123456' for testing newly typed IDs

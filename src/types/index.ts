@@ -136,3 +136,43 @@ export interface PartnerAccount {
   offlineAccessEnabled: boolean;
   lastLogin: string;
 }
+
+export interface PartnerRequest {
+  id: string;
+  type: 'umkm' | 'destinasi';
+  applicantName: string;
+  whatsapp: string; // Will become merchantId / login ID
+  businessName: string;
+  category: string;
+  location: string;
+  description: string;
+  priceRange?: string;
+  desiredPin: string; // 6 digit PIN
+  status: 'pending' | 'approved' | 'rejected';
+  rejectionReason?: string;
+  targetExistingOwnerId?: string; // If an existing manager is requesting an additional place
+  createdAt: string;
+  reviewedAt?: string;
+  reviewedBy?: string;
+}
+
+export interface ManagedPlace {
+  id: string;
+  type: 'umkm' | 'destinasi';
+  ownerMerchantId: string; // 1 manager can own many places; each place belongs to 1 manager
+  name: string;
+  category: string;
+  categoryLabel: string;
+  location: string;
+  description: string;
+  priceRange: string;
+  hasQris: boolean;
+  needsCash: boolean;
+  signalStatus: string;
+  signalOk: boolean;
+  whatsapp: string;
+  image: string;
+  status: 'active' | 'pending_approval';
+  createdAt: string;
+  updatedAt?: string;
+}
