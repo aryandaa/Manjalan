@@ -224,6 +224,282 @@ export const INITIAL_DESTINATIONS: Destination[] = [
       hasMerchantDirectory: true,
       hasEmergencyProtocols: true
     }
+  },
+  {
+    id: 'bukit-baka-bukit-raya',
+    name: 'Taman Nasional Bukit Baka Bukit Raya',
+    tagline: 'Atap Tertinggi Kalimantan & Ekspedisi Rimba Pegunungan Schwaner',
+    location: 'Katingan & Perbatasan Kalbar, Kalimantan Tengah',
+    district: 'Katingan',
+    categories: ['Pendakian Ekspedisi', 'Hutan Pegunungan', 'Wisata Petualangan'],
+    rating: 4.9,
+    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop',
+    packSize: '16.8 MB',
+    packSizeBytes: 17616076,
+    overview: 'Kawasan konservasi pegunungan megah di jantung pulau Borneo. Rumah bagi puncak tertinggi Kalimantan Tengah (Puncak Kaba 2.278 mdpl), flora langka Rafflesia borneensis, serta arung jeram menantang di Sungai Samba.',
+    signalStatus: {
+      telkomsel: 'Blankspot total di jalur pendakian rimba. Sinyal hanya ada di desa Kasongan & Tumbang Habangoi.',
+      others: 'Tidak ada sinyal sama sekali.',
+      fieldSummary: 'Wajib membawa Travel Pack offline dan radio komunikasi dua arah.',
+      lastChecked: 'Kemarin (Laporan Jagawana Katingan)'
+    },
+    paymentReadiness: {
+      qrisAvailable: false,
+      cashRequired: true,
+      recommendedCash: 750000,
+      recommendedCashFormatted: 'Rp 750.000 / orang',
+      lastAtmLocation: 'Kota Kasongan (Ibukota Katingan)',
+      atmDistanceKm: 65,
+      notes: 'Wajib tarik uang tunai penuh di Kasongan untuk pembayaran porter Dayak Ot Danum dan logistik perbekalan gunung.'
+    },
+    logistics: {
+      kelotokCharterPerDay: 350000,
+      kelotokFormatted: 'Rp 350.000 (Perahu getek susur sungai hulu)',
+      simaksiDomestic: 50000,
+      simaksiFormatted: 'Rp 50.000 / orang (Simaksi TNBBBR)',
+      mealsEstPerDay: 80000,
+      localGuidePerDay: 300000,
+      bestSeason: 'Juli - Oktober (Musim kemarau pendakian aman)'
+    },
+    activities: [
+      {
+        name: 'Ekspedisi 7 Summits Puncak Raya',
+        desc: 'Trekking menantang menembus hutan lumut purba pegunungan Schwaner hingga puncak 2.278 mdpl.',
+        icon: 'hiking',
+        timing: 'Ekspedisi 5 Hari 4 Malam'
+      },
+      {
+        name: 'Pengamatan Rafflesia & Flora Langka',
+        desc: 'Menelusuri lembah hulu sungai untuk melihat mekarnya bunga Rafflesia borneensis dan anggrek hitam liar.',
+        icon: 'nature',
+        timing: 'Pagi Hari Bersama Pemandu Adat'
+      },
+      {
+        name: 'Arung Jeram Sungai Samba',
+        desc: 'Uji adrenalin melintasi jeram berbatu alami di aliran sungai berarus jernih pedalaman Katingan.',
+        icon: 'kayaking',
+        timing: '09.00 - 15.00 WIB'
+      }
+    ],
+    emergencyContacts: [
+      {
+        name: 'Kantor Balai TNBBBR Resort Katingan',
+        role: 'Regulator & Pos Simaksi',
+        channel: 'Telepon & Radio Balai',
+        phone: '+62 536 3228899',
+        notes: 'Pendaftaran izin pendakian'
+      },
+      {
+        name: 'Pos Radio Siaga Komunitas Porter Dayak',
+        role: 'Pemandu & Evakuasi Gunung',
+        channel: 'Radio Komunikasi VHF 142.100 MHz',
+        notes: 'Standby pos basecamp Tumbang Habangoi'
+      }
+    ],
+    offlinePackContents: {
+      hasGpsTracks: true,
+      hasOfflineMap: true,
+      hasMerchantDirectory: true,
+      hasEmergencyProtocols: true
+    }
+  },
+  {
+    id: 'danau-tahai',
+    name: 'Ekowisata Danau Gambut Tahai',
+    tagline: 'Danau Air Merah Eksotis & Jembatan Titian Pohon Ulin',
+    location: 'Desa Tahai Baru, Pulang Pisau (Dekat Palangka Raya)',
+    district: 'Pulang Pisau',
+    categories: ['Danau Gambut Merah', 'Titian Kayu Ulin', 'Wisata Edukasi'],
+    rating: 4.7,
+    image: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?q=80&w=1200&auto=format&fit=crop',
+    packSize: '7.6 MB',
+    packSizeBytes: 7969177,
+    overview: 'Keunikan danau air gambut berwarna kemerahan alami yang dikelilingi jembatan titian kayu ulin sepanjang ratusan meter melingkar di atas rawa. Pengunjung dapat menikmati sewa perahu bebek air dan kuliner ikan patin bakar terapung.',
+    signalStatus: {
+      telkomsel: 'Sinyal 4G sangat kuat dan lancar.',
+      others: 'Semua operator seluler beroperasi optimal.',
+      fieldSummary: 'Koneksi internet stabil untuk pembayaran digital dan live streaming.',
+      lastChecked: 'Hari ini'
+    },
+    paymentReadiness: {
+      qrisAvailable: true,
+      cashRequired: false,
+      recommendedCash: 100000,
+      recommendedCashFormatted: 'Rp 100.000 / orang',
+      lastAtmLocation: 'Jalan Trans Kalimantan Km 29',
+      atmDistanceKm: 3,
+      notes: 'QRIS didukung di hampir semua warung terapung dan loket tiket masuk.'
+    },
+    logistics: {
+      kelotokCharterPerDay: 50000,
+      kelotokFormatted: 'Rp 50.000 (Sewa perahu keliling danau per rombongan)',
+      simaksiDomestic: 10000,
+      simaksiFormatted: 'Rp 10.000 / orang (Tiket Masuk)',
+      mealsEstPerDay: 45000,
+      localGuidePerDay: 80000,
+      bestSeason: 'Pagi dan sore hari saat teduh'
+    },
+    activities: [
+      {
+        name: 'Menelusuri Titian Jembatan Ulin',
+        desc: 'Berjalan santai di atas jembatan kayu ulin melingkar di bawah rimbunnya pohon jelutung dan ramin.',
+        icon: 'directions_walk',
+        timing: '07.00 - 17.30 WIB'
+      },
+      {
+        name: 'Sewa Perahu Bebek Air & Dayung',
+        desc: 'Mengayuh perahu santai di atas air gambut merah dan mengabadikan foto estetik refleksi hutan.',
+        icon: 'rowing',
+        timing: '08.00 - 17.00 WIB'
+      }
+    ],
+    emergencyContacts: [
+      {
+        name: 'Pengelola Pokdarwis Danau Tahai',
+        role: 'Pemandu & Informasi Wisata',
+        channel: 'WhatsApp / Telepon',
+        phone: '+62 812 5543 2190',
+        notes: 'Pintu Gerbang Utama'
+      }
+    ],
+    offlinePackContents: {
+      hasGpsTracks: true,
+      hasOfflineMap: true,
+      hasMerchantDirectory: true,
+      hasEmergencyProtocols: true
+    }
+  },
+  {
+    id: 'pantai-kubu',
+    name: 'Kawasan Pesisir Pantai Kubu & Bogam',
+    tagline: 'Pesona Pasir Cokelat Laut Jawa & Dermaga Kayu Ulin',
+    location: 'Kecamatan Kumai, Kotawaringin Barat',
+    district: 'Kotawaringin Barat',
+    categories: ['Wisata Pantai Pesisir', 'Kuliner Hasil Laut', 'Sunset Dermaga'],
+    rating: 4.6,
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop',
+    packSize: '8.5 MB',
+    packSizeBytes: 8912896,
+    overview: 'Pantai landai eksotis menghadap Laut Jawa dengan dermaga kayu ulin sepanjang 200 meter menjulur ke lautan. Menjadi destinasi favorit untuk menikmati matahari terbenam dan menyantap olahan kepiting rajungan segar tangkapan nelayan lokal.',
+    signalStatus: {
+      telkomsel: 'Sinyal 4G stabil di area dermaga dan warung makan pesisir.',
+      others: 'Operator lain 3G/4G sedang.',
+      fieldSummary: 'Koneksi seluler cukup baik di bibir pantai.',
+      lastChecked: 'Hari ini'
+    },
+    paymentReadiness: {
+      qrisAvailable: true,
+      cashRequired: true,
+      recommendedCash: 250000,
+      recommendedCashFormatted: 'Rp 250.000 / orang',
+      lastAtmLocation: 'Pusat Kota Kumai',
+      atmDistanceKm: 14,
+      notes: 'QRIS aktif di resto olahan laut besar. Sediakan uang tunai untuk sewa perahu motor nelayan dan belanja cenderamata terasi rebon.'
+    },
+    logistics: {
+      kelotokCharterPerDay: 150000,
+      kelotokFormatted: 'Rp 150.000 (Sewa perahu motor susur teluk pesisir)',
+      simaksiDomestic: 15000,
+      simaksiFormatted: 'Rp 15.000 / orang (Retribusi Kawasan)',
+      mealsEstPerDay: 75000,
+      localGuidePerDay: 100000,
+      bestSeason: 'Sore hari menjelang matahari terbenam (16.00 - 18.00 WIB)'
+    },
+    activities: [
+      {
+        name: 'Sunset Walk di Ujung Jembatan Ulin',
+        desc: 'Menikmati hembusan angin laut dan panorama senja keemasan di atas jembatan dermaga ulin panjang.',
+        icon: 'sunny',
+        timing: '16.30 - 18.00 WIB'
+      },
+      {
+        name: 'Pesta Kuliner Kepiting Rajungan & Udang Galah',
+        desc: 'Menikmati sajian hidangan laut segar bumbu asam manis khas pesisir Kumai langsung dari tangkapan nelayan.',
+        icon: 'restaurant',
+        timing: 'Siang & Malam Hari'
+      }
+    ],
+    emergencyContacts: [
+      {
+        name: 'Pos Polairud & SAR Teluk Kumai',
+        role: 'Keamanan Laut & Keselamatan Pantai',
+        channel: 'Radio Maritim VHF Ch-16 / Telepon',
+        phone: '+62 532 61288',
+        notes: 'Pos dermaga pantai Kubu'
+      }
+    ],
+    offlinePackContents: {
+      hasGpsTracks: true,
+      hasOfflineMap: true,
+      hasMerchantDirectory: true,
+      hasEmergencyProtocols: true
+    }
+  },
+  {
+    id: 'batu-banama',
+    name: 'Situs Budaya Dayak Batu Banama & Betang',
+    tagline: 'Legenda Perahu Batu Keramat & Kemegahan Rumah Adat Betang',
+    location: 'Kelurahan Sei Gohong, Bukit Batu, Palangka Raya',
+    district: 'Palangka Raya',
+    categories: ['Wisata Budaya Dayak', 'Situs Sejarah Legenda', 'Arsitektur Betang'],
+    rating: 4.8,
+    image: 'https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?q=80&w=1200&auto=format&fit=crop',
+    packSize: '9.2 MB',
+    packSizeBytes: 9646899,
+    overview: 'Situs formasi batu alam menyerupai perahu layar (Banama) yang melegenda dalam cerita rakyat Dayak Ngaju di tepian Sungai Rungan. Bersebelahan dengan Rumah Betang adat Dayak kayu ulin berusia ratusan tahun dan sanggar ukir getah nyatu.',
+    signalStatus: {
+      telkomsel: 'Sinyal 4G stabil di area pemukiman dan situs adat.',
+      others: 'Sinyal 3G/4G stabil.',
+      fieldSummary: 'Sinyal internet stabil.',
+      lastChecked: 'Hari ini'
+    },
+    paymentReadiness: {
+      qrisAvailable: true,
+      cashRequired: false,
+      recommendedCash: 150000,
+      recommendedCashFormatted: 'Rp 150.000 / orang',
+      lastAtmLocation: 'Jalan Tjilik Riwut Km 32',
+      atmDistanceKm: 4,
+      notes: 'QRIS didukung untuk pembelian kerajinan getah nyatu dan cenderamata khas Dayak.'
+    },
+    logistics: {
+      kelotokCharterPerDay: 0,
+      kelotokFormatted: 'Tidak ada (Dapat diakses jalur darat)',
+      simaksiDomestic: 15000,
+      simaksiFormatted: 'Rp 15.000 / orang (Donasi Pemeliharaan Situs Adat)',
+      mealsEstPerDay: 50000,
+      localGuidePerDay: 100000,
+      bestSeason: 'Pagi dan siang hari saat sanggar seni adat buka'
+    },
+    activities: [
+      {
+        name: 'Eksplorasi Legenda Perahu Batu Keramat',
+        desc: 'Mendengarkan kisah tutur tetua adat tentang kutukan kapal saudagar yang membatu di tepian Sungai Rungan.',
+        icon: 'history_edu',
+        timing: '09.00 - 15.00 WIB'
+      },
+      {
+        name: 'Napak Tilas Rumah Betang Adat Kayu Ulin',
+        desc: 'Melihat arsitektur asli rumah panggung panjang Dayak yang tahan ratusan tahun tanpa paku besi.',
+        icon: 'home',
+        timing: '10.00 - 16.00 WIB'
+      }
+    ],
+    emergencyContacts: [
+      {
+        name: 'Lembaga Adat Dayak Kedamangan Bukit Batu',
+        role: 'Tokoh Adat & Pendamping Wisata',
+        channel: 'Telepon',
+        phone: '+62 536 3224567',
+        notes: 'Sekretariat Betang Sei Gohong'
+      }
+    ],
+    offlinePackContents: {
+      hasGpsTracks: true,
+      hasOfflineMap: true,
+      hasMerchantDirectory: true,
+      hasEmergencyProtocols: true
+    }
   }
 ];
 

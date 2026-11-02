@@ -62,6 +62,13 @@ export async function seedInitialDataIfNeeded(): Promise<void> {
   if (!db) return;
 
   const count = await db.count('destinations');
+  if (count < INITIAL_DESTINATIONS.length) {
+    const tx = db.transaction(['destinations'], 'readwrite');
+    for (const d of INITIAL_DESTINATIONS) {
+      await tx.objectStore('destinations').put(d);
+    }
+  }
+
   if (count === 0) {
     const tx = db.transaction(['destinations', 'umkm', 'travel_packs'], 'readwrite');
     for (const d of INITIAL_DESTINATIONS) {
