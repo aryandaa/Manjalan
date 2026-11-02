@@ -2,9 +2,19 @@ import { NextRequest, NextResponse } from 'next/server';
 import { budgetRequestSchema } from '@/lib/validations';
 import { INITIAL_DESTINATIONS } from '@/data/initialData';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = getClientIp(request);
+    const rateLimit = checkRateLimit(`budget_${ip}`, { limit: 60, windowMs: 60000 });
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { success: false, error: 'Terlalu banyak permintaan kalkulasi budget.' },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const validated = budgetRequestSchema.parse(body);
 
@@ -16,10 +26,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Cost calculations
+    // Cost calculations with defensive guards
     const multiplier = validated.style === 'hemat' ? 0.85 : validated.style === 'eksklusif' ? 1.35 : 1.0;
-    const durationDays = validated.durationDays;
-    const guests = validated.guests;
+    const durationDays = Math.max(1, validated.durationDays);
+    const guests = Math.max(1, validated.guests);
 
     const transportKelotok = Math.round(
       dest.logistics.kelotokCharterPerDay * (durationDays - 1 || 1) * (validated.style === 'eksklusif' ? 1.2 : 1.0)
@@ -82,7 +92,10 @@ export async function POST(request: NextRequest) {
     });
   } catch (err: any) {
     return NextResponse.json(
-      { success: false, error: err.errors || err.message },
+      {
+        success: false,
+        error: err.errors ? err.errors[0]?.message : err.message,
+      },
       { status: 400 }
     );
   }

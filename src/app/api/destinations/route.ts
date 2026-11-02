@@ -1,12 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { INITIAL_DESTINATIONS } from '@/data/initialData';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function GET(request: NextRequest) {
   try {
+    const ip = getClientIp(request);
+    const rateLimit = checkRateLimit(`dest_get_${ip}`, { limit: 120, windowMs: 60000 });
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { success: false, error: 'Terlalu banyak permintaan.' },
+        { status: 429 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
-    const query = searchParams.get('q')?.toLowerCase() || '';
-    const district = searchParams.get('district')?.toLowerCase() || '';
+    const query = (searchParams.get('q') || '').trim().toLowerCase().slice(0, 100);
+    const district = (searchParams.get('district') || '').trim().toLowerCase().slice(0, 100);
 
     let destinations = INITIAL_DESTINATIONS;
 
@@ -22,7 +32,7 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Apply filtering
+    // Apply filtering safely
     const filtered = destinations.filter((d) => {
       if (query && !d.name.toLowerCase().includes(query) && !d.location.toLowerCase().includes(query)) {
         return false;

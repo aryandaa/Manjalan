@@ -1,8 +1,14 @@
 'use server';
 
-import { budgetRequestSchema, partnerLoginSchema, BudgetRequestInput, PartnerLoginInput } from '@/lib/validations';
+import {
+  budgetRequestSchema,
+  partnerLoginSchema,
+  BudgetRequestInput,
+  PartnerLoginInput,
+} from '@/lib/validations';
 import { INITIAL_DESTINATIONS } from '@/data/initialData';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { verifyPartnerCredentials, createSignedToken } from '@/lib/auth';
 
 export async function calculateBudgetAction(input: BudgetRequestInput) {
   try {
@@ -14,8 +20,8 @@ export async function calculateBudgetAction(input: BudgetRequestInput) {
     }
 
     const multiplier = validated.style === 'hemat' ? 0.85 : validated.style === 'eksklusif' ? 1.35 : 1.0;
-    const durationDays = validated.durationDays;
-    const guests = validated.guests;
+    const durationDays = Math.max(1, validated.durationDays);
+    const guests = Math.max(1, validated.guests);
 
     const transportKelotok = Math.round(
       dest.logistics.kelotokCharterPerDay * (durationDays - 1 || 1) * (validated.style === 'eksklusif' ? 1.2 : 1.0)
@@ -75,14 +81,36 @@ export async function partnerLoginAction(input: PartnerLoginInput) {
   try {
     const validated = partnerLoginSchema.parse(input);
 
+    const check = verifyPartnerCredentials(
+      validated.merchantId,
+      validated.pin,
+      validated.role
+    );
+
+    if (!check.isValid || !check.partner) {
+      return {
+        success: false,
+        error: 'Kredensial tidak valid. Periksa No. ID Mitra, peran, dan 6 digit PIN Anda.',
+      };
+    }
+
+    const token = createSignedToken({
+      merchantId: check.partner.merchantId,
+      role: check.partner.role,
+      name: check.partner.name,
+      businessName: check.partner.businessName,
+    });
+
     return {
       success: true,
       partner: {
-        merchantId: validated.merchantId,
-        role: validated.role,
-        name: validated.role === 'umkm' ? 'Pak Joko (Kelotok Berkah Sekonyer)' : 'Jagawana Balai TNTP Kumai',
+        merchantId: check.partner.merchantId,
+        role: check.partner.role,
+        name: check.partner.name,
+        businessName: check.partner.businessName,
         verified: true,
       },
+      token,
     };
   } catch (err: any) {
     return { success: false, error: err.message };

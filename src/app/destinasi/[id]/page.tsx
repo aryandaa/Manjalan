@@ -24,18 +24,28 @@ export default function DestinationDetailPage() {
   const [activeTab, setActiveTab] = useState<'ringkasan' | 'pembayaran' | 'aktivitas' | 'umkm'>('ringkasan');
   const [isDownloaded, setIsDownloaded] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadData() {
-      if (!id) return;
-      const dest = await getDestinationById(id);
-      if (dest) {
-        setDestination(dest);
-        const umkms = await getUmkmList();
-        setUmkmList(umkms.filter((u) => u.destinationId === dest.id));
-        const downloaded = await isTravelPackDownloaded(dest.id);
-        setIsDownloaded(downloaded);
+      if (!id) {
+        setIsLoading(false);
+        return;
+      }
+      try {
+        const dest = await getDestinationById(id);
+        if (dest) {
+          setDestination(dest);
+          const umkms = await getUmkmList();
+          setUmkmList(umkms.filter((u) => u.destinationId === dest.id));
+          const downloaded = await isTravelPackDownloaded(dest.id);
+          setIsDownloaded(downloaded);
+        }
+      } catch (err) {
+        console.error('Error loading destination:', err);
+      } finally {
+        setIsLoading(false);
       }
     }
     loadData();
@@ -85,13 +95,38 @@ export default function DestinationDetailPage() {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  if (!destination) {
+  if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen bg-surface">
         <Header showBack title="Destinasi" subtitle="Memuat..." />
         <div className="flex-1 flex items-center justify-center pt-24">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
+      </div>
+    );
+  }
+
+  if (!destination) {
+    return (
+      <div className="flex flex-col min-h-screen bg-surface">
+        <Header showBack title="Destinasi" subtitle="Tidak Ditemukan" />
+        <div className="flex-1 flex flex-col items-center justify-center pt-24 px-4 text-center">
+          <div className="w-16 h-16 rounded-2xl bg-surface-container flex items-center justify-center text-outline mb-4">
+            <span className="material-symbols-outlined text-[32px]">travel_explore</span>
+          </div>
+          <h2 className="text-xl font-bold text-on-surface">Destinasi Tidak Ditemukan</h2>
+          <p className="text-xs text-on-surface-variant max-w-sm mt-1">
+            Destinasi dengan ID tersebut belum terdaftar atau telah dipindahkan.
+          </p>
+          <Link
+            href="/"
+            className="mt-5 px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-bold shadow-sm hover:bg-primary/90 transition-all flex items-center gap-1.5"
+          >
+            <span className="material-symbols-outlined text-[16px]">arrow_back</span>
+            <span>Kembali ke Beranda</span>
+          </Link>
+        </div>
+        <BottomNav />
       </div>
     );
   }

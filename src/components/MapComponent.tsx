@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import confetti from 'canvas-confetti';
 import { MAP_POINTS, MapPoint, calculateDistanceKm, estimateKelotokTime } from '@/data/mapData';
 import { saveOfflineMapTrip, getOfflineMapTrip, saveOfflineMapPoints, getOfflineMapPoints } from '@/lib/indexeddb';
@@ -32,6 +32,7 @@ export default function MapComponent() {
 
   // Offline persistence state
   const [isSavedOffline, setIsSavedOffline] = useState(false);
+  const [mapReady, setMapReady] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Initialize Leaflet Map (Client-Side Only)
@@ -91,13 +92,14 @@ export default function MapComponent() {
       routeLayerRef.current = L.layerGroup().addTo(map);
 
       mapInstanceRef.current = map;
-      renderMarkers();
+      setMapReady(true);
     }
 
     initMap();
 
     return () => {
       isMounted = false;
+      setMapReady(false);
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
@@ -111,13 +113,8 @@ export default function MapComponent() {
     return points.filter((p) => p.category === selectedCategory);
   }, [points, selectedCategory]);
 
-  // Re-render markers whenever filters, points, or waypoints change
-  useEffect(() => {
-    renderMarkers();
-  }, [filteredPoints, waypoints, userLocation]);
-
   // Render Markers and Polyline on Leaflet
-  const renderMarkers = async () => {
+  const renderMarkers = useCallback(async () => {
     if (!mapInstanceRef.current || !markersLayerRef.current) return;
     const L = (await import('leaflet')).default;
 
@@ -218,7 +215,14 @@ export default function MapComponent() {
         lineCap: 'round',
       }).addTo(routeLayerRef.current);
     }
-  };
+  }, [filteredPoints, waypoints, userLocation]);
+
+  // Re-render markers whenever filters, points, waypoints, or map ready changes
+  useEffect(() => {
+    if (mapReady) {
+      renderMarkers();
+    }
+  }, [mapReady, renderMarkers]);
 
   // Toggle Live GPS
   const handleToggleGps = () => {
@@ -588,7 +592,7 @@ export default function MapComponent() {
               <a
                 href={`https://www.google.com/maps/dir/?api=1&destination=${selectedPoint.lat},${selectedPoint.lng}`}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="h-11 px-3 rounded-2xl bg-surface-container-high text-on-surface hover:bg-surface-container-highest flex items-center justify-center font-bold text-xs"
                 title="Buka di Google Maps"
               >
