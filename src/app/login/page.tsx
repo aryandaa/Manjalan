@@ -670,7 +670,7 @@ export default function PetugasLoginPage() {
                 }`}
               >
                 <span className="material-symbols-outlined text-[18px]">manage_accounts</span>
-                <span>Kelola Akun Mitra (CRUD)</span>
+                <span>Kelola Akun Mitra</span>
                 <span className="px-1.5 py-0.2 rounded-full bg-secondary-container text-secondary text-[10px] font-bold">
                   {partnerAccounts.length}
                 </span>
@@ -833,7 +833,7 @@ export default function PetugasLoginPage() {
               </div>
             )}
 
-            {/* TAB 2: Kelola Akun Mitra (CRUD oleh Petugas) */}
+            {/* TAB 2: Kelola Akun Mitra */}
             {activeTab === 'accounts' && (
               <div className="space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -842,7 +842,7 @@ export default function PetugasLoginPage() {
                       Manajemen Akun Mitra Terdaftar ({partnerAccounts.length})
                     </h3>
                     <p className="text-xs text-on-surface-variant">
-                      Petugas memiliki hak penuh CRUD akun mitra: ubah detail, reset password saat mitra lupa, atau buat akun manual.
+                      Petugas memiliki wewenang mengelola akun mitra: ubah detail, reset password saat mitra lupa, atau buat akun manual.
                     </p>
                   </div>
 

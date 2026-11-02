@@ -29,7 +29,7 @@ Perhatian      : Tidak ada tombol/link redirect di web menuju ke halaman ini!
 Hak Akses Petugas:
   [v] Meninjau & menyetujui (ACC) permohonan kemitraan baru (UMKM / Destinasi).
       *Saat di-ACC, password HANYA muncul sekali di popup untuk dikirim ke WhatsApp mitra.*
-  [v] MANAJEMEN AKUN MITRA (CRUD):
+  [v] MANAJEMEN AKUN MITRA:
       - Melihat daftar seluruh akun mitra terdaftar beserta jumlah tempat yang dikelola.
       - Ubah detail akun mitra (Nama pemilik, nama usaha, role, dan status aktif/nonaktif).
       - Reset Kata Sandi jika mitra lupa sandi (menghasilkan password acak alfanumerik baru
