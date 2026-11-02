@@ -5,14 +5,13 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
 import OnboardingModal from '@/components/OnboardingModal';
-import { getDestinations, getTravelPacks, getStorageUsage, getUmkmList } from '@/lib/indexeddb';
+import { getDestinations, getTravelPacks, getUmkmList } from '@/lib/indexeddb';
 import { Destination, Umkm } from '@/types';
 
 export default function HomePage() {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [umkmList, setUmkmList] = useState<Umkm[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [storageInfo, setStorageInfo] = useState({ usageMb: '24.6 MB', countPacks: 2 });
   const [downloadedDestIds, setDownloadedDestIds] = useState<string[]>([]);
   const [isOnline, setIsOnline] = useState(true);
 
@@ -21,15 +20,10 @@ export default function HomePage() {
       const dests = await getDestinations();
       const packs = await getTravelPacks();
       const umkms = await getUmkmList();
-      const storage = await getStorageUsage();
 
       setDestinations(dests);
       setUmkmList(umkms.slice(0, 4));
       setDownloadedDestIds(packs.map((p) => p.destinationId));
-      setStorageInfo({
-        usageMb: storage.usageMb,
-        countPacks: packs.length,
-      });
     }
 
     loadData();
@@ -62,176 +56,126 @@ export default function HomePage() {
           
           {/* Top Hero & Status Section */}
           <section className="pt-2 sm:pt-4">
-            <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
-              
-              {/* Left Column: Greeting, Search & Quick Actions */}
-              <div className="lg:col-span-7 flex flex-col gap-6">
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <img
-                      src="/logo/app-icon.png"
-                      alt="MANJALAN"
-                      className="w-6 h-6 rounded-md object-contain shrink-0 shadow-sm"
-                    />
-                    <span className="font-extrabold text-xs text-secondary uppercase tracking-wider">
-                      MANJALAN BORNEO
+            <div className="flex flex-col gap-6">
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <img
+                    src="/logo/app-icon.png"
+                    alt="MANJALAN"
+                    className="w-6 h-6 rounded-md object-contain shrink-0 shadow-sm"
+                  />
+                  <span className="font-extrabold text-xs text-secondary uppercase tracking-wider">
+                    MANJALAN BORNEO
+                  </span>
+                  <div className="ml-auto sm:ml-0 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-semibold">
+                    <span
+                      className={`material-symbols-outlined text-[14px] ${
+                        isOnline ? 'text-secondary' : 'text-amber-600'
+                      }`}
+                    >
+                      {isOnline ? 'wifi' : 'wifi_off'}
                     </span>
-                    <div className="ml-auto sm:ml-0 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-semibold">
-                      <span
-                        className={`material-symbols-outlined text-[14px] ${
-                          isOnline ? 'text-secondary' : 'text-amber-600'
-                        }`}
-                      >
-                        {isOnline ? 'wifi' : 'wifi_off'}
-                      </span>
-                      <span>{isOnline ? 'Online' : 'Offline'}</span>
-                    </div>
+                    <span>{isOnline ? 'Online' : 'Offline'}</span>
                   </div>
-
-                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-on-surface leading-[1.15]">
-                    Rencanakan Saat Online,<br />
-                    <span className="text-primary">Tetap Siap Saat Offline.</span>
-                  </h1>
                 </div>
 
-                {/* Search Bar */}
-                <div className="relative flex items-center gap-2 max-w-xl">
-                  <div className="relative flex-1 flex items-center">
-                    <span className="material-symbols-outlined absolute left-3.5 text-outline text-[20px] pointer-events-none">
-                      search
-                    </span>
-                    <input
-                      value={searchQuery}
-                      onChange={e => setSearchQuery(e.target.value)}
-                      className="w-full h-12 pl-10 pr-10 rounded-2xl bg-surface-container-lowest text-on-surface text-sm placeholder:text-outline border border-outline-variant/40 focus:outline-none focus:border-primary shadow-sm transition-all"
-                      placeholder="Cari destinasi, kelotok, UMKM..."
-                      type="text"
-                    />
-                    {searchQuery && (
-                      <button
-                        onClick={() => setSearchQuery('')}
-                        className="absolute right-3 text-outline hover:text-on-surface"
-                      >
-                        <span className="material-symbols-outlined text-[18px]">close</span>
-                      </button>
-                    )}
-                  </div>
-                  <Link
-                    href="/umkm"
-                    aria-label="Filter Pencarian"
-                    className="h-12 w-12 rounded-2xl bg-surface-container-high text-primary flex items-center justify-center shrink-0 active:scale-95 transition-transform hover:bg-surface-container-highest"
-                  >
-                    <span className="material-symbols-outlined text-[20px]">tune</span>
-                  </Link>
-                </div>
-
-                {/* 5 Action Cards (Clean, Bold, Zero Clutter) */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
-                  <Link
-                    href="/peta"
-                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-emerald-500 hover:shadow-md group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-800 group-hover:scale-110 transition-transform">
-                      <span className="material-symbols-outlined text-[22px]">map</span>
-                    </div>
-                    <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-emerald-700 transition-colors">
-                      Peta Interaktif
-                    </span>
-                  </Link>
-
-                  <Link
-                    href="/budget"
-                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-primary hover:shadow-md group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                      <span className="material-symbols-outlined text-[22px]">calculate</span>
-                    </div>
-                    <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-primary transition-colors">
-                      Hitung Budget
-                    </span>
-                  </Link>
-
-                  <Link
-                    href="/pack"
-                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-secondary hover:shadow-md group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container group-hover:scale-110 transition-transform">
-                      <span className="material-symbols-outlined text-[22px]">cloud_sync</span>
-                    </div>
-                    <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-secondary transition-colors">
-                      Travel Pack
-                    </span>
-                  </Link>
-
-                  <Link
-                    href="/umkm"
-                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-amber-400 hover:shadow-md group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
-                      <span className="material-symbols-outlined text-[22px]">storefront</span>
-                    </div>
-                    <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-tertiary transition-colors">
-                      Direktori UMKM
-                    </span>
-                  </Link>
-
-                  <Link
-                    href="/mitra"
-                    className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-row sm:flex-col items-center sm:items-start gap-2.5 sm:gap-2 active:scale-[0.98] transition-all hover:border-primary hover:shadow-md group col-span-2 sm:col-span-1"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform">
-                      <span className="material-symbols-outlined text-[22px]">admin_panel_settings</span>
-                    </div>
-                    <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-primary transition-colors">
-                      Portal Mitra
-                    </span>
-                  </Link>
-                </div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-on-surface leading-[1.15]">
+                  Rencanakan Saat Online,<br />
+                  <span className="text-primary">Tetap Siap Saat Offline.</span>
+                </h1>
               </div>
 
-              {/* Right Column: Clean Offline Status Card */}
-              <div className="lg:col-span-5 mt-6 lg:mt-0">
+              {/* Search Bar */}
+              <div className="relative flex items-center gap-2 max-w-xl">
+                <div className="relative flex-1 flex items-center">
+                  <span className="material-symbols-outlined absolute left-3.5 text-outline text-[20px] pointer-events-none">
+                    search
+                  </span>
+                  <input
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    className="w-full h-12 pl-10 pr-10 rounded-2xl bg-surface-container-lowest text-on-surface text-sm placeholder:text-outline border border-outline-variant/40 focus:outline-none focus:border-primary shadow-sm transition-all"
+                    placeholder="Cari destinasi, kelotok, UMKM..."
+                    type="text"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-3 text-outline hover:text-on-surface"
+                    >
+                      <span className="material-symbols-outlined text-[18px]">close</span>
+                    </button>
+                  )}
+                </div>
+                <Link
+                  href="/umkm"
+                  aria-label="Filter Pencarian"
+                  className="h-12 w-12 rounded-2xl bg-surface-container-high text-primary flex items-center justify-center shrink-0 active:scale-95 transition-transform hover:bg-surface-container-highest"
+                >
+                  <span className="material-symbols-outlined text-[20px]">tune</span>
+                </Link>
+              </div>
+
+              {/* 5 Action Cards (Clean, Bold, Zero Clutter) */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
+                <Link
+                  href="/peta"
+                  className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-emerald-500 hover:shadow-md group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-800 group-hover:scale-110 transition-transform">
+                    <span className="material-symbols-outlined text-[22px]">map</span>
+                  </div>
+                  <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-emerald-700 transition-colors">
+                    Peta Interaktif
+                  </span>
+                </Link>
+
+                <Link
+                  href="/budget"
+                  className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-primary hover:shadow-md group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                    <span className="material-symbols-outlined text-[22px]">calculate</span>
+                  </div>
+                  <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-primary transition-colors">
+                    Hitung Budget
+                  </span>
+                </Link>
+
                 <Link
                   href="/pack"
-                  className="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-sm border border-outline-variant/30 flex flex-col justify-between gap-5 hover:border-secondary hover:shadow-md transition-all group"
+                  className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-secondary hover:shadow-md group"
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-secondary-container flex items-center justify-center text-secondary group-hover:scale-105 transition-transform">
-                        <span className="material-symbols-outlined text-[26px]">offline_pin</span>
-                      </div>
-                      <div>
-                        <h2 className="text-base sm:text-lg font-extrabold text-on-surface">
-                          Kesiapan Offline
-                        </h2>
-                        <span className="text-xs text-secondary font-bold">
-                          IndexedDB Siap Pakai
-                        </span>
-                      </div>
-                    </div>
-                    <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                      Siap
-                    </span>
+                  <div className="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container group-hover:scale-110 transition-transform">
+                    <span className="material-symbols-outlined text-[22px]">cloud_sync</span>
                   </div>
+                  <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-secondary transition-colors">
+                    Travel Pack
+                  </span>
+                </Link>
 
-                  <div>
-                    <div className="flex justify-between items-center text-xs font-bold text-on-surface-variant mb-2">
-                      <span>{storageInfo.countPacks} Destinasi Tersimpan</span>
-                      <span className="font-mono text-secondary">{storageInfo.usageMb}</span>
-                    </div>
-                    <div className="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
-                      <div
-                        className="bg-secondary h-full rounded-full transition-all duration-500"
-                        style={{ width: `${Math.min(storageInfo.countPacks * 45, 100)}%` }}
-                      ></div>
-                    </div>
+                <Link
+                  href="/umkm"
+                  className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col items-start gap-2 active:scale-[0.98] transition-all hover:border-amber-400 hover:shadow-md group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                    <span className="material-symbols-outlined text-[22px]">storefront</span>
                   </div>
+                  <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-tertiary transition-colors">
+                    Direktori UMKM
+                  </span>
+                </Link>
 
-                  <div className="flex items-center justify-between text-xs text-primary font-bold pt-2 border-t border-outline-variant/20 group-hover:translate-x-1 transition-transform">
-                    <span>Buka Panduan Offline & Radio VHF</span>
-                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                <Link
+                  href="/mitra"
+                  className="p-3 sm:p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-row sm:flex-col items-center sm:items-start gap-2.5 sm:gap-2 active:scale-[0.98] transition-all hover:border-primary hover:shadow-md group col-span-2 sm:col-span-1"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform">
+                    <span className="material-symbols-outlined text-[22px]">admin_panel_settings</span>
                   </div>
+                  <span className="font-bold text-xs sm:text-sm text-on-surface group-hover:text-primary transition-colors">
+                    Portal Mitra
+                  </span>
                 </Link>
               </div>
             </div>
