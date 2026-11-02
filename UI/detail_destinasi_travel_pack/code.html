@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary-fixed": "#dce1ff", "surface-container-high": "#e2e7ff", "primary-fixed-dim": "#b7c4ff", "on-secondary-container": "#00714d", "primary": "#0037b0", "surface-container-low": "#f2f3ff", "secondary-fixed-dim": "#4edea3", "inverse-surface": "#283044", "secondary-container": "#6cf8bb", "surface-tint": "#2151da", "outline-variant": "#c4c5d7", "on-secondary": "#ffffff", "tertiary-fixed": "#ffddb8", "surface-bright": "#faf8ff", "on-error": "#ffffff", "on-background": "#131b2e", "secondary-fixed": "#6ffbbe", "on-tertiary": "#ffffff", "inverse-primary": "#b7c4ff", "surface-container-lowest": "#ffffff", "tertiary-fixed-dim": "#ffb95f", "on-primary-fixed": "#001551", "on-error-container": "#93000a", "on-primary": "#ffffff", "secondary": "#006c49", "on-surface": "#131b2e", "background": "#faf8ff", "tertiary": "#623c00", "surface-variant": "#dae2fd", "tertiary-container": "#825100", "on-surface-variant": "#434655", "surface": "#faf8ff", "on-secondary-fixed-variant": "#005236", "primary-container": "#1d4ed8", "on-tertiary-fixed-variant": "#653e00", "on-tertiary-container": "#ffcb8f", "on-secondary-fixed": "#002113", "surface-container": "#eaedff", "on-primary-fixed-variant": "#0039b5", "outline": "#747686", "surface-container-highest": "#dae2fd", "surface-dim": "#d2d9f4", "on-primary-container": "#cad3ff", "on-tertiary-fixed": "#2a1700", "error": "#ba1a1a", "inverse-on-surface": "#eef0ff", "error-container": "#ffdad6" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xl": "2rem", "gutter-desktop": "1.5rem", "space-xs": "0.25rem", "space-md": "1rem", "space-sm": "0.5rem", "gutter": "1rem", "margin-tablet": "1.5rem", "margin": "1rem", "space-lg": "1.5rem", "margin-desktop": "2.5rem" }, fontFamily: { "label-sm": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"] }, fontSize: { "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "700" }], "headline-lg-mobile": ["22px", { "lineHeight": "30px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-xl": ["36px", { "lineHeight": "44px", "fontWeight": "800" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "700" }], "headline-xl-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "800" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }] } } } }</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Kembali" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors shrink-0" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="MANJALAN Logo" class="h-7 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9qNvLr62DItUOWXN-0RsrOmafUHKnPsZsjlU-6KboISIVay3SthTWWXYnZMa-Gw7JJUrwE9rWRBYf0JeONXbfN7XTpDLn3cIYH5nP8-rKhRjFR1Y1ejzrDo08g-kgxpY4IoAmKsBSzWzDFeJdC5PebLW9pGexm1QMxEt2VG4pdV8ZiK9qDTEqdwQuOy9v8lrB6fVEN0tDH4GC8-DBiriRU8wslHhyiSJBod7D-2m8"/><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Detail Destinasi</h1></div><div class="w-8 h-8 rounded-full overflow-hidden ring-2 ring-primary/20 shrink-0"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx2injEluPYHwJ3yie2YvbgRoHtOqwEPB0lmbI_9CYtQ3EXraWnBdeo3PmavkbDILfrvS6MUFvXmiY6JtWEvFKEfWt3GWfiXuq4rCnCSmqg_m7sQ2sRUWXzLmPhOBe5iLKiivB_Re-hg92YRuijyMAHlwS6n-jbE3iwHqWdIxBKfvvbHs7yrp0G_9KkQSwp6H4L7MrYwYscgO08-KWEMauBL9AQU2z3-3ME2O5BoNd"/></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full pb-24">
+<!-- Hero Section -->
+<div class="relative w-full h-80 overflow-hidden bg-surface-container">
+<div class="bg-cover bg-center w-full h-full transform scale-105 transition-transform duration-700" data-alt="Breathtaking view of Sekonyer River in Tanjung Puting National Park Central Kalimantan at golden hour, a wooden traditional kelotok boat cruising along lush tropical rainforest foliage with pristine water reflections, cinematic warm sunlight, authentic ecotourism vibe, rich emerald and amber tones" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCFokGFSbfWGEaWEAWeG1nOXCUf3UVAQZBWHpoqEpik2_wubRCiTBd1xRISuilASiO5XnGbodMbjJ61BZRyzczZoROY1ORE6zgNJ2RiupSSwUPLbfcho6RCs458XTT24zkQkG2NUht6SDwYSzsYWCbCISKQNjK5iW6XKLrWu20GxrswDxPEuvOok5rhRG2hro2HeCNg73ruhcrZO43Gqf3BLQcR7xsW2KO9KJfOp3Sp')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background via-on-background/40 to-transparent"></div>
+<div class="absolute top-4 right-4 flex items-center gap-space-xs bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface">GPS Siap Offline</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 flex flex-col gap-space-xs text-surface">
+<div class="flex flex-wrap items-center gap-space-xs mb-1">
+<span class="px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+          Wisata Alam &amp; Konservasi
+        </span>
+<span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">
+          Wildlife Orangutan
+        </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/95 text-on-surface font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">verified</span>
+          Offline Pack Siap
+        </span>
+</div>
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile font-bold tracking-tight text-surface-container-lowest">
+        Taman Nasional Tanjung Puting
+      </h1>
+<p class="font-body-sm text-body-sm text-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">location_on</span>
+        Kotawaringin Barat, Kalimantan Tengah
+      </p>
+</div>
+</div>
+<div class="px-gutter pt-4 flex flex-col gap-space-md">
+<!-- Offline Pack Readiness Hero Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-md flex flex-col gap-space-sm relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 bg-secondary-container/20 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-secondary-container/40 flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined text-[24px]">offline_pin</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Paket Kesiapan Wisata</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Travel Pack Mandiri Tanpa Sinyal</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm shrink-0">
+          14.2 MB
+        </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+        Termasuk peta navigasi offline Sungai Sekonyer, protokol darurat hutan, katalog UMKM perahu lokal, dan kontak darurat radio kelotok.
+      </p>
+<!-- Readiness Meter -->
+<div class="flex flex-col gap-1.5 bg-surface-container-low p-2.5 rounded-lg">
+<div class="flex justify-between items-center font-label-sm text-label-sm">
+<span class="text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">cloud_done</span>
+            Integritas Berkas Offline
+          </span>
+<span class="text-secondary font-bold">100% Siap</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full w-full"></div>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full h-12 bg-primary-container hover:bg-primary active:scale-[0.98] transition-all rounded-lg font-label-lg text-label-lg text-surface-container-lowest flex items-center justify-center gap-space-xs shadow-sm" id="downloadBtn" onclick="toggleDownloadState()">
+<span class="material-symbols-outlined text-[20px]" id="btnIcon">download_for_offline</span>
+<span id="btnLabel">Unduh Travel Pack (Offline Siap)</span>
+</button>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 -mx-gutter px-gutter no-scrollbar">
+<button class="tab-btn px-4 py-2 rounded-full font-label-md text-label-md whitespace-nowrap bg-inverse-surface text-inverse-on-surface shadow-sm transition-all" id="tab-ringkasan" onclick="switchTab('ringkasan')">
+        Ringkasan &amp; Jalur
+      </button>
+<button class="tab-btn px-4 py-2 rounded-full font-label-md text-label-md whitespace-nowrap bg-surface-container-high text-on-surface-variant hover:bg-surface-variant transition-all" id="tab-pembayaran" onclick="switchTab('pembayaran')">
+        Kesiapan Pembayaran
+      </button>
+<button class="tab-btn px-4 py-2 rounded-full font-label-md text-label-md whitespace-nowrap bg-surface-container-high text-on-surface-variant hover:bg-surface-variant transition-all" id="tab-aktivitas" onclick="switchTab('aktivitas')">
+        Aktivitas Utama
+      </button>
+<button class="tab-btn px-4 py-2 rounded-full font-label-md text-label-md whitespace-nowrap bg-surface-container-high text-on-surface-variant hover:bg-surface-variant transition-all" id="tab-umkm" onclick="switchTab('umkm')">
+        UMKM Sekitar
+      </button>
+</div>
+<!-- TAB CONTENT: Ringkasan & Kesiapan (Combined View) -->
+<div class="flex flex-col gap-space-md" id="content-ringkasan">
+<!-- Field Readiness Grid -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">sensors</span>
+            Kondisi Lapangan &amp; Konektivitas
+          </h3>
+<span class="font-label-sm text-label-sm text-tertiary">Pembaruan 2 jam lalu</span>
+</div>
+<div class="grid grid-cols-1 gap-2.5">
+<!-- Sinyal -->
+<div class="bg-surface-container-lowest p-3.5 rounded-xl flex items-start gap-space-sm shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]">signal_cellular_connected_no_internet_4_bar</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Sinyal Seluler &amp; Komunikasi</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+<span class="font-semibold text-secondary">Telkomsel:</span> Lemah/Edge di hulu sungai Sekonyer.
+              </p>
+<p class="font-body-sm text-body-sm text-error mt-0.5">
+<span class="font-semibold">Provider Lain:</span> Tidak ada sinyal sama sekali selama river cruise.
+              </p>
+</div>
+</div>
+<!-- QRIS & Kasir -->
+<div class="bg-surface-container-lowest p-3.5 rounded-xl flex items-start gap-space-sm shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]">qr_code_2</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Kesiapan QRIS &amp; Dompet Digital</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+<span class="font-semibold text-secondary">Tersedia:</span> Pelabuhan Kumai, loket Balai TN &amp; rumah makan gerbang masuk.
+              </p>
+<p class="font-body-sm text-body-sm text-tertiary-container mt-0.5">
+<span class="font-semibold">Nol Akses:</span> Di atas kelotok, pos rimba Camp Leakey, &amp; Pondok Tanggui.
+              </p>
+</div>
+</div>
+<!-- Tunai Buffer -->
+<div class="bg-surface-container-lowest p-3.5 rounded-xl flex items-start gap-space-sm shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed shrink-0">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Rekomendasi Uang Tunai</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Bawa minimal <span class="font-bold text-on-surface">Rp 600.000</span> pecahan kecil (Rp 10.000 / Rp 20.000) untuk tips ranger, perahu tambang lokal, dan kelapa muda di muara.
+              </p>
+<div class="mt-2 inline-flex items-center gap-1 text-[11px] font-label-sm text-tertiary bg-tertiary-fixed/40 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]">warning</span>
+                ATM terakhir berjarak 18 km di Pasar Kumai
+              </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Offline Interactive Map Teaser -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">map</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Jalur Sungai &amp; Titik Posko</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">
+            Vektor Terkompresi
+          </span>
+</div>
+<div class="w-full h-44 bg-cover bg-center rounded-lg shadow-inner relative flex items-end p-3" data-location="Tanjung Puting National Park Central Kalimantan" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBKvoAPonMuMKIX7kiQIVheJPEtwG_CPsrCN4tgBc4h_Jp3gnTu6L6mlwJr2O5vj8iTUdKGXMiP4i7JppxaTQH_jfz4LwxhrmSDCMq_B4qGqDv-jsoMgONX8lLoI_qxCrRG5COiNDGlvvzdgr52dey8BYq7EvF5kufgtfWUSBpVJlIRHF6IrwWEkL8PXcaGwgb9pPG_pIFnQR74hD8DzMPWypDqfKdLK3jvbwm2e7VC')">
+<div class="bg-surface-container-lowest/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center justify-between w-full shadow-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-surface">Jalur Navigasi Kelotok Aktif</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">Buka Peta →</span>
+</div>
+</div>
+</div>
+<!-- Aktivitas Utama List -->
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">explore</span>
+          Aktivitas Utama Terjadwal
+        </h3>
+<div class="flex flex-col gap-2.5">
+<!-- Act 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-3 flex gap-3 shadow-sm items-center">
+<img class="w-20 h-20 rounded-lg object-cover shrink-0" data-alt="Close up of a gentle wild orangutan eating fruit on a wooden feeding platform in lush tropical jungle canopy at Camp Leakey Central Kalimantan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGXB47734hxa-tSzVq-PhfuOA0R8jdEWbfQFwmqROfNpbfQYFucG69sFIdnfiL5jrWTXjOyHHroqyxn5TPe4D1aliixJyt2JWEZkHaTfyztalSs4m73-bNbNyDMNrwjGrOzmfRJvA05Wxc6YIShn4cwJTZ4a53s_6jLJmUSXJx3XFGRvDUpFKw0H02ikz1fnA-E_mdTt-j7D_vgFpduoxsr1JR8bNE12NLUBxIHRTK"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                14:00 WIB
+              </div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Camp Leakey Orangutan Feeding</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Titik pusat konservasi legendaris Dr. Birute Galdikas sejak 1971.</p>
+<div class="mt-1 flex items-center gap-1 font-label-sm text-label-sm text-primary">
+<span>Tiket Balai Wajib</span>
+<span class="text-on-surface-variant">•</span>
+<span class="text-on-surface-variant">Jalur Kayu Siaga</span>
+</div>
+</div>
+</div>
+<!-- Act 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-3 flex gap-3 shadow-sm items-center">
+<img class="w-20 h-20 rounded-lg object-cover shrink-0" data-alt="Night river scene in Kalimantan rainforest with millions of bioluminescent fireflies lighting up nipah palms alongside a wooden houseboat kelotok under starry sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDabk__cKefMEFQWXUTfhsOVeJAfCYEJhQ-aCQEhKy5zEfmPRKaL5953pb_dD797NbmZqMZ8Gcm-yNMVR9O5FZIsFaZ6gZVrIIISaL-hUA8ffZmYufUKUUIS6mUjaIVQ9IoPNIjxbGwd7HoVBvdBCdvBXJy09yu3pnRo_MBm3pdhYCoXI4barp6GYC6aY1qmOIPGFRE4N-dI67u6yQnEKNIHJ5-lB0dPM8zJPVIqCHS"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1 text-tertiary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">bedtime</span>
+                19:00 - 21:00 WIB
+              </div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Night River Cruise (Kelotok Firefly Tour)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Menyusuri tepian pohon nipah bertabur kunang-kunang di bawah langit gelap.</p>
+<div class="mt-1 flex items-center gap-1 font-label-sm text-label-sm text-secondary">
+<span>Termasuk di Sewa Kelotok</span>
+</div>
+</div>
+</div>
+<!-- Act 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-3 flex gap-3 shadow-sm items-center">
+<img class="w-20 h-20 rounded-lg object-cover shrink-0" data-alt="Traditional riverside Dayak village along Sekonyer River with colourful wooden stilt houses and friendly local artisans crafting woven handicrafts" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf71w4Eh0GPeiu243u2hdaaH80gbegtxuiuBAypko3tiDa4r-Uh7nBX0UcJ3h5SizYQSSRxK0HgWu5MTnh9RfpaWQBe8LOCCGyyzgBD3oEhOKqLhEjY1uBUfAe2fJwZmFpwl4gtW3A1J7suxw0_lzoX6Rc3tIRlT-lxRm1Pey1BG1kpgy-A9-rvvbk-kcMnMU9OZWcYxNAjRyH99Zj9JU1LtXYvb0Vm-0w84XKwufw"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">cottage</span>
+                Fleksibel Siang Hari
+              </div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Kunjungan Desa Konservasi Sekonyer</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Interaksi kearifan lokal, kerajinan rotan, dan pembibitan pohon hutan.</p>
+<div class="mt-1 flex items-center gap-1 font-label-sm text-label-sm text-tertiary">
+<span class="material-symbols-outlined text-[13px]">payments</span>
+<span>Tunai untuk Suvenir UMKM</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- UMKM Sekitar Highlight Strip -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">storefront</span>
+            Mitra UMKM Lokal Terverifikasi
+          </h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Lihat 8 Mitra</span>
+</div>
+<div class="grid grid-cols-2 gap-2.5">
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm flex flex-col justify-between">
+<div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Kelotok Charter</span>
+<h5 class="font-headline-sm text-headline-sm text-on-surface mt-1">Pak Ramli Kelotok 02</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Kapasitas 4 orang, solar cadangan siap.</p>
+</div>
+<div class="mt-3 flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-secondary font-bold">Radio Ch 16</span>
+<span class="text-on-surface-variant">Kumai</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm flex flex-col justify-between">
+<div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Kriya Rotan Dayak</span>
+<h5 class="font-headline-sm text-headline-sm text-on-surface mt-1">Galeri Ibu Ningsih</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Desa Sekonyer seberang pos 1.</p>
+</div>
+<div class="mt-3 flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-tertiary font-bold">Tunai Saja</span>
+<span class="text-on-surface-variant">Rp 25rb - 150rb</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Offline Emergency & Critical Contacts -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm border-l-4 border-l-secondary">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[22px]">contact_emergency</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Kontak Darurat &amp; Radio Lapangan</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">
+            Tersimpan Offline
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Nomor dan kanal frekuensi ini tetap dapat diakses di saku Anda meski ponsel dalam mode pesawat.
+        </p>
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center justify-between bg-surface-container-low p-2.5 rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Posko Balai Taman Nasional</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Hotline Layanan Konservasi</span>
+</div>
+<a class="px-3 py-1.5 rounded-md bg-surface-container-lowest text-primary font-label-md text-label-md flex items-center gap-1 shadow-sm" href="tel:053221422">
+<span class="material-symbols-outlined text-[16px]">call</span>
+              (0532) 21422
+            </a>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low p-2.5 rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Radio Komunikasi Kelotok Kumai</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Frekuensi Darurat Pelayaran</span>
+</div>
+<div class="px-3 py-1.5 rounded-md bg-surface-container-lowest text-tertiary-container font-label-md text-label-md flex items-center gap-1 shadow-sm font-bold">
+<span class="material-symbols-outlined text-[16px]">radio</span>
+              VHF Ch 16
+            </div>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low p-2.5 rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Puskesmas Kumai Darurat 24 Jam</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Evakuasi Medis &amp; Pertolongan Pertama</span>
+</div>
+<a class="px-3 py-1.5 rounded-md bg-surface-container-lowest text-error font-label-md text-label-md flex items-center gap-1 shadow-sm" href="tel:053261201">
+<span class="material-symbols-outlined text-[16px]">call</span>
+              (0532) 61201
+            </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Floating Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-40 bg-surface-container-lowest/95 backdrop-blur-lg px-gutter py-3 shadow-[0_-4px_16px_rgba(15,23,42,0.08)] flex items-center justify-between gap-space-sm pb-safe">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Estimasi Total Trip</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-md text-headline-md text-primary font-extrabold">Rp 1.920.000</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/org</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Buka Budget Planner" class="h-11 px-3.5 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1.5 active:bg-surface-variant transition-colors" onclick="openBudgetPlanner()">
+<span class="material-symbols-outlined text-[18px] text-primary">calculate</span>
+<span>Budget</span>
+</button>
+<button class="h-11 px-4 rounded-lg bg-primary-container text-surface-container-lowest font-label-md text-label-md font-semibold flex items-center gap-1.5 active:scale-95 transition-transform shadow-sm" id="quickOfflineBtn" onclick="toggleDownloadState()">
+<span class="material-symbols-outlined text-[18px]">cloud_sync</span>
+<span id="quickOfflineLabel">Akses Offline</span>
+</button>
+</div>
+</div>
+<!-- Toast Notification micro-interaction -->
+<div class="fixed top-20 left-4 right-4 z-50 transform -translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" id="toastNotification">
+<div class="bg-inverse-surface text-inverse-on-surface p-3 rounded-xl shadow-lg flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary-fixed text-[24px]">verified</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-bold">Paket Berhasil Diunduh!</span>
+<span class="font-body-sm text-body-sm text-surface-container-high">Data jalur Sekonyer &amp; panduan siap tanpa internet.</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let isDownloaded = false;
+
+  function toggleDownloadState() {
+    const btn = document.getElementById('downloadBtn');
+    const btnLabel = document.getElementById('btnLabel');
+    const btnIcon = document.getElementById('btnIcon');
+    const quickLabel = document.getElementById('quickOfflineLabel');
+    const toast = document.getElementById('toastNotification');
+
+    if (!isDownloaded) {
+      // Simulate download progress
+      btnLabel.innerText = "Mengunduh Berkas (14.2 MB)...";
+      btnIcon.innerText = "sync";
+      btnIcon.classList.add("animate-spin");
+
+      setTimeout(() => {
+        isDownloaded = true;
+        btnIcon.classList.remove("animate-spin");
+        btnIcon.innerText = "check_circle";
+        btnLabel.innerText = "Tersimpan Offline (14.2 MB)";
+        btn.classList.remove("bg-primary-container", "hover:bg-primary");
+        btn.classList.add("bg-secondary", "text-surface-container-lowest");
+        
+        quickLabel.innerText = "Tersimpan";
+
+        // Show Toast
+        toast.classList.remove("-translate-y-24", "opacity-0");
+        toast.classList.add("translate-y-0", "opacity-100");
+        setTimeout(() => {
+          toast.classList.add("-translate-y-24", "opacity-0");
+          toast.classList.remove("translate-y-0", "opacity-100");
+        }, 3200);
+      }, 700);
+    } else {
+      // Reset state for interaction delight demo
+      isDownloaded = false;
+      btnIcon.innerText = "download_for_offline";
+      btnLabel.innerText = "Unduh Travel Pack (Offline Siap)";
+      btn.classList.add("bg-primary-container");
+      btn.classList.remove("bg-secondary");
+      quickLabel.innerText = "Akses Offline";
+    }
+  }
+
+  function switchTab(tabId) {
+    const tabs = ['ringkasan', 'pembayaran', 'aktivitas', 'umkm'];
+    tabs.forEach(t => {
+      const btn = document.getElementById('tab-' + t);
+      if (btn) {
+        if (t === tabId) {
+          btn.className = "tab-btn px-4 py-2 rounded-full font-label-md text-label-md whitespace-nowrap bg-inverse-surface text-inverse-on-surface shadow-sm transition-all";
+        } else {
+          btn.className = "tab-btn px-4 py-2 rounded-full font-label-md text-label-md whitespace-nowrap bg-surface-container-high text-on-surface-variant hover:bg-surface-variant transition-all";
+        }
+      }
+    });
+  }
+
+  function openBudgetPlanner() {
+    alert("Membuka Rincian Budget: Rp 1.920.000 mencakup Sewa Kelotok 3H2M, Izin Masuk TN, Makanan Koki Kapal & Cadangan Kas Lapangan.");
+  }
+</script></main></body></html>

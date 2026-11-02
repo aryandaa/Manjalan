@@ -1,0 +1,90 @@
+'use server';
+
+import { budgetRequestSchema, partnerLoginSchema, BudgetRequestInput, PartnerLoginInput } from '@/lib/validations';
+import { INITIAL_DESTINATIONS } from '@/data/initialData';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+
+export async function calculateBudgetAction(input: BudgetRequestInput) {
+  try {
+    const validated = budgetRequestSchema.parse(input);
+    const dest = INITIAL_DESTINATIONS.find((d) => d.id === validated.destinationId);
+
+    if (!dest) {
+      return { success: false, error: 'Destinasi tidak ditemukan.' };
+    }
+
+    const multiplier = validated.style === 'hemat' ? 0.85 : validated.style === 'eksklusif' ? 1.35 : 1.0;
+    const durationDays = validated.durationDays;
+    const guests = validated.guests;
+
+    const transportKelotok = Math.round(
+      dest.logistics.kelotokCharterPerDay * (durationDays - 1 || 1) * (validated.style === 'eksklusif' ? 1.2 : 1.0)
+    );
+    const parkTickets = Math.round(dest.logistics.simaksiDomestic * guests);
+    const meals = Math.round(dest.logistics.mealsEstPerDay * durationDays * guests * multiplier);
+    const guideCrew = Math.round(dest.logistics.localGuidePerDay * durationDays * multiplier);
+    const emergencyCash = Math.round(dest.paymentReadiness.recommendedCash * guests);
+
+    const totalCost = transportKelotok + parkTickets + meals + guideCrew + emergencyCash;
+    const perPersonCost = Math.round(totalCost / guests);
+
+    const result = {
+      id: `server-budget-${Date.now()}`,
+      destinationId: dest.id,
+      destinationName: dest.name,
+      origin: validated.origin,
+      guests,
+      durationDays,
+      style: validated.style,
+      totalCost,
+      perPersonCost,
+      breakdown: {
+        transportKelotok,
+        parkTickets,
+        meals,
+        guideCrew,
+        emergencyCash,
+      },
+      createdAt: new Date().toISOString(),
+    };
+
+    if (isSupabaseConfigured && supabase) {
+      await supabase.from('budget_plans').insert([
+        {
+          id: result.id,
+          destination_id: result.destinationId,
+          destination_name: result.destinationName,
+          origin: result.origin,
+          guests: result.guests,
+          duration_days: result.durationDays,
+          style: result.style,
+          total_cost: result.totalCost,
+          breakdown: result.breakdown,
+          created_at: result.createdAt,
+        },
+      ]);
+    }
+
+    return { success: true, data: result };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+}
+
+export async function partnerLoginAction(input: PartnerLoginInput) {
+  try {
+    const validated = partnerLoginSchema.parse(input);
+
+    return {
+      success: true,
+      partner: {
+        merchantId: validated.merchantId,
+        role: validated.role,
+        name: validated.role === 'umkm' ? 'Pak Joko (Kelotok Berkah Sekonyer)' : 'Jagawana Balai TNTP Kumai',
+        verified: true,
+      },
+    };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+}

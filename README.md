@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MANJALAN — Travel Readiness Platform
+> *"Rencanakan Saat Online, Tetap Siap Saat Offline."*
 
-## Getting Started
+Platform kesiapan perjalanan wisata pertama untuk Kalimantan Tengah yang menjembatani perencanaan di kota dengan eksekusi lapangan di pedalaman tanpa sinyal internet.
 
-First, run the development server:
+---
 
+## 🚀 Tech Stack
+- **Frontend & App Shell:** [Next.js](https://nextjs.org) (App Router, React 18, TypeScript)
+- **Styling & Design System:** [Tailwind CSS](https://tailwindcss.com) (Equatorial Expedition Utility System, font Plus Jakarta Sans & Google Material Symbols)
+- **Local Persistence & Offline Cache:** [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) via [`idb`](https://github.com/jakearchibald/idb)
+- **Cloud Database & Sync:** [Supabase](https://supabase.com) (PostgreSQL, Row Level Security, Edge Functions)
+
+---
+
+## 📱 Fitur Utama (Sesuai MANJALAN.md & UI Prototypes)
+
+1. **Beranda & Readiness Hub (`/`)**
+   - Header dinamis dengan status "Siap Offline" & Live Indicator ("Tilik Borneo").
+   - Banner kesiapan offline lapangan (jumlah Travel Pack, progress bar, pemakaian MB di IndexedDB).
+   - 4 Modul Aksi Cepat: Hitung Budget, Travel Pack Offline, Direktori UMKM, Portal Mitra.
+   - Destinasi pilihan ekowisata Kalimantan Tengah (TN Tanjung Puting, TN Sebangau, Bukit Tangkiling).
+   - Indikator metode pembayaran instan (QRIS, Tunai, Transfer Bank).
+
+2. **Detail Destinasi & Unduh Travel Pack (`/destinasi/[id]`)**
+   - Hero lanskap dengan badge GPS Siap Offline & kategori konservasi.
+   - **Tombol Unduh Travel Pack**: Menyimpan data rute, panduan, nomor radio darurat, dan UMKM ke dalam **IndexedDB** secara instan.
+   - 4 Tab Informasi: Ringkasan & Jalur, Kesiapan Pembayaran, Aktivitas Utama, UMKM Sekitar.
+   - Peringatan kondisi sinyal seluler (Telkomsel Edge vs provider lain blankspot) & jarak ATM terdekat.
+
+3. **Smart Budget Planner (`/budget`)**
+   - Kalkulator biaya perjalanan interaktif berbasis tarif lapangan Kalimantan Tengah.
+   - Pilihan titik keberangkatan (Palangka Raya, Pangkalan Bun, Jakarta, Surabaya, Banjarmasin).
+   - Stepper jumlah peserta dan durasi ekspedisi.
+   - Pilihan gaya perjalanan: Hemat, Standar, Eksklusif.
+   - Rincian pos biaya: Sewa Kelotok, Tiket Masuk Balai TNTP (Simaksi), Logistik & Konsumsi, Pemandu HPI/Kru Dayak, dan Dana Darurat Tunai.
+   - Simpan hasil kalkulasi ke IndexedDB dan fitur bagikan estimasi ke rombongan.
+
+4. **Direktori UMKM & Kesiapan Pembayaran (`/umkm`)**
+   - Direktori terverifikasi untuk usaha lokal: Perahu Kelotok, Kuliner Tradisional, Kerajinan Rotan, dan Pemandu Lokal.
+   - Filter kesiapan pembayaran: Pasti Terima QRIS, Bisa Transfer Bank, Perlu Uang Tunai.
+   - Modal detail UMKM dengan informasi rekening, QRIS verifikasi, catatan sinyal lapangan, dan tombol chat WhatsApp langsung.
+
+5. **Travel Pack Offline Hub (`/pack`)**
+   - Manajemen paket wisata offline yang tersimpan di IndexedDB.
+   - **Offline Simulator**: Toggle untuk mensimulasikan penggunaan aplikasi tanpa sinyal internet.
+   - Lembar contekan darurat (Emergency SOS) & frekuensi radio maritim VHF Saluran 16 Sungai Sekonyer.
+   - Daftar rencana budget tersimpan.
+
+6. **Portal Mitra & Pengelola Wisata (`/mitra`)**
+   - Ruang kerja khusus mitra UMKM (nahkoda kelotok, kuliner) dan Jagawana Balai Konservasi.
+   - Login nomor WhatsApp / ID Mitra & PIN keamanan.
+   - Dashboard ringkasan status operasional & sinkronisasi data lapangan.
+
+7. **Profil Petualang (`/profil`)**
+   - Dashboard status kesiapan perjalanan, statistik memori cache browser, dan reset data offline.
+
+---
+
+## 🛠️ Cara Menjalankan Proyek
+
+### 1. Prasyarat
+- Node.js versi 18 atau 20+
+- npm atau pnpm
+
+### 2. Instalasi Dependensi
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Konfigurasi Lingkungan (Opsional untuk Supabase)
+Salin berkas `.env.example` ke `.env.local`:
+```bash
+cp .env.example .env.local
+```
+Isi variabel dengan kredensial Supabase Anda. Jika tidak diisi, aplikasi **tetap bekerja 100% normal** berkat arsitektur *offline-first fallback* ke IndexedDB!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Menjalankan Server Pengembangan
+```bash
+npm run dev
+```
+Buka [http://localhost:3000](http://localhost:3000) di browser (disarankan menggunakan mode Responsive/Mobile View di DevTools ukuran 390x844px untuk sensasi mobile-first maksimal).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 5. Build Produksi
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🗄️ Supabase Schema
+File skema PostgreSQL lengkap dengan RLS (Row Level Security) dan indexing tersedia di [`supabase/schema.sql`](file:///home/r3x/Documents/project/Manjalan/supabase/schema.sql).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 💡 Rekomendasi Bahasa Backend Terbaik untuk MANJALAN
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Lihat analisis arsitektur backend lengkap di dalam laporan dan dokumentasi proyek.
+Pilihan terbaik: **TypeScript (Next.js Server Actions / Route Handlers + Supabase Edge Functions / Deno)**, dengan opsi **Go (Golang)** jika di masa depan mengimplementasikan gateway server portabel lokal di dermaga sungai.
