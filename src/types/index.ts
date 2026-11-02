@@ -133,8 +133,11 @@ export interface PartnerAccount {
   businessName: string;
   whatsapp: string;
   verified: boolean;
-  offlineAccessEnabled: boolean;
-  lastLogin: string;
+  status: 'active' | 'suspended';
+  offlineAccessEnabled?: boolean;
+  createdAt: string;
+  updatedAt?: string;
+  placesCount?: number;
 }
 
 export interface PartnerRequest {
@@ -147,7 +150,8 @@ export interface PartnerRequest {
   location: string;
   description: string;
   priceRange?: string;
-  desiredPin: string; // 6 digit PIN
+  desiredPin?: string; // legacy support
+  desiredPassword?: string; // Alphanumeric password (letters + numbers)
   status: 'pending' | 'approved' | 'rejected';
   rejectionReason?: string;
   targetExistingOwnerId?: string; // If an existing manager is requesting an additional place

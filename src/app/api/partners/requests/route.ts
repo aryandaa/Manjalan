@@ -16,8 +16,12 @@ const partnerRequestSchema = z.object({
   location: z.string().trim().min(3).max(200),
   description: z.string().trim().min(10, 'Deskripsi minimal 10 karakter').max(1000),
   priceRange: z.string().trim().max(100).optional(),
-  desiredPin: z.string().regex(/^\d{6}$/, 'PIN wajib 6 digit angka untuk keamanan login Anda'),
+  desiredPin: z.string().min(6, 'Password minimal 6 karakter kombinasi huruf & angka').max(50).optional(),
+  desiredPassword: z.string().min(6, 'Password minimal 6 karakter kombinasi huruf & angka').max(50).optional(),
   targetExistingOwnerId: z.string().optional(),
+}).refine((data) => data.desiredPin || data.desiredPassword, {
+  message: 'Password wajib diisi minimal 6 karakter',
+  path: ['desiredPassword'],
 });
 
 export async function GET() {
@@ -56,7 +60,8 @@ export async function POST(request: NextRequest) {
       location: validated.location,
       description: validated.description,
       priceRange: validated.priceRange || 'Sesuai Kesepakatan',
-      desiredPin: validated.desiredPin,
+      desiredPin: (validated.desiredPassword || validated.desiredPin || '').trim(),
+      desiredPassword: (validated.desiredPassword || validated.desiredPin || '').trim(),
       status: 'pending',
       targetExistingOwnerId: validated.targetExistingOwnerId,
       createdAt: new Date().toISOString(),

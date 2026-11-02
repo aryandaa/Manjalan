@@ -16,8 +16,12 @@ export const partnerLoginSchema = z.object({
     .trim()
     .min(3, 'Nomor HP atau ID Mitra minimal 3 karakter')
     .max(50, 'Nomor HP atau ID Mitra maksimal 50 karakter'),
-  pin: z.string().regex(/^\d{6}$/, 'PIN wajib 6 digit angka'),
+  pin: z.string().min(6, 'Password minimal 6 karakter (kombinasi huruf & angka)').max(50).optional(),
+  password: z.string().min(6, 'Password minimal 6 karakter (kombinasi huruf & angka)').max(50).optional(),
   role: z.enum(['umkm', 'pengelola']),
+}).refine((data) => data.pin || data.password, {
+  message: 'Password wajib diisi minimal 6 karakter',
+  path: ['password'],
 });
 
 export type PartnerLoginInput = z.infer<typeof partnerLoginSchema>;

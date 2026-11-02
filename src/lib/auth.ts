@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { getServerAccountByMerchantId } from '@/lib/serverStore';
 
 // Secret key for HMAC signature - fallback to a deterministic server seed if env not provided
 const AUTH_SECRET = process.env.PARTNER_AUTH_SECRET || 'manjalan_secure_production_secret_key_2024_kalteng';
@@ -28,10 +29,25 @@ export function safeCompare(a: string, b: string): boolean {
 }
 
 /**
- * Hash a 6-digit PIN with a fixed salt
+ * Hash a password or PIN with a fixed salt
  */
 export function hashPin(pin: string, salt: string = 'manjalan_pin_salt'): string {
   return crypto.createHmac('sha256', AUTH_SECRET).update(`${salt}:${pin}`).digest('hex');
+}
+
+export const hashPassword = hashPin;
+
+/**
+ * Generate a random alphanumeric password (letters + numbers)
+ */
+export function generateRandomPassword(length = 8): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+  let result = '';
+  const bytes = crypto.randomBytes(length);
+  for (let i = 0; i < length; i++) {
+    result += chars[bytes[i] % chars.length];
+  }
+  return result;
 }
 
 type DynamicPartnerRecord = {
@@ -64,6 +80,10 @@ export function registerApprovedPartner(
     name,
     businessName,
   });
+}
+
+export function removeApprovedPartner(merchantId: string) {
+  DYNAMIC_PARTNERS.delete(merchantId.trim().toLowerCase());
 }
 
 /**
@@ -157,6 +177,13 @@ export function verifyPartnerCredentials(
   role: 'umkm' | 'pengelola'
 ): { isValid: boolean; partner?: { merchantId: string; role: 'umkm' | 'pengelola'; name: string; businessName: string } } {
   const normalizedId = merchantId.trim().toLowerCase();
+
+  // Check if account was suspended by Petugas
+  const serverAcc = getServerAccountByMerchantId(normalizedId);
+  if (serverAcc && serverAcc.status === 'suspended') {
+    return { isValid: false };
+  }
+
   const candidate = VERIFIED_LOCAL_PARTNERS[normalizedId] || DYNAMIC_PARTNERS.get(normalizedId);
 
   if (!candidate) {

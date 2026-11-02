@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
     // 2. Strict Input Validation via Zod
     const body = await request.json();
     const validated = partnerLoginSchema.parse(body);
+    const passwordInput = validated.password || validated.pin || '';
 
     let authenticatedPartner: {
       merchantId: string;
@@ -49,7 +50,7 @@ export async function POST(request: NextRequest) {
         .single();
 
       if (!error && data && data.pin_hash) {
-        const inputHash = hashPin(validated.pin);
+        const inputHash = hashPin(passwordInput);
         if (safeCompare(inputHash, data.pin_hash)) {
           authenticatedPartner = {
             merchantId: data.merchant_id,
@@ -65,7 +66,7 @@ export async function POST(request: NextRequest) {
     if (!authenticatedPartner) {
       const localCheck = verifyPartnerCredentials(
         validated.merchantId,
-        validated.pin,
+        passwordInput,
         validated.role
       );
       if (localCheck.isValid && localCheck.partner) {

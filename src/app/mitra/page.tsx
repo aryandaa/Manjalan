@@ -109,12 +109,12 @@ export default function MitraPortalPage() {
     setErrorMessage(null);
 
     if (!merchantId || !pin) {
-      setErrorMessage('Harap isi No. WhatsApp / ID dan PIN.');
+      setErrorMessage('Harap isi No. WhatsApp / ID dan Password.');
       return;
     }
 
-    if (!/^\d{6}$/.test(pin)) {
-      setErrorMessage('PIN wajib 6 digit angka.');
+    if (pin.length < 6) {
+      setErrorMessage('Password minimal 6 karakter kombinasi huruf & angka.');
       return;
     }
 
@@ -129,6 +129,7 @@ export default function MitraPortalPage() {
         body: JSON.stringify({
           merchantId: merchantId.trim(),
           pin: pin.trim(),
+          password: pin.trim(),
           role,
         }),
       });
@@ -167,12 +168,12 @@ export default function MitraPortalPage() {
     setErrorMessage(null);
 
     if (!regApplicant || !regWhatsapp || !regBusinessName || !regDescription || !regDesiredPin) {
-      setErrorMessage('Harap lengkapi semua kolom wajib termasuk PIN 6 digit.');
+      setErrorMessage('Harap lengkapi semua kolom wajib termasuk password akun.');
       return;
     }
 
-    if (!/^\d{6}$/.test(regDesiredPin)) {
-      setErrorMessage('PIN Keamanan wajib tepat 6 digit angka.');
+    if (regDesiredPin.trim().length < 6) {
+      setErrorMessage('Password Keamanan minimal 6 karakter kombinasi huruf & angka.');
       return;
     }
 
@@ -192,6 +193,7 @@ export default function MitraPortalPage() {
           description: regDescription.trim(),
           priceRange: regPriceRange.trim() || 'Standar Lapangan',
           desiredPin: regDesiredPin.trim(),
+          desiredPassword: regDesiredPin.trim(),
         }),
       });
 
@@ -494,7 +496,7 @@ export default function MitraPortalPage() {
 
                     <div className="space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <label className="text-xs font-bold text-on-surface">PIN Keamanan (6 Digit)</label>
+                        <label className="text-xs font-bold text-on-surface">Password / Kata Sandi Akun</label>
                         <button
                           type="button"
                           onClick={() => setShowPin(!showPin)}
@@ -514,16 +516,18 @@ export default function MitraPortalPage() {
                           type={showPin ? 'text' : 'password'}
                           value={pin}
                           onChange={(e) => setPin(e.target.value)}
-                          maxLength={6}
-                          placeholder="••••••"
+                          placeholder="••••••••"
                           required
-                          className="w-full h-12 pl-11 pr-4 rounded-xl bg-surface-container-low text-on-surface placeholder:text-outline text-sm border border-outline-variant/60 outline-none tracking-widest focus:border-primary transition-colors font-mono"
+                          className="w-full h-12 pl-11 pr-4 rounded-xl bg-surface-container-low text-on-surface placeholder:text-outline text-sm border border-outline-variant/60 outline-none tracking-wider focus:border-primary transition-colors font-mono"
                         />
                       </div>
                     </div>
 
                     <div className="flex items-center justify-between text-xs pt-1">
                       <span className="text-on-surface-variant text-[11px]">Sesi Terenkripsi SHA-256</span>
+                      <span className="text-[11px] text-on-surface-variant">
+                        Lupa password? <span className="text-primary font-semibold">Hubungi Petugas Balai</span>
+                      </span>
                     </div>
 
                     <button
@@ -574,7 +578,7 @@ export default function MitraPortalPage() {
                           setRegCategory('Perahu Kelotok Safari');
                           setRegLocation('Dermaga Pelabuhan Panglima Utar, Kumai');
                           setRegPriceRange('Rp 2.200.000 / hari');
-                          setRegDesiredPin('123456');
+                          setRegDesiredPin('Borneo2026');
                           setRegDescription('Armada kelotok 2 tingkat kapasitas 10 wisatawan dengan solar panel ramah lingkungan, kasur berpelindung kelambu, toilet bersih, dan sajian kuliner khas ikan sungai Sekonyer.');
                           showToast('Data simulasi UMKM berhasil diisi!');
                         }}
@@ -593,7 +597,7 @@ export default function MitraPortalPage() {
                           setRegCategory('Konservasi Rawa Gambut');
                           setRegLocation('Katingan Hilir, Kabupaten Katingan');
                           setRegPriceRange('Tiket Simaksi Rp 15.000');
-                          setRegDesiredPin('654321');
+                          setRegDesiredPin('Gambut2026');
                           setRegDescription('Kawasan konservasi rawa gambut purba dengan jembatan titian kayu ulin sepanjang 800 meter, menara pantau burung enggang, dan susur rawa menggunakan kano tradisional.');
                           showToast('Data simulasi Destinasi berhasil diisi!');
                         }}
@@ -716,16 +720,15 @@ export default function MitraPortalPage() {
 
                     <div className="space-y-1">
                       <label className="block text-xs font-bold text-on-surface">
-                        PIN Keamanan Diinginkan (6 Digit)
+                        Password / Kata Sandi Diinginkan
                       </label>
                       <input
                         type="password"
-                        maxLength={6}
                         value={regDesiredPin}
                         onChange={(e) => setRegDesiredPin(e.target.value)}
-                        placeholder="6 digit angka rahasia"
+                        placeholder="Kombinasi huruf & angka (min. 6 karakter)"
                         required
-                        className="w-full h-11 px-3.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-outline-variant/50 outline-none focus:border-primary font-mono tracking-widest"
+                        className="w-full h-11 px-3.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-outline-variant/50 outline-none focus:border-primary font-mono tracking-wider"
                       />
                     </div>
                   </div>
@@ -1192,7 +1195,7 @@ export default function MitraPortalPage() {
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-on-surface-variant">PIN Keamanan (6 Digit):</span>
+                <span className="text-on-surface-variant">Password Keamanan:</span>
                 <span className="font-mono font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded text-sm tracking-wider">
                   {regSuccessModal.pin}
                 </span>

@@ -1,4 +1,40 @@
-import { ManagedPlace, PartnerRequest } from '@/types';
+import { ManagedPlace, PartnerRequest, PartnerAccount } from '@/types';
+
+export const INITIAL_PARTNER_ACCOUNTS: PartnerAccount[] = [
+  {
+    id: 'acc-kltk-01',
+    merchantId: 'KLTK-01',
+    role: 'umkm',
+    name: 'Pak Joko (Kelotok Berkah)',
+    businessName: 'Kelotok Wisata Berkah Sekonyer',
+    whatsapp: '+6281234567890',
+    verified: true,
+    status: 'active',
+    createdAt: '2024-10-20T08:00:00Z',
+  },
+  {
+    id: 'acc-tntp-01',
+    merchantId: 'TNTP-01',
+    role: 'pengelola',
+    name: 'Petugas Balai Pos Kumai',
+    businessName: 'Balai Konservasi TN Tanjung Puting',
+    whatsapp: '+62811520101',
+    verified: true,
+    status: 'active',
+    createdAt: '2024-10-20T08:00:00Z',
+  },
+  {
+    id: 'acc-tntp-02',
+    merchantId: 'TNTP-2024-001',
+    role: 'pengelola',
+    name: 'Jagawana Balai Pos Kumai',
+    businessName: 'Balai Konservasi TN Tanjung Puting',
+    whatsapp: '+62811520102',
+    verified: true,
+    status: 'active',
+    createdAt: '2024-10-22T09:00:00Z',
+  },
+];
 
 export const INITIAL_MANAGED_PLACES: ManagedPlace[] = [
   {

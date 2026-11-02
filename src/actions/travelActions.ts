@@ -83,14 +83,14 @@ export async function partnerLoginAction(input: PartnerLoginInput) {
 
     const check = verifyPartnerCredentials(
       validated.merchantId,
-      validated.pin,
+      validated.password || validated.pin || '',
       validated.role
     );
 
     if (!check.isValid || !check.partner) {
       return {
         success: false,
-        error: 'Kredensial tidak valid. Periksa No. ID Mitra, peran, dan 6 digit PIN Anda.',
+        error: 'Kredensial tidak valid. Periksa No. ID Mitra, peran, dan kata sandi Anda.',
       };
     }
 

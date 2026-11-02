@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { getServerRequests, updateServerRequest, addServerPlace } from '@/lib/serverStore';
+import { getServerRequests, updateServerRequest, addServerPlace, addServerAccount } from '@/lib/serverStore';
 import { registerApprovedPartner, verifyPartnerToken } from '@/lib/auth';
-import { ManagedPlace } from '@/types';
+import { ManagedPlace, PartnerAccount } from '@/types';
 
 const patchSchema = z.object({
   status: z.enum(['approved', 'rejected']),
@@ -56,15 +56,28 @@ export async function PATCH(
     if (validated.status === 'approved') {
       const ownerId = targetReq.targetExistingOwnerId || targetReq.whatsapp;
 
-      // A. If new applicant, register their credentials so they can immediately login at /mitra
-      if (!targetReq.targetExistingOwnerId && targetReq.desiredPin) {
+      // A. If new applicant, register their credentials and create partner account
+      const passwordToUse = targetReq.desiredPassword || targetReq.desiredPin || 'Manjalan2026';
+      if (!targetReq.targetExistingOwnerId) {
         registerApprovedPartner(
           ownerId,
-          targetReq.desiredPin,
+          passwordToUse,
           targetReq.type === 'umkm' ? 'umkm' : 'pengelola',
           targetReq.applicantName,
           targetReq.businessName
         );
+
+        addServerAccount({
+          id: `acc-${Date.now()}`,
+          merchantId: ownerId,
+          role: targetReq.type === 'umkm' ? 'umkm' : 'pengelola',
+          name: targetReq.applicantName,
+          businessName: targetReq.businessName,
+          whatsapp: targetReq.whatsapp,
+          verified: true,
+          status: 'active',
+          createdAt: new Date().toISOString(),
+        });
       }
 
       // B. Create the ManagedPlace associated with this 1 owner account
@@ -108,6 +121,7 @@ export async function PATCH(
           request: targetReq,
           createdPlace: newPlace,
           merchantId: ownerId,
+          temporaryPassword: passwordToUse,
         },
       });
     } else {
