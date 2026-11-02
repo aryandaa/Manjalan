@@ -302,7 +302,7 @@ export default function MapComponent() {
       spread: 60,
       origin: { y: 0.7 },
     });
-    showToast('Peta & Rute Singgah berhasil disimpan ke IndexedDB (100% Siap Offline)!');
+    showToast('Data sudah tersimpan secara offline');
   };
 
   const showToast = (msg: string) => {
@@ -405,7 +405,7 @@ export default function MapComponent() {
             {isSavedOffline ? 'offline_pin' : 'download'}
           </span>
           <span className="hidden sm:inline">
-            {isSavedOffline ? 'Tersimpan Offline' : 'Simpan Peta Offline'}
+            {isSavedOffline ? 'Data sudah tersimpan secara offline' : 'Simpan Peta Offline'}
           </span>
         </button>
       </div>
