@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MANJALAN — Pitch Deck & Slide Presentasi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            },
+            forest: {
+              50: '#ecfdf5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      user-select: none;
+    }
+    .slide {
+      display: none;
+      opacity: 0;
+      transform: scale(0.98);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+    /* Custom scrollbar for speaker notes */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.4);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between overflow-hidden selection:bg-brand-600 selection:text-white">
+
+  <!-- TOP BAR: Navigation, Title & Utilities -->
+  <header class="w-full bg-slate-900/80 backdrop-blur-md border-b border-slate-800/80 px-6 py-3 flex items-center justify-between z-40">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-700 to-forest-500 flex items-center justify-center font-black text-white text-base shadow-md">
+        M
+      </div>
+      <div>
+        <h1 class="font-extrabold text-sm sm:text-base tracking-wide flex items-center gap-2">
+          <span>MANJALAN</span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">PITCH DECK</span>
+        </h1>
+        <p class="text-[11px] text-slate-400 font-medium hidden sm:block">Travel Readiness Platform — Ekowisata Kalimantan Tengah</p>
+      </div>
+    </div>
+
+    <!-- Quick Controls -->
+    <div class="flex items-center gap-2">
+      <!-- Notes Toggle -->
+      <button id="toggleNotesBtn" title="Tampilkan Naskah Presenter (Tombol N)" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 border border-slate-700 transition-all">
+        <span class="material-symbols-outlined text-[16px]">record_voice_over</span>
+        <span class="hidden md:inline">Naskah Pembicara</span>
+        <span class="text-[10px] bg-slate-900 px-1.5 py-0.2 rounded border border-slate-600 font-mono">N</span>
+      </button>
+
+      <!-- Fullscreen Toggle -->
+      <button id="toggleFullscreenBtn" title="Layar Penuh (Tombol F)" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center border border-slate-700 transition-all">
+        <span class="material-symbols-outlined text-[18px]">fullscreen</span>
+      </button>
+
+      <!-- Slide Counter Badge -->
+      <div class="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-brand-400">
+        <span id="currentSlideNum">1</span> / <span id="totalSlidesNum">15</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROGRESS BAR -->
+  <div class="w-full bg-slate-900 h-1">
+    <div id="progressBar" class="bg-gradient-to-r from-brand-600 via-emerald-500 to-amber-500 h-full transition-all duration-300 w-[6.6%]"></div>
+  </div>
+
+  <!-- MAIN SLIDES CONTAINER (16:9 Aspect Ratio Focus) -->
+  <main class="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center relative">
+
+    <!-- ========================================== -->
+    <!-- SLIDE 1: COVER & TITLE -->
+    <!-- ========================================== -->
+    <div class="slide active w-full h-[76vh] bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between relative overflow-hidden"
+         data-notes="Selamat pagi/siang Dewan Juri yang terhormat. Perkenalkan, kami dari tim MANJALAN. Hari ini kami mempersembahkan MANJALAN — sebuah platform kesiapan perjalanan atau Travel Readiness Platform pertama di Indonesia yang dirancang khusus untuk kawasan ekowisata Kalimantan Tengah. Mengusung filosofi 'Rencanakan Saat Online, Tetap Siap Saat Offline', Manjalan hadir untuk menjawab tantangan nyata para petualang dan pelaku UMKM lokal di destinasi konservasi yang minim sinyal internet.">
+      
+      <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-96 h-96 bg-forest-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex items-center justify-between">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-950/80 border border-brand-500/40 text-brand-400 text-xs font-bold tracking-wide">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>IDEATHON & STARTUP PITCHING</span>
+        </div>
+        <span class="text-xs text-slate-500 font-medium">Kategori: Smart Ecotourism & Travel Readiness</span>
+      </div>
+
+      <div class="space-y-4 my-auto">
+        <div class="flex items-center gap-3">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-forest-500 flex items-center justify-center text-white text-3xl font-black shadow-lg">
+            M
+          </div>
+          <div>
+            <h2 class="text-4xl sm:text-6xl font-black tracking-tight text-white">MANJALAN</h2>
+            <p class="text-emerald-400 font-bold text-sm sm:text-base">Travel Readiness Platform</p>
+          </div>
+        </div>
+
+        <h3 class="text-2xl sm:text-4xl font-extrabold text-slate-100 max-w-3xl leading-snug">
+          "Rencanakan Saat Online, <br class="hidden sm:inline" />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-brand-400">Tetap Siap Saat Offline."</span>
+        </h3>
+
+        <p class="text-sm sm:text-base text-slate-400 max-w-2xl leading-relaxed">
+          Menjembatani perencanaan digital di perkotaan dengan eksekusi nyata di pedalaman rimba dan susur sungai Kalimantan Tengah tanpa ketergantungan sinyal internet.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-slate-800/80 text-xs text-slate-400">
+        <div class="flex items-center gap-6">
+          <span>🏛️ <strong>Fokus Wilayah:</strong> TN Tanjung Puting & TN Sebangau</span>
+          <span>⚡ <strong>Teknologi:</strong> Offline-First IndexedDB PWA</span>
+        </div>
+        <div class="text-slate-500">
+          Gunakan tombol <strong>&rarr;</strong> atau <strong>Spasi</strong> untuk slide berikutnya
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 2: LATAR BELAKANG & POTENSI -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Kalimantan Tengah memiliki magnet ekowisata kelas dunia. Tanjung Puting dan Sebangau menarik ribuan wisatawan setiap tahunnya. Namun, berwisata ke pedalaman Borneo sangat berbeda dengan berlibur ke kota besar. Wisatawan harus menginap berhari-hari di perahu kelotok kayu menyusuri sungai. Di sini timbul paradoks: wisatawan bersemangat, tetapi minim persiapan praktis. Mereka tidak tahu tarif riil kapal, tidak tahu apakah warung apung di muara menerima QRIS, dan begitu masuk ke hulu sungai, sinyal internet padam total. Di sinilah Manjalan melihat peluang besar untuk hadir memberikan solusi.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-brand-400 uppercase">01 • Konteks & Latar Belakang</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Potensi Ekowisata Kelas Dunia di Kalimantan Tengah</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 my-auto">
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-brand-500/50 transition-all space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">forest</span>
+          </div>
+          <h4 class="font-bold text-base text-white">TN Tanjung Puting</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Habitat liar <strong>6.000+ orangutan</strong> terbesar di dunia. Wisata susur sungai 2-4 hari menginap di atas kapal perahu kelotok kayu ulin.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-brand-500/50 transition-all space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">water_drop</span>
+          </div>
+          <h4 class="font-bold text-base text-white">TN Sebangau & Air Hitam</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Ekosistem rawa gambut purba air hitam <strong>568.000 hektar</strong>. Navigasi susur Sungai Koran dan Danau Kereng Bangkirai.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-brand-500/50 transition-all space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">warning_amber</span>
+          </div>
+          <h4 class="font-bold text-base text-white">Paradoks Wisatawan</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Minat wisatawan tinggi, tetapi <strong>minim persiapan praktis</strong>: buta medan sinyal, kehabisan uang tunai di hulu sungai, dan bingung biaya riil kapal.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-brand-950/40 border border-brand-500/30 text-xs text-brand-300 flex items-center gap-3">
+        <span class="material-symbols-outlined text-[22px] text-brand-400 shrink-0">lightbulb</span>
+        <span><strong>Kebutuhan Riil:</strong> Diperlukan alat digital yang mendidik wisatawan sebelum berangkat sekaligus menjadi pemandu setia saat internet mati total di lapangan.</span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 3: RUMUSAN MASALAH (5 PAIN POINTS) -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Melalui riset lapangan, kami merumuskan 5 masalah kritis: Pertama, informasi tersebar tidak menentu. Kedua, anggaran sering kali membengkak karena banyak pos biaya tak terduga seperti solar perahu atau simaksi balai. Ketiga, kebingungan metode bayar: turis membawa e-wallet di tempat yang hanya menerima uang kertas. Keempat, blankspot total yang membuat aplikasi online lumpuh. Dan kelima, UMKM lokal yang ramah dan berlisensi justru kalah terekspos karena calo atau pihak ketiga. Kami bertanya: Bagaimana membantu wisatawan siap sebelum berangkat, dan tetap terlindungi informasinya saat internet hilang?">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-red-400 uppercase">02 • Rumusan Masalah</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">5 Titik Sakit (Pain Points) Kritis Petualang & Mitra</h3>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 my-auto">
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <div class="flex items-center gap-2 text-red-400 text-xs font-bold">
+            <span class="material-symbols-outlined text-[18px]">find_in_page</span>
+            <span>1. Informasi Tercecer</span>
+          </div>
+          <p class="text-[11px] text-slate-400 leading-relaxed">
+            Data simaksi, rute, dan jadwal kapal tersebar di PDF kuno, blog kadaluarsa, dan sosmed tanpa kepastian.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <div class="flex items-center gap-2 text-amber-400 text-xs font-bold">
+            <span class="material-symbols-outlined text-[18px]">monetization_on</span>
+            <span>2. Ketidakpastian Biaya</span>
+          </div>
+          <p class="text-[11px] text-slate-400 leading-relaxed">
+            Banyak biaya tersembunyi (*hidden cost*): sewa kelotok, koki, BBM air, tiket balai, dan tips kru kapal.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <div class="flex items-center gap-2 text-blue-400 text-xs font-bold">
+            <span class="material-symbols-outlined text-[18px]">payments</span>
+            <span>3. Dilema Pembayaran</span>
+          </div>
+          <p class="text-[11px] text-slate-400 leading-relaxed">
+            Wisatawan bingung di mana bisa QRIS/Transfer dan di mana wajib tunai pecahan kecil saat sinyal hilang.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <div class="flex items-center gap-2 text-red-500 text-xs font-bold">
+            <span class="material-symbols-outlined text-[18px]">signal_disconnected</span>
+            <span>4. Blankspot Total</span>
+          </div>
+          <p class="text-[11px] text-slate-400 leading-relaxed">
+            Begitu kelotok melaju ke hulu Sungai Sekonyer, sinyal hilang total. Google Maps & OTA biasa tidak dapat dibuka.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <div class="flex items-center gap-2 text-emerald-400 text-xs font-bold">
+            <span class="material-symbols-outlined text-[18px]">store</span>
+            <span>5. UMKM Sulit Ditemukan</span>
+          </div>
+          <p class="text-[11px] text-slate-400 leading-relaxed">
+            Nahkoda kelotok & warung lokal minim promosi digital, sering tersingkir oleh agen calo pihak ketiga.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-brand-950/40 border border-brand-500/40 flex flex-col justify-center text-center p-3">
+          <span class="text-xs font-extrabold text-brand-300">Inti Pertanyaan:</span>
+          <p class="text-[11px] text-slate-300 mt-1 italic">
+            "Bagaimana petualang bisa siap sebelum berangkat dan tetap aman bernavigasi saat offline?"
+          </p>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-400 flex items-center justify-between border-t border-slate-800 pt-3">
+        <span>Sumber: Wawancara wisatawan & mitra dermaga Kumai & Palangka Raya</span>
+        <span class="text-brand-400 font-bold">Solusi ➔ MANJALAN</span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 4: SOLUSI KAMI: MANJALAN -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Jawaban kami adalah MANJALAN. Manjalan bukan sekadar OTA tempat Anda membeli tiket hotel kota. Manjalan adalah Travel Readiness Platform. Kami mengusung prinsip 'Online for Preparation, Offline by Design'. Wisatawan mempersiapkan itinerary dan menghitung budget saat masih di kota atau hotel dengan koneksi internet. Lalu, dengan satu sentuhan, seluruh panduan, kontak radio darurat maritim, serta direktori UMKM diunduh ke dalam memori ponsel via IndexedDB. Saat kapal berlayar ke hulu sungai dan sinyal hilang, seluruh data tetap dapat diakses secepat kilat tanpa internet.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-emerald-400 uppercase">03 • Solusi & Posisi Produk</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Bukan Sekadar OTA — Ini Travel Readiness Platform</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto items-center">
+        <div class="space-y-4">
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+            <span class="text-xs font-extrabold text-red-400 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+              <span>MANJALAN BUKAN:</span>
+            </span>
+            <p class="text-xs text-slate-400">
+              Bukan OTA kota besar (seperti Traveloka/Tiket.com), bukan sekadar booking tiket kamar hotel, dan bukan review platform pasif.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-brand-950/60 border border-brand-500/50 space-y-2">
+            <span class="text-xs font-extrabold text-emerald-400 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px]">verified</span>
+              <span>MANJALAN ADALAH:</span>
+            </span>
+            <p class="text-sm font-bold text-white">
+              Platform Kesiapan Perjalanan (Travel Readiness)
+            </p>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Solusi hibrida yang memandu persiapan berbasis anggaran riil saat di kota, lalu mendampingi eksekusi petualangan dengan data tersimpan di memori peramban saat sinyal seluler padam total.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 Pilar Filosofi -->
+        <div class="space-y-3">
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-start gap-3">
+            <span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0 font-black">1</span>
+            <div>
+              <h5 class="text-xs font-bold text-white">Online for Preparation</h5>
+              <p class="text-[11px] text-slate-400 mt-0.5">Riset biaya, konsultasi rute, verifikasi izin, dan unduh data saat berada di jangkauan WiFi kota.</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-start gap-3">
+            <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 font-black">2</span>
+            <div>
+              <h5 class="text-xs font-bold text-white">Offline by Design</h5>
+              <p class="text-[11px] text-slate-400 mt-0.5">Seluruh lembar darurat SOS radio maritim, rute, dan direktori UMKM dapat diakses instan di mode pesawat.</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-start gap-3">
+            <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 font-black">3</span>
+            <div>
+              <h5 class="text-xs font-bold text-white">Direct Local Impact</h5>
+              <p class="text-[11px] text-slate-400 mt-0.5">Menghubungkan langsung wisatawan ke pemilik perahu kelotok dan warung lokal tanpa perantara.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 bg-slate-900 rounded-xl text-center text-xs text-slate-400 border border-slate-800">
+        Prinsip Utama: <strong>Simplicity First • Offline First • Tourism-Centric • Digital Payment Ready</strong>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 5: FITUR 1 - SMART BUDGET PLANNER -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Fitur unggulan pertama adalah Smart Budget Planner. Selama ini wisatawan bingung: berapa sebenarnya biaya sewa perahu kelotok 3 hari 2 malam? Di Manjalan, wisatawan cukup memilih kota asal, jumlah orang, dan gaya perjalanan. Algoritma kami langsung membedah pos-pos biaya nyata: mulai dari sewa kapal, izin simaksi balai konservasi, logistik makan, hingga uang saku tunai darurat. Wisatawan mendapatkan estimasi per orang yang akurat, sehingga terhindar dari pemerasan tarif atau kepanikan anggaran.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-brand-400 uppercase">04 • Fitur Unggulan 1</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Smart Budget Planner: Anti-Kepanikan Anggaran</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto items-center">
+        <div class="space-y-3.5">
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Menghitung estimasi biaya riil ekspedisi sungai berdasarkan data tarif terverifikasi lapangan Kalimantan Tengah:
+          </p>
+
+          <div class="space-y-2 text-xs">
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+              <span class="text-slate-400">Pilihan Titik Asal:</span>
+              <strong class="text-white">Palangka Raya, Pangkalan Bun, Jakarta, Surabaya</strong>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+              <span class="text-slate-400">Parameter Perjalanan:</span>
+              <strong class="text-white">Jumlah Orang, Durasi Hari/Malam, Gaya Trip</strong>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+              <span class="text-slate-400">Pilihan Gaya Ekspedisi:</span>
+              <strong class="text-emerald-400">Hemat • Standar • Eksklusif</strong>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs">
+            💡 <strong>Rekomendasi Uang Tunai:</strong> Otomatis menghitung berapa lembar rupiah pecahan kecil yang wajib dibawa sebelum masuk sungai.
+          </div>
+        </div>
+
+        <!-- Breakdown Card Preview -->
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-800 text-slate-400 font-sans">
+            <span class="font-bold text-white">Simulasi 4 Orang (3D2N TNTP)</span>
+            <span class="text-[11px] text-emerald-400">Gaya Standar</span>
+          </div>
+
+          <div class="space-y-1.5 text-[11px] text-slate-300">
+            <div class="flex justify-between">
+              <span>Perahu Kelotok 2 Dek:</span>
+              <span>Rp 4.200.000</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Simaksi Balai TNTP (4 org):</span>
+              <span>Rp 280.000</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Logistik Makan & Juru Masak:</span>
+              <span>Rp 1.400.000</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Pemandu HPI & Kru Kapal:</span>
+              <span>Rp 900.000</span>
+            </div>
+            <div class="flex justify-between text-amber-400">
+              <span>Cadangan Uang Tunai Darurat:</span>
+              <span>Rp 500.000</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800 flex justify-between items-center text-sm font-sans font-black text-white">
+            <span>Estimasi Per Orang:</span>
+            <span class="text-brand-400 text-base">~Rp 1.820.000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-500 flex justify-between">
+        <span>Tersedia fitur bagikan estimasi ke WhatsApp rombongan & simpan ke memori offline.</span>
+        <span>Akses: <strong>/budget</strong></span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 6: FITUR 2 - OFFLINE TRAVEL PACK -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Inovasi teknologi utama Manjalan terletak pada Offline Travel Pack. Begitu wisatawan mengklik 'Unduh Travel Pack', browser menyimpan bundel data lengkap ke dalam IndexedDB lokal ponsel. Ukurannya sangat efisien, kurang dari 1 MB. Bahkan jika ponsel Anda beralih ke Mode Pesawat di kedalaman rimba, Anda tetap dapat membaca panduan pos konservasi, melihat direktori UMKM terdekat, hingga melihat nomor radio maritim darurat VHF Saluran 16 yang bisa digunakan oleh nahkoda kapal Anda. Ini memberi rasa aman dan kesiapan 100%.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-emerald-400 uppercase">05 • Fitur Unggulan 2</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Offline Travel Pack (IndexedDB Engine)</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 my-auto">
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">download_for_offline</span>
+          </div>
+          <h4 class="font-bold text-base text-white">1-Click Local Caching</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Menyimpan panduan pos konservasi, peta rute sungai, nomor kontak radio darurat, dan daftar UMKM ke IndexedDB HP dalam hitungan detik.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">airplanemode_active</span>
+          </div>
+          <h4 class="font-bold text-base text-white">Zero Signal Reliability</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Aplikasi tetap bekerja 100% normal saat ponsel beralih ke Mode Pesawat di tengah rimba Sungai Sekonyer tanpa kuota.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">sos</span>
+          </div>
+          <h4 class="font-bold text-base text-white">Protokol Radio Darurat</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Menyertakan frekuensi <strong>Radio Maritim VHF Saluran 16 (156.8 MHz)</strong> & nomor telepon satelit Balai Konservasi untuk nahkoda kelotok.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs text-slate-400">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-emerald-400">check_circle</span>
+          <span>Ukuran data super efisien: <strong>~0.2 MB</strong> (Tidak menghabiskan penyimpanan memori HP wisatawan).</span>
+        </div>
+        <span class="text-slate-500 font-mono">PWA Offline Capable</span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 7: FITUR 3 - TRANSPARANSI PEMBAYARAN -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Fitur ketiga adalah Transparansi Pembayaran dan Sinyal. Kami tidak memaksakan semuanya harus digital, dan tidak membiarkan turis tersesat tanpa uang tunai. Manjalan memetakan kesiapan pembayaran secara jujur. Jika di Dermaga Kumai mendukung QRIS, kami tampilkan. Namun jika perahu memasuki Muara Sekonyer yang blankspot total, sistem memberi peringatan jelas: 'Uang Tunai Diperlukan'. Ini memastikan perputaran roda ekonomi lokal tetap lancar tanpa hambatan teknis.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-amber-400 uppercase">06 • Fitur Unggulan 3</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Transparansi Kesiapan Pembayaran & Sinyal Lapangan</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+        <div class="p-6 rounded-2xl bg-slate-900 border border-blue-500/30 space-y-3">
+          <div class="flex items-center gap-2 text-blue-400">
+            <span class="material-symbols-outlined text-[28px]">qr_code_scanner</span>
+            <span class="font-bold text-sm">QRIS Terverifikasi</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Ditampilkan pada mitra di area dermaga dan pos yang memiliki sinyal stabil. Dilengkapi nama merchant NMID resmi.
+          </p>
+          <div class="text-[10px] bg-blue-950/60 text-blue-300 p-2 rounded-lg border border-blue-800">
+            Dermaga Kumai, Pos Balai Utama
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900 border border-emerald-500/30 space-y-3">
+          <div class="flex items-center gap-2 text-emerald-400">
+            <span class="material-symbols-outlined text-[28px]">account_balance</span>
+            <span class="font-bold text-sm">Transfer Bank</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Informasi nomor rekening terdaftar untuk pelunasan sewa kapal kelotok atau deposit saat masih di kota/hotel.
+          </p>
+          <div class="text-[10px] bg-emerald-950/60 text-emerald-300 p-2 rounded-lg border border-emerald-800">
+            Bank Kalteng, BRI, Mandiri
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900 border border-amber-500/30 space-y-3">
+          <div class="flex items-center gap-2 text-amber-400">
+            <span class="material-symbols-outlined text-[28px]">payments</span>
+            <span class="font-bold text-sm">Uang Tunai Diperlukan</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Peringatan otomatis saat memasuki zona blankspot. Wisatawan diwajibkan membawa uang tunai pas untuk warung apung & tips awak.
+          </p>
+          <div class="text-[10px] bg-amber-950/60 text-amber-300 p-2 rounded-lg border border-amber-800">
+            Hulu Sungai Sekonyer, Pos Rimba
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 bg-slate-900 rounded-xl text-xs text-slate-400 border border-slate-800 flex items-center justify-between">
+        <span>Menghilangkan momen panik turis kehabisan uang tunai di tengah sungai Borneo.</span>
+        <span class="text-emerald-400 font-bold">100% Inklusif & Realistis</span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 8: FITUR 4 - DIREKTORI UMKM & GMAPS -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Fitur keempat adalah Direktori UMKM Terverifikasi. Kami melengkapi setiap tempat dengan foto cover asli dan badge khusus 'Review Google Maps'. Dengan badge ini, wisatawan yang sedang berselancar secara online dapat langsung mengecek ulasan asli, foto pengunjung, dan reputasi tempat di Google Maps sebelum memutuskan untuk singgah. Mereka juga bisa langsung mengontak WhatsApp nahkoda atau pemilik homestay. Tidak ada calo, tidak ada potongan komisi yang mencekik warga lokal.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-forest-500 uppercase">07 • Fitur Unggulan 4</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Direktori UMKM & Badge Review Google Maps</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto items-center">
+        <div class="space-y-4">
+          <div class="space-y-2">
+            <h4 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-400">map</span>
+              <span>Validasi Sosial via Google Maps Badge</span>
+            </h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Setiap tempat UMKM di Manjalan dilengkapi dengan <strong>badge hijau Google Maps</strong>. Wisatawan dapat langsung mengecek foto asli, rating bintang, dan ulasan wisatawan sebelumnya di Google Maps sebelum memutuskan untuk singgah.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <h4 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-brand-400">image</span>
+              <span>Upload Foto Cover Tempat</span>
+            </h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Pelaku usaha dapat mengunggah foto sampul langsung dari galeri HP atau tautan web, memberikan gambaran nyata fasilitas perahu atau warung apung mereka.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <h4 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-400">chat</span>
+              <span>Kontak WhatsApp Langsung</span>
+            </h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Terhubung langsung ke nomor WhatsApp nahkoda / pemilik homestay tanpa potongan komisi sepihak dari pihak perantara.
+            </p>
+          </div>
+        </div>
+
+        <!-- Visual Mockup Card -->
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="relative h-40 rounded-xl overflow-hidden bg-slate-800">
+            <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Kelotok Safari">
+            <div class="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-slate-950/80 text-[10px] font-bold text-emerald-400 border border-emerald-500/30">
+              Sinyal Edge di Muara
+            </div>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold text-brand-400 uppercase tracking-wider">Perahu Kelotok Safari</span>
+            <h5 class="text-base font-extrabold text-white">Kelotok Wisata Berkah Sekonyer</h5>
+            <p class="text-xs text-slate-400">Dermaga Pelabuhan Panglima Utar, Kumai</p>
+          </div>
+          <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[13px]">map</span>
+              <span>Review Google Maps</span>
+              <span class="material-symbols-outlined text-[11px]">open_in_new</span>
+            </span>
+            <span class="text-xs font-bold text-white font-mono">Rp 2.100.000 / hari</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-500 flex justify-between">
+        <span>Menjamin rasa percaya turis domestik maupun mancanegara terhadap usaha warga lokal.</span>
+        <span>Akses: <strong>/umkm</strong></span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 9: FITUR 5 - PORTAL MITRA & PETUGAS -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Fitur kelima adalah Ekosistem Kemitraan dan Tata Kelola Balai Otoritas. Di portal mitra, siapa pun pelaku usaha lokal dapat mendaftar. Permohonan ini masuk ke portal pengawasan Petugas Balai di URL rahasia. Petugas memverifikasi kelayakan izin dan menekan tombol ACC. Demi privasi, password mitra dibuat otomatis dan hanya muncul satu kali dengan tombol hijau yang langsung membuka WhatsApp untuk mengirimkan rincian akun ke ponsel mitra. Ini menciptakan ekosistem yang tertib, aman, dan terintegrasi dengan balai konservasi resmi.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-purple-400 uppercase">08 • Fitur Unggulan 5</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Ekosistem Kemitraan & Supervisi Balai Otoritas</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+        <!-- Portal Mitra -->
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="flex items-center gap-2 text-brand-400">
+            <span class="material-symbols-outlined text-[24px]">storefront</span>
+            <h4 class="font-bold text-base text-white">Portal Mitra (/mitra)</h4>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span><strong>Model 1-ke-Banyak (1-to-Many):</strong> 1 akun pengelola bisa mengelola banyak kapal kelotok atau cabang warung binaan.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span><strong>Formulir Pengajuan Kemitraan:</strong> Wisatawan / pelaku usaha lokal mendaftar mandiri menyertakan link Google Maps & foto cover.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span><strong>Kemandirian Pengelolaan:</strong> Mitra bebas memperbarui kesiapan QRIS/Tunai, tarif, dan deskripsi armadanya.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Portal Petugas -->
+        <div class="p-6 rounded-2xl bg-slate-900 border border-purple-500/30 space-y-3">
+          <div class="flex items-center gap-2 text-purple-400">
+            <span class="material-symbols-outlined text-[24px]">shield_person</span>
+            <h4 class="font-bold text-base text-white">Portal Pengawas Balai (/login)</h4>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 font-bold">✓</span>
+              <span><strong>Alur Persetujuan (ACC):</strong> Petugas meninjau antrean permohonan kemitraan sebelum resmi tayang ke publik.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 font-bold">✓</span>
+              <span><strong>Sandi Sekali Lihat & WhatsApp Dispatch:</strong> Kata sandi dirahasiakan, hanya muncul sekali saat di-ACC untuk langsung dikirim ke WhatsApp mitra.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 font-bold">✓</span>
+              <span><strong>Strict Read-Only Tempat:</strong> Petugas mengawasi akun mitra, namun dilarang mengubah fasilitas tempat sepihak.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p-3 bg-purple-950/40 rounded-xl text-center text-xs text-purple-300 border border-purple-500/30">
+        Menghubungkan otoritas konservasi negara (BKSDA/Balai TN) dengan pelaku ekonomi lokal secara transparan.
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 10: ARSITEKTUR TEKNOLOGI -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Dari sisi teknis, Manjalan dibangun dengan arsitektur modern berstandar industri. Menggunakan Next.js dan TypeScript, performa aplikasi sangat gesit dengan ukuran halaman pertama di bawah 115 kilobyte. Keunggulan utama kami adalah arsitektur hibrida: ketika online, data disinkronkan ke Supabase PostgreSQL; ketika offline, IndexedDB mengambil alih 100% fungsionalitas aplikasi. Kode kami divalidasi dengan Zod schema dan lolos kompilasi produksi tanpa satu pun error.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-cyan-400 uppercase">09 • Arsitektur Teknologi</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Teknologi Tangguh, Ringan, & Resilient</h3>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-auto">
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2 text-center">
+          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center mx-auto text-cyan-400">
+            <span class="material-symbols-outlined text-[28px]">code_blocks</span>
+          </div>
+          <h5 class="font-bold text-sm text-white">Next.js 14 App Router</h5>
+          <p class="text-[11px] text-slate-400">React 18 & TypeScript dengan SSR + Static Generation untuk kecepatan maksimal.</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2 text-center">
+          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center mx-auto text-emerald-400">
+            <span class="material-symbols-outlined text-[28px]">database</span>
+          </div>
+          <h5 class="font-bold text-sm text-white">W3C IndexedDB Engine</h5>
+          <p class="text-[11px] text-slate-400">Penyimpanan offline lokal di browser via library <code>idb</code>. Kapasitas memori >50MB tanpa internet.</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2 text-center">
+          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center mx-auto text-blue-400">
+            <span class="material-symbols-outlined text-[28px]">cloud_sync</span>
+          </div>
+          <h5 class="font-bold text-sm text-white">Supabase PostgreSQL</h5>
+          <p class="text-[11px] text-slate-400">Cloud database dengan Row-Level Security (RLS) & sinkronisasi otomatis saat kembali online.</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2 text-center">
+          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center mx-auto text-amber-400">
+            <span class="material-symbols-outlined text-[28px]">speed</span>
+          </div>
+          <h5 class="font-bold text-sm text-white">Lightweight (~114 kB)</h5>
+          <p class="text-[11px] text-slate-400">Ukuran first-load sangat ramping, hemat baterai ponsel, dan lolos uji kompilasi produksi 100%.</p>
+        </div>
+      </div>
+
+      <div class="p-3 bg-slate-900 rounded-xl text-xs text-slate-400 border border-slate-800 flex items-center justify-between">
+        <span>Arsitektur Fail-Safe: Jika cloud gagal dijangkau, aplikasi otomatis fallback ke data offline tanpa error.</span>
+        <span class="text-emerald-400 font-mono">Build Status: ✓ 0 Errors</span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 11: MODEL BISNIS & DAMPAK SOSIAL -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Bagaimana Manjalan mempertahankan keberlanjutan bisnis? Model bisnis kami berbasis B2B dan kolaborasi ekosistem. Kami tidak membebankan komisi transaksi kepada pedagang kecil atau nahkoda kelotok—100% uang wisatawan langsung berputar di kantong masyarakat lokal. Pendapatan Manjalan bersumber dari verifikasi kemitraan resmi, analitik data kesiapan pariwisata untuk instansi pemerintah/Balai Konservasi, serta sponsorship dari brand petualangan. Dampaknya: pariwisata lokal tumbuh, konservasi hutan terjaga, dan wisatawan merasa nyaman.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-emerald-400 uppercase">10 • Model Bisnis & Dampak</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Keberlanjutan Finansial & Dampak Ekonomi Nyata</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+        <!-- Revenue Streams -->
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <h4 class="font-bold text-base text-brand-400 flex items-center gap-2">
+            <span class="material-symbols-outlined">payments</span>
+            <span>Aliran Pendapatan (Revenue Streams)</span>
+          </h4>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400">1.</span>
+              <span><strong>Verified Partner Subscription (B2B):</strong> Biaya verifikasi tahunan dan lencana resmi bagi armada kelotok komersial.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400">2.</span>
+              <span><strong>Analytics & Tourism Dashboard:</strong> Kerja sama penyediaan data pergerakan & kepuasan wisatawan dengan Balai Konservasi/Dinas Pariwisata.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400">3.</span>
+              <span><strong>Sponsored Outdoor Packs:</strong> Kemitraan dengan brand perlengkapan petualangan & provider telekomunikasi satelit.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Social & Economic Impact -->
+        <div class="p-6 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 space-y-3">
+          <h4 class="font-bold text-base text-emerald-400 flex items-center gap-2">
+            <span class="material-symbols-outlined">eco</span>
+            <span>Dampak Sosial & Konservasi Lapangan</span>
+          </h4>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span><strong>0% Komisi Transaksi Tunai:</strong> 100% uang belanja makanan dan sewa perahu langsung ke tangan warga lokal (anti-eksploitasi calo).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span><strong>Edukasi Konservasi:</strong> Panduan etika memandang orangutan dan larangan sampah plastik langsung di Travel Pack.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span><strong>Inklusi Finansial:</strong> Mendorong percepatan adopsi QRIS dan digitalisasi merchant tradisional Dayak secara bertahap.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p-3 bg-slate-900 rounded-xl text-center text-xs text-slate-400 border border-slate-800">
+        Menyeimbangkan pertumbuhan ekonomi masyarakat sungai dengan kelestarian alam hutan Kalimantan.
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 12: ANALISIS KOMPETITIF -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Jika dibandingkan dengan platform yang ada: OTA besar hanya melayani hotel dan penerbangan kota, tidak ada kelotok pedalaman. Google Maps sering kehilangan cache saat di sungai dan tidak memberi tahu apakah warung menerima QRIS atau tunai. Media sosial informasinya tercecer dan sering kali sudah usang. Manjalan adalah satu-satunya platform yang memadukan akses offline penuh, kalkulator biaya spesifik ekowisata, transparansi pembayaran, dan perlindungan radio darurat dalam satu genggaman.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-brand-400 uppercase">11 • Keunggulan Kompetitif</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Mengapa MANJALAN Berbeda & Tak Tertandingi?</h3>
+      </div>
+
+      <!-- Comparison Matrix Table -->
+      <div class="overflow-x-auto my-auto">
+        <table class="w-full text-xs text-left border-collapse">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400 font-bold">
+              <th class="p-3">Fitur Kunci / Kebutuhan</th>
+              <th class="p-3 text-center">OTA (Traveloka / Tiket)</th>
+              <th class="p-3 text-center">Google Maps</th>
+              <th class="p-3 text-center">Instagram / TikTok</th>
+              <th class="p-3 text-center text-emerald-400 bg-brand-950/40 rounded-t-xl border-t border-x border-brand-500/30">MANJALAN</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-slate-300">
+            <tr>
+              <td class="p-3 font-medium">Akses Offline di Blankspot Rimba</td>
+              <td class="p-3 text-center text-red-400">❌ Gagal Akses</td>
+              <td class="p-3 text-center text-amber-400">⚠️ Terbatas</td>
+              <td class="p-3 text-center text-red-400">❌ Tidak Bisa</td>
+              <td class="p-3 text-center font-bold text-emerald-400 bg-brand-950/40 border-x border-brand-500/30">✅ 100% Siap (IndexedDB)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium">Smart Budget Kelotok & Simaksi</td>
+              <td class="p-3 text-center text-red-400">❌ Tidak Ada</td>
+              <td class="p-3 text-center text-red-400">❌ Tidak Ada</td>
+              <td class="p-3 text-center text-red-400">❌ Tidak Ada</td>
+              <td class="p-3 text-center font-bold text-emerald-400 bg-brand-950/40 border-x border-brand-500/30">✅ Otomatis & Akurat</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium">Peta Kesiapan QRIS vs Tunai</td>
+              <td class="p-3 text-center text-red-400">❌ Tidak Ada</td>
+              <td class="p-3 text-center text-red-400">❌ Tidak Ada</td>
+              <td class="p-3 text-center text-red-400">❌ Tidak Ada</td>
+              <td class="p-3 text-center font-bold text-emerald-400 bg-brand-950/40 border-x border-brand-500/30">✅ Terverifikasi Riil</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium">Badge Review Google Maps & Foto</td>
+              <td class="p-3 text-center text-red-400">❌ Tertutup</td>
+              <td class="p-3 text-center text-emerald-400">✅ Ada</td>
+              <td class="p-3 text-center text-amber-400">⚠️ Tercecer</td>
+              <td class="p-3 text-center font-bold text-emerald-400 bg-brand-950/40 border-x border-brand-500/30">✅ Terintegrasi Langsung</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium">Lembar Darurat Radio VHF Saluran 16</td>
+              <td class="p-3 text-center text-red-400">❌ Tidak Ada</td>
+              <td class="p-3 text-center text-red-400">❌ Tidak Ada</td>
+              <td class="p-3 text-center text-red-400">❌ Tidak Ada</td>
+              <td class="p-3 text-center font-bold text-emerald-400 bg-brand-950/40 border-b border-x border-brand-500/30">✅ Tersedia Offline</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-xs text-slate-500 flex justify-between">
+        <span>Fokus hiper-lokal pada karakteristik destinasi sungai dan konservasi.</span>
+        <span class="text-emerald-400 font-bold">Unik & Sulit Ditiru Kompetitor Kota</span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 13: LIVE DEMO PRODUK (TRANSISI) -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 via-brand-950 to-slate-950 rounded-3xl border-2 border-emerald-500/50 shadow-2xl p-8 sm:p-12 flex-col justify-between relative overflow-hidden"
+         data-notes="Bapak dan Ibu Dewan Juri, daripada hanya melihat gambar di slide, sekarang kami mengajak Anda menyaksikan langsung performa MANJALAN di peramban web kami. Kami akan mendemonstrasikan bagaimana aplikasi ini bekerja secara nyata—mulai dari menghitung budget, mengunduh Travel Pack, menyimulasikan hilangnya internet, hingga proses persetujuan mitra baru oleh Petugas Balai. Mari kita beralih ke layar demo web!">
+      
+      <div class="flex items-center justify-between">
+        <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-xs font-black tracking-wider uppercase animate-pulse">
+          LIVE DEMONSTRATION
+        </span>
+        <span class="text-xs text-slate-400">Sesi Uji Coba Langsung di Browser Web</span>
+      </div>
+
+      <div class="my-auto text-center space-y-6 max-w-3xl mx-auto">
+        <div class="w-20 h-20 rounded-3xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto shadow-xl">
+          <span class="material-symbols-outlined text-[44px]">devices</span>
+        </div>
+
+        <div>
+          <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            LIVE DEMO PRODUK
+          </h2>
+          <p class="text-emerald-400 font-bold text-sm sm:text-base mt-2">
+            Pengujian Aplikasi Nyata di Web Browser (Bukan Mockup Gambar)
+          </p>
+        </div>
+
+        <!-- 5 Skenario Demo Checklist untuk Presenter -->
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5 text-left pt-2">
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] text-slate-300">
+            <span class="font-bold text-emerald-400 block mb-1">1. Beranda & Unduh</span>
+            Unduh Travel Pack TN Tanjung Puting ke IndexedDB.
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] text-slate-300">
+            <span class="font-bold text-emerald-400 block mb-1">2. Tes Mode Offline</span>
+            Buka lembar darurat tanpa koneksi internet.
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] text-slate-300">
+            <span class="font-bold text-emerald-400 block mb-1">3. Budget Planner</span>
+            Hitung biaya rombongan 4 orang 3D2N secara instan.
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] text-slate-300">
+            <span class="font-bold text-emerald-400 block mb-1">4. UMKM & Maps</span>
+            Klik badge review Google Maps & chat WhatsApp.
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] text-slate-300">
+            <span class="font-bold text-emerald-400 block mb-1">5. Mitra & ACC</span>
+            Pengajuan mitra baru & ACC petugas di <code>/login</code>.
+          </div>
+        </div>
+
+        <!-- Action Button to Open Web in New Tab -->
+        <div class="pt-4 flex items-center justify-center gap-3">
+          <a href="/" target="_blank" class="h-12 px-8 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm flex items-center gap-2 shadow-lg hover:shadow-emerald-500/20 active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[20px]">open_in_new</span>
+            <span>Buka Web MANJALAN di Tab Baru</span>
+          </a>
+          <a href="/budget" target="_blank" class="h-12 px-5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center gap-1.5 border border-slate-700 transition-all">
+            <span>Kalkulator Budget</span>
+          </a>
+          <a href="/umkm" target="_blank" class="h-12 px-5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center gap-1.5 border border-slate-700 transition-all">
+            <span>Direktori UMKM</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-400 text-center">
+        *Presenter dapat langsung beralih ke tab browser Manjalan untuk demo interaktif.
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 14: ROADMAP PENGEMBANGAN -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between"
+         data-notes="Rencana ke depan kami sangat terukur. Saat ini prototipe kami telah tervalidasi penuh dan siap pakai di Tanjung Puting dan Sebangau. Pada tahun 2027, kami akan memperluas cakupan ke seluruh kawasan ekowisata Kalimantan Tengah. Dan di masa depan, arsitektur offline-first Manjalan dapat direplikasi ke seluruh destinasi pedalaman Indonesia—seperti Raja Ampat, Labuan Bajo pedalaman, dan Kepulauan Derawan yang menghadapi tantangan blankspot serupa.">
+      
+      <div>
+        <span class="text-xs font-extrabold tracking-wider text-brand-400 uppercase">12 • Visi & Roadmap</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">Roadmap Pengembangan & Skalabilitas Nasional</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+        <!-- Fase 1 -->
+        <div class="p-6 rounded-2xl bg-slate-900 border border-brand-500/40 space-y-3 relative">
+          <div class="px-2.5 py-0.5 rounded-full bg-brand-500/20 text-brand-400 text-[10px] font-bold inline-block">
+            FASE 1 (Q4 2026) • SEKARANG
+          </div>
+          <h4 class="font-extrabold text-base text-white">Validasi Inti Kotawaringin Barat</h4>
+          <ul class="space-y-1.5 text-xs text-slate-400">
+            <li>• Peluncuran MVP di TN Tanjung Puting & Sebangau.</li>
+            <li>• Onboarding 50+ nahkoda kelotok & warung lokal.</li>
+            <li>• Validasi IndexedDB offline pack di Sungai Sekonyer.</li>
+          </ul>
+        </div>
+
+        <!-- Fase 2 -->
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400 text-[10px] font-bold inline-block">
+            FASE 2 (2027)
+          </div>
+          <h4 class="font-extrabold text-base text-white">Ekspansi Seluruh Kalteng</h4>
+          <ul class="space-y-1.5 text-xs text-slate-400">
+            <li>• Perluasan ke Katingan, Gunung Mas, & Murung Raya.</li>
+            <li>• Integrasi data pasang surut air sungai real-time.</li>
+            <li>• Kolaborasi resmi Dinas Pariwisata Kalteng.</li>
+          </ul>
+        </div>
+
+        <!-- Fase 3 -->
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400 text-[10px] font-bold inline-block">
+            FASE 3 (2027 - 2028)
+          </div>
+          <h4 class="font-extrabold text-base text-white">Replikasi Ekowisata Nasional (3T)</h4>
+          <ul class="space-y-1.5 text-xs text-slate-400">
+            <li>• Replikasi ke Raja Ampat, Derawan, & Komodo.</li>
+            <li>• Pemasangan Offline Kiosk Docking di dermaga utama.</li>
+            <li>• Ekosistem Smart Conservation Pass nasional.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p-3 bg-slate-900 rounded-xl text-center text-xs text-slate-400 border border-slate-800">
+        Membawa model inovasi teknologi ramah blankspot dari Kalimantan Tengah untuk Indonesia.
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 15: PENUTUP & Q&A -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-[76vh] bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 rounded-3xl border border-slate-800/80 shadow-2xl p-8 sm:p-12 flex-col justify-between text-center relative overflow-hidden"
+         data-notes="Sebagai penutup: MANJALAN bukan sekadar aplikasi teknologi, melainkan jembatan kebaikan yang memastikan petualang merasa aman, alam konservasi tetap terjaga, dan roda ekonomi masyarakat Dayak serta warga pesisir sungai berputar berdaya. Bersama Manjalan, kita wujudkan pariwisata Kalimantan Tengah yang lebih siap, lebih hemat, dan lebih bermakna. Terima kasih atas perhatian Dewan Juri, dan kami menyambut hangat sesi tanya jawab.">
+      
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-xs font-bold text-slate-300 mx-auto">
+        <span>MANJALAN EXPEDITION</span>
+      </div>
+
+      <div class="my-auto space-y-5 max-w-2xl mx-auto">
+        <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight">
+          "Menjelajah Tanpa Ragu, <br/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-brand-400">Berdayakan Wisata Maju."</span>
+        </h2>
+
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          Ekowisata bukan sekadar tentang seberapa jauh kita melangkah, melainkan seberapa siap kita menghargai kearifan lokal dan menjaga kelestarian alam rimba.
+        </p>
+
+        <div class="pt-4 flex flex-wrap justify-center items-center gap-4 text-xs font-mono">
+          <span class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">🌐 manjalan.vercel.app</span>
+          <span class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">✉️ halo@manjalan.id</span>
+          <span class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400">💬 WhatsApp: +62 812-3456-7890</span>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-800 pt-4 flex items-center justify-between text-xs text-slate-500">
+        <span>Terima Kasih Banyak Dewan Juri & Hadirin</span>
+        <span class="font-extrabold text-white text-sm">SESI TANYA JAWAB (Q&A)</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- BOTTOM BAR: Navigation Controls & Speaker Notes Drawer -->
+  <footer class="w-full bg-slate-900/90 backdrop-blur-md border-t border-slate-800 px-6 py-3 flex items-center justify-between z-40">
+    <div class="flex items-center gap-2 text-xs text-slate-400">
+      <span class="hidden sm:inline">Navigasi:</span>
+      <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-[11px] font-mono">&larr;</kbd>
+      <kbd class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-[11px] font-mono">&rarr;</kbd>
+      <span class="hidden md:inline text-slate-500">atau klik tombol di kanan</span>
+    </div>
+
+    <!-- Slide Jump Dots -->
+    <div id="slideDots" class="hidden md:flex items-center gap-1.5">
+      <!-- Generated by JavaScript -->
+    </div>
+
+    <!-- Prev & Next Action Buttons -->
+    <div class="flex items-center gap-2">
+      <button id="prevBtn" class="h-10 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-white font-bold text-xs flex items-center gap-1.5 border border-slate-700 transition-all disabled:opacity-40">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+        <span class="hidden sm:inline">Sebelumnya</span>
+      </button>
+
+      <button id="nextBtn" class="h-10 px-5 rounded-xl bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-bold text-xs flex items-center gap-1.5 shadow-md hover:shadow-brand-500/20 transition-all">
+        <span class="hidden sm:inline">Selanjutnya</span>
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- SPEAKER NOTES DRAWER (Collapsible) -->
+  <div id="notesDrawer" class="hidden fixed bottom-16 left-1/2 -translate-x-1/2 w-[92%] max-w-4xl bg-slate-900/95 backdrop-blur-xl border border-brand-500/40 rounded-3xl p-5 shadow-2xl z-50 animate-fade-in">
+    <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-800">
+      <div class="flex items-center gap-2 text-brand-400 text-xs font-bold uppercase tracking-wider">
+        <span class="material-symbols-outlined text-[18px]">record_voice_over</span>
+        <span>Naskah Presenter (Speaker Script) — Slide <span id="notesSlideNum">1</span></span>
+      </div>
+      <button id="closeNotesBtn" class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <span class="material-symbols-outlined text-[16px]">close</span>
+      </button>
+    </div>
+    <p id="notesContent" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans max-h-48 overflow-y-auto pr-2">
+      <!-- Injected by JavaScript -->
+    </p>
+  </div>
+
+  <!-- SCRIPT FOR PRESENTATION INTERACTIVITY -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    const currentSlideNum = document.getElementById('currentSlideNum');
+    const totalSlidesNum = document.getElementById('totalSlidesNum');
+    const progressBar = document.getElementById('progressBar');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideDots = document.getElementById('slideDots');
+
+    const toggleNotesBtn = document.getElementById('toggleNotesBtn');
+    const closeNotesBtn = document.getElementById('closeNotesBtn');
+    const notesDrawer = document.getElementById('notesDrawer');
+    const notesContent = document.getElementById('notesContent');
+    const notesSlideNum = document.getElementById('notesSlideNum');
+
+    const toggleFullscreenBtn = document.getElementById('toggleFullscreenBtn');
+
+    totalSlidesNum.textContent = totalSlides;
+
+    // Build Slide Dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.className = `w-2 h-2 rounded-full transition-all ${i === 0 ? 'bg-brand-400 w-6' : 'bg-slate-700 hover:bg-slate-500'}`;
+      dot.title = `Lompat ke Slide ${i + 1}`;
+      dot.addEventListener('click', () => goToSlide(i));
+      slideDots.appendChild(dot);
+    }
+
+    function updateSlide() {
+      slides.forEach((s, idx) => {
+        if (idx === currentSlide) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+
+      // Update counters
+      currentSlideNum.textContent = currentSlide + 1;
+      notesSlideNum.textContent = currentSlide + 1;
+      progressBar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+
+      // Update button states
+      prevBtn.disabled = currentSlide === 0;
+      if (currentSlide === totalSlides - 1) {
+        nextBtn.innerHTML = `<span>Selesai</span><span class="material-symbols-outlined text-[18px]">check</span>`;
+      } else {
+        nextBtn.innerHTML = `<span class="hidden sm:inline">Selanjutnya</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>`;
+      }
+
+      // Update Dots
+      const dots = slideDots.children;
+      for (let i = 0; i < dots.length; i++) {
+        if (i === currentSlide) {
+          dots[i].className = 'w-6 h-2 rounded-full bg-brand-400 transition-all';
+        } else {
+          dots[i].className = 'w-2 h-2 rounded-full bg-slate-700 hover:bg-slate-500 transition-all';
+        }
+      }
+
+      // Update Speaker Notes
+      const notes = slides[currentSlide].getAttribute('data-notes') || 'Tidak ada naskah untuk slide ini.';
+      notesContent.textContent = notes;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < totalSlides) {
+        currentSlide = index;
+        updateSlide();
+      }
+    }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key.toLowerCase() === 'n') {
+        notesDrawer.classList.toggle('hidden');
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      } else if (e.key === 'Escape') {
+        notesDrawer.classList.add('hidden');
+      }
+    });
+
+    // Notes Toggle
+    toggleNotesBtn.addEventListener('click', () => {
+      notesDrawer.classList.toggle('hidden');
+    });
+
+    closeNotesBtn.addEventListener('click', () => {
+      notesDrawer.classList.add('hidden');
+    });
+
+    // Fullscreen
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    toggleFullscreenBtn.addEventListener('click', toggleFullscreen);
+
+    // Initial setup
+    updateSlide();
+  </script>
+</body>
+</html>
