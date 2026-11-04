@@ -445,13 +445,13 @@ Rencanakan Saat Online, Tetap Siap Saat Offline!`;
                 <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 bg-surface-container ring-2 ring-primary/20">
                   <img
                     className="w-full h-full object-cover"
-                    alt="Pak Darman"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGLrfBSImG7R_7cpSXyj3XPevtdaKzdche3TrfK_Dvx7xIpNZfLT17ZUQL4L4eBtVChWq9omkUrJIuUzptKgt30oG1DYPtnus7vM57PL-86mjpp4vpxEUxjoUThUmf0NcBVCaqfeG5Rg2PT894BBS2HoCnBrCSwmdAzFLzgdL-FBvpC6sx9Zg1tgekct5eTogNf_eK86ww0zZpEqHADCpEQmbo7psjV0IYCFTLHL-7"
+                    alt="Pak Joko"
+                    src="/images/umkm/kelotok-berkah-sungai.jpg"
                   />
                 </div>
                 <div className="flex flex-col min-w-0">
                   <span className="text-xs font-bold text-on-surface">
-                    Saran Pak Darman (Nahkoda Sekonyer)
+                    Saran Pak Joko (Nahkoda Kelotok Sekonyer)
                   </span>
                   <span className="text-xs text-on-surface-variant mt-0.5 leading-snug">
                     &quot;Bawa lembaran 20 ribu &amp; 50 ribu pas, warung apung jarang sedia kembalian.&quot;

@@ -32,6 +32,11 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# raw media archives
+*.zip
+wisata kalteg/
+extracted_wisata/
+
 # vercel
 .vercel
 

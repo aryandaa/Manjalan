@@ -1332,7 +1332,7 @@ export default function PetugasLoginPage() {
                   type="text"
                   value={newAccName}
                   onChange={(e) => setNewAccName(e.target.value)}
-                  placeholder="Contoh: Pak Darman"
+                  placeholder="Contoh: Pak Joko"
                   required
                   className="w-full h-11 px-3.5 rounded-xl bg-surface-container-low text-on-surface border border-outline-variant/50 outline-none focus:border-primary"
                 />

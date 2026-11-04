@@ -683,7 +683,7 @@ export default function MitraPortalPage() {
                         type="text"
                         value={regApplicant}
                         onChange={(e) => setRegApplicant(e.target.value)}
-                        placeholder="Contoh: Pak Darman"
+                        placeholder="Contoh: Pak Joko"
                         required
                         className="w-full h-11 px-3.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-outline-variant/50 outline-none focus:border-primary"
                       />

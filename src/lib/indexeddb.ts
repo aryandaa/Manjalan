@@ -6,7 +6,7 @@ import { INITIAL_DESTINATIONS, INITIAL_UMKM } from '@/data/initialData';
 import { INITIAL_MANAGED_PLACES, INITIAL_PARTNER_REQUESTS } from '@/data/partnerData';
 
 const DB_NAME = 'manjalan_offline_db';
-const DB_VERSION = 3;
+const DB_VERSION = 4;
 
 let dbPromise: Promise<IDBPDatabase> | null = null;
 
@@ -77,61 +77,60 @@ export async function seedInitialDataIfNeeded(): Promise<void> {
   const db = await getDB();
   if (!db) return;
 
-  // Always sync latest destinations and UMKM to ensure local DB matches official data
+  // Clear and re-populate destinations and UMKM to remove deprecated mock data (e.g. Pak Darman)
   const tx = db.transaction(['destinations', 'umkm'], 'readwrite');
+  await tx.objectStore('destinations').clear();
   for (const d of INITIAL_DESTINATIONS) {
     await tx.objectStore('destinations').put(d);
   }
+  await tx.objectStore('umkm').clear();
   for (const u of INITIAL_UMKM) {
     await tx.objectStore('umkm').put(u);
   }
   await tx.done;
 
-  // Pre-populate with Tanjung Puting & Sebangau travel pack if travel_packs is empty
-  const packCount = await db.count('travel_packs');
-  if (packCount === 0) {
-    const packTx = db.transaction(['travel_packs'], 'readwrite');
-    const tanjungPuting = INITIAL_DESTINATIONS[0];
-    const tpUmkm = INITIAL_UMKM.filter(u => u.destinationId === 'tanjung-puting');
-    await packTx.objectStore('travel_packs').put({
-      id: 'pack-tanjung-puting',
-      destinationId: 'tanjung-puting',
-      destinationName: tanjungPuting.name,
-      location: tanjungPuting.location,
-      sizeMb: tanjungPuting.packSize,
-      downloadedAt: 'Tersimpan Hari Ini',
-      itemCount: {
-        routes: 4,
-        umkm: tpUmkm.length,
-        emergency: tanjungPuting.emergencyContacts.length,
-      },
-      data: {
-        destination: tanjungPuting,
-        umkmList: tpUmkm,
-      },
-    });
+  // Sync official travel packs to eliminate any cached obsolete records
+  const packTx = db.transaction(['travel_packs'], 'readwrite');
+  const tanjungPuting = INITIAL_DESTINATIONS[0];
+  const tpUmkm = INITIAL_UMKM.filter(u => u.destinationId === 'tanjung-puting');
+  await packTx.objectStore('travel_packs').put({
+    id: 'pack-tanjung-puting',
+    destinationId: 'tanjung-puting',
+    destinationName: tanjungPuting.name,
+    location: tanjungPuting.location,
+    sizeMb: tanjungPuting.packSize,
+    downloadedAt: 'Tersimpan Hari Ini',
+    itemCount: {
+      routes: 4,
+      umkm: tpUmkm.length,
+      emergency: tanjungPuting.emergencyContacts.length,
+    },
+    data: {
+      destination: tanjungPuting,
+      umkmList: tpUmkm,
+    },
+  });
 
-    const sebangau = INITIAL_DESTINATIONS[1];
-    const sebangauUmkm = INITIAL_UMKM.filter(u => u.destinationId === 'taman-nasional-sebangau');
-    await packTx.objectStore('travel_packs').put({
-      id: 'pack-sebangau',
-      destinationId: 'taman-nasional-sebangau',
-      destinationName: sebangau.name,
-      location: sebangau.location,
-      sizeMb: sebangau.packSize,
-      downloadedAt: 'Tersimpan Kemarin',
-      itemCount: {
-        routes: 2,
-        umkm: sebangauUmkm.length,
-        emergency: sebangau.emergencyContacts.length,
-      },
-      data: {
-        destination: sebangau,
-        umkmList: sebangauUmkm,
-      },
-    });
-    await packTx.done;
-  }
+  const sebangau = INITIAL_DESTINATIONS[1];
+  const sebangauUmkm = INITIAL_UMKM.filter(u => u.destinationId === 'taman-nasional-sebangau');
+  await packTx.objectStore('travel_packs').put({
+    id: 'pack-sebangau',
+    destinationId: 'taman-nasional-sebangau',
+    destinationName: sebangau.name,
+    location: sebangau.location,
+    sizeMb: sebangau.packSize,
+    downloadedAt: 'Tersimpan Kemarin',
+    itemCount: {
+      routes: 2,
+      umkm: sebangauUmkm.length,
+      emergency: sebangau.emergencyContacts.length,
+    },
+    data: {
+      destination: sebangau,
+      umkmList: sebangauUmkm,
+    },
+  });
+  await packTx.done;
 
   // Seed Managed Places if empty
   const placesCount = await db.count('managed_places');
