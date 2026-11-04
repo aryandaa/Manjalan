@@ -14,7 +14,6 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [downloadedDestIds, setDownloadedDestIds] = useState<string[]>([]);
   const [isOnline, setIsOnline] = useState(true);
-  const [previewVideo, setPreviewVideo] = useState<{ title: string; url: string } | null>(null);
 
   useEffect(() => {
     async function loadData() {
@@ -208,36 +207,15 @@ export default function HomePage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
 
-                    {/* Top Badges: Video Preview & Offline Status */}
-                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
-                      {dest.videoUrl ? (
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setPreviewVideo({ title: dest.name, url: dest.videoUrl! });
-                          }}
-                          className="bg-black/65 hover:bg-rose-600 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-md flex items-center gap-1.5 transition-all group/vid active:scale-95"
-                          title="Tonton Preview Video"
-                        >
-                          <span className="material-symbols-outlined text-[16px] text-rose-500 group-hover/vid:text-white transition-colors">
-                            play_circle
-                          </span>
-                          <span>Preview Video</span>
-                        </button>
-                      ) : <div />}
-
-                      {/* Show badge ONLY if actually downloaded */}
-                      {downloadedDestIds.includes(dest.id) && (
-                        <div className="bg-emerald-600/90 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-sm flex items-center gap-1">
-                          <span className="material-symbols-outlined text-[14px]">
-                            offline_pin
-                          </span>
-                          <span>Tersimpan</span>
-                        </div>
-                      )}
-                    </div>
+                    {/* Show badge ONLY if actually downloaded */}
+                    {downloadedDestIds.includes(dest.id) && (
+                      <div className="absolute top-3.5 right-3.5 bg-emerald-600/90 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-sm flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px]">
+                          offline_pin
+                        </span>
+                        <span>Tersimpan</span>
+                      </div>
+                    )}
 
                     {/* Category & Title */}
                     <div className="absolute bottom-3.5 left-4 right-4 text-white">
@@ -286,31 +264,14 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    {/* Action Buttons: Preview Video & Lihat Panduan */}
-                    <div className="flex items-center gap-2 pt-1">
-                      {dest.videoUrl && (
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setPreviewVideo({ title: dest.name, url: dest.videoUrl! });
-                          }}
-                          className="h-11 px-3.5 rounded-2xl bg-surface-container-high hover:bg-rose-50 text-rose-600 hover:text-rose-700 border border-outline-variant/40 hover:border-rose-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs active:scale-95 shrink-0"
-                          title="Tonton Preview Video"
-                        >
-                          <span className="material-symbols-outlined text-[18px]">play_circle</span>
-                          <span className="hidden sm:inline">Video</span>
-                        </button>
-                      )}
-                      <Link
-                        href={`/destinasi/${dest.id}`}
-                        className="flex-1 h-11 rounded-2xl bg-primary text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-all hover:bg-primary/90"
-                      >
-                        <span>Lihat Panduan Jalur</span>
-                        <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-                      </Link>
-                    </div>
+                    {/* Full Width Primary CTA Button */}
+                    <Link
+                      href={`/destinasi/${dest.id}`}
+                      className="w-full h-11 rounded-2xl bg-primary text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-all hover:bg-primary/90"
+                    >
+                      <span>Lihat Panduan Jalur</span>
+                      <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -399,90 +360,6 @@ export default function HomePage() {
 
         </div>
       </main>
-
-      {/* Video Preview Modal */}
-      {previewVideo && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
-          onClick={() => setPreviewVideo(null)}
-        >
-          <div
-            className="relative w-full max-w-3xl bg-surface-container-lowest rounded-3xl overflow-hidden shadow-2xl border border-outline-variant/30 flex flex-col"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header */}
-            <div className="p-4 sm:p-5 flex items-center justify-between border-b border-outline-variant/20 bg-surface-container-low">
-              <div className="flex items-center gap-2.5 min-w-0 pr-3">
-                <div className="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-600 flex items-center justify-center shrink-0">
-                  <span className="material-symbols-outlined text-[20px]">smart_display</span>
-                </div>
-                <div className="min-w-0">
-                  <h3 className="font-bold text-sm sm:text-base text-on-surface truncate">
-                    {previewVideo.title}
-                  </h3>
-                  <p className="text-[11px] text-on-surface-variant">Dokumentasi Video Lapangan</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                {previewVideo.url.startsWith('http') && (
-                  <a
-                    href={previewVideo.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-surface-container-high text-on-surface text-xs font-bold hover:bg-surface-variant transition-colors"
-                  >
-                    <span>Buka YouTube</span>
-                    <span className="material-symbols-outlined text-[14px]">open_in_new</span>
-                  </a>
-                )}
-                <button
-                  type="button"
-                  onClick={() => setPreviewVideo(null)}
-                  className="w-8 h-8 rounded-full bg-surface-container-high hover:bg-surface-variant flex items-center justify-center text-on-surface transition-colors"
-                  aria-label="Tutup preview video"
-                >
-                  <span className="material-symbols-outlined text-[20px]">close</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Video Player Content */}
-            <div className="relative w-full aspect-video bg-black flex items-center justify-center">
-              {previewVideo.url.endsWith('.webm') || previewVideo.url.endsWith('.mp4') ? (
-                <video
-                  controls
-                  autoPlay
-                  className="w-full h-full object-contain"
-                  src={previewVideo.url}
-                >
-                  Browser Anda tidak mendukung pemutar video HTML5.
-                </video>
-              ) : (
-                <iframe
-                  src={previewVideo.url.replace('watch?v=', 'embed/') + '?autoplay=1'}
-                  title={previewVideo.title}
-                  className="w-full h-full border-0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              )}
-            </div>
-
-            {/* Modal Footer */}
-            <div className="p-3.5 sm:p-4 bg-surface-container-low border-t border-outline-variant/20 flex items-center justify-between text-xs text-on-surface-variant">
-              <span className="truncate">Dokumentasi media resmi dari arsip wisata Kalimantan Tengah.</span>
-              <button
-                type="button"
-                onClick={() => setPreviewVideo(null)}
-                className="px-4 py-1.5 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-colors shrink-0 ml-2"
-              >
-                Tutup
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       <OnboardingModal />
       <BottomNav />
