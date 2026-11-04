@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import confetti from 'canvas-confetti';
@@ -26,6 +26,54 @@ export default function DestinationDetailPage() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Build slides: Gambar -> (scroll) -> Video YT
+  const slides: Array<{ type: 'image' | 'video'; url: string; label: string }> = [];
+  if (destination) {
+    if (destination.gallery && destination.gallery.length > 0) {
+      destination.gallery.forEach((img, idx) => {
+        slides.push({
+          type: 'image',
+          url: img,
+          label: idx === 0 ? 'Foto Utama' : `Foto ${idx + 1}`,
+        });
+      });
+    } else if (destination.image) {
+      slides.push({
+        type: 'image',
+        url: destination.image,
+        label: 'Foto Utama',
+      });
+    }
+
+    if (destination.videoUrl) {
+      slides.push({
+        type: 'video',
+        url: destination.videoUrl,
+        label: destination.videoUrl.endsWith('.webm') ? 'Video Sebangau' : 'Video YouTube',
+      });
+    }
+  }
+
+  const handleCarouselScroll = () => {
+    if (!carouselRef.current) return;
+    const { scrollLeft, clientWidth } = carouselRef.current;
+    if (clientWidth > 0) {
+      const idx = Math.round(scrollLeft / clientWidth);
+      setActiveSlide(idx);
+    }
+  };
+
+  const goToSlide = (idx: number) => {
+    if (!carouselRef.current) return;
+    carouselRef.current.scrollTo({
+      left: idx * carouselRef.current.clientWidth,
+      behavior: 'smooth',
+    });
+    setActiveSlide(idx);
+  };
 
   useEffect(() => {
     async function loadData() {
@@ -137,61 +185,197 @@ export default function DestinationDetailPage() {
 
       <main className="flex-1 pt-20 pb-28 md:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-6 md:gap-8">
-          {/* Hero Section (Responsive height & border radius) */}
-          <div className="relative w-full h-80 sm:h-96 lg:h-[440px] rounded-2xl sm:rounded-3xl overflow-hidden bg-surface-container shadow-md">
-            <img
-              src={destination.image}
-              alt={destination.name}
-              className="w-full h-full object-cover transform scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent"></div>
+          {/* Hero Media Carousel: Gambar -> (scroll) -> Video YT */}
+          <div className="relative w-full h-80 sm:h-96 lg:h-[480px] rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-950 shadow-md group">
+            {/* Carousel Scroll Container */}
+            <div
+              ref={carouselRef}
+              onScroll={handleCarouselScroll}
+              className="w-full h-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
+            >
+              {slides.map((slide, sIdx) => (
+                <div
+                  key={sIdx}
+                  className="w-full h-full flex-shrink-0 snap-center relative overflow-hidden bg-black"
+                >
+                  {slide.type === 'image' ? (
+                    <div className="w-full h-full relative">
+                      <img
+                        src={slide.url}
+                        alt={`${destination.name} - ${slide.label}`}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/30 pointer-events-none" />
+                    </div>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-black relative">
+                      {slide.url.endsWith('.webm') || slide.url.endsWith('.mp4') ? (
+                        <video
+                          controls
+                          className="w-full h-full object-contain bg-black"
+                          src={slide.url}
+                        >
+                          Browser Anda tidak mendukung pemutar video HTML5.
+                        </video>
+                      ) : (
+                        <iframe
+                          src={slide.url.replace('watch?v=', 'embed/')}
+                          title={`Video Dokumentasi ${destination.name}`}
+                          className="w-full h-full border-0 bg-black"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
 
-            {/* Only show badge if actually downloaded */}
-            {isDownloaded && (
-              <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-surface-container-lowest/90 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md text-xs font-bold text-emerald-800 border border-emerald-200">
-                <span className="material-symbols-outlined text-[15px] text-emerald-600">offline_pin</span>
-                <span>Tersimpan Offline</span>
+            {/* Floating Top Controls: Navigation Pills & External YouTube Button */}
+            <div className="absolute top-3.5 left-3.5 right-3.5 z-20 flex items-center justify-between gap-2 pointer-events-none">
+              {/* Slide Selection Pills */}
+              <div className="flex items-center gap-1.5 p-1 rounded-full bg-black/65 backdrop-blur-md border border-white/10 shadow-md pointer-events-auto overflow-x-auto no-scrollbar max-w-[70%]">
+                {slides.map((slide, sIdx) => (
+                  <button
+                    key={sIdx}
+                    type="button"
+                    onClick={() => goToSlide(sIdx)}
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${
+                      activeSlide === sIdx
+                        ? slide.type === 'video'
+                          ? 'bg-rose-600 text-white shadow-sm'
+                          : 'bg-white text-slate-900 shadow-sm'
+                        : 'text-white/80 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[15px]">
+                      {slide.type === 'video' ? 'play_circle' : 'photo_camera'}
+                    </span>
+                    <span>{slide.label}</span>
+                  </button>
+                ))}
               </div>
-            )}
 
-            <div className="absolute bottom-5 left-5 right-5 sm:bottom-8 sm:left-8 sm:right-8 flex flex-col gap-2 text-white">
-              <div className="flex flex-wrap items-center gap-2 mb-1">
-                <span className="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold shadow-sm">
-                  {destination.categories[0]}
-                </span>
-                {destination.categories[1] && (
-                  <span className="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-bold shadow-sm">
-                    {destination.categories[1]}
-                  </span>
-                )}
-                {destination.gmapsUrl && (
+              {/* Top Right: Status / External Link */}
+              <div className="flex items-center gap-2 pointer-events-auto">
+                {slides[activeSlide]?.type === 'video' && slides[activeSlide].url.startsWith('http') && (
                   <a
-                    href={destination.gmapsUrl}
+                    href={slides[activeSlide].url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1 rounded-full bg-emerald-700/80 hover:bg-emerald-600 text-white text-xs font-bold flex items-center gap-1 shadow-sm transition-colors"
+                    className="px-3 py-1 rounded-full bg-red-600/90 hover:bg-red-700 text-white text-xs font-bold flex items-center gap-1 shadow-md transition-all active:scale-95"
                   >
-                    <span className="material-symbols-outlined text-[15px]">map</span>
-                    <span>Google Maps</span>
-                    <span className="material-symbols-outlined text-[13px]">open_in_new</span>
+                    <span className="material-symbols-outlined text-[15px]">open_in_new</span>
+                    <span className="hidden sm:inline">Buka YouTube</span>
                   </a>
                 )}
                 {isDownloaded && (
-                  <span className="px-3 py-1 rounded-full bg-white text-secondary text-xs font-bold flex items-center gap-1 shadow-sm">
-                    <span className="material-symbols-outlined text-[15px]">verified</span>
-                    Tersimpan Offline
-                  </span>
+                  <div className="flex items-center gap-1.5 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1 rounded-full shadow-md text-xs font-bold text-emerald-800 border border-emerald-200">
+                    <span className="material-symbols-outlined text-[15px] text-emerald-600">offline_pin</span>
+                    <span className="hidden sm:inline">Tersimpan Offline</span>
+                  </div>
                 )}
               </div>
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight drop-shadow-md">
-                {destination.name}
-              </h1>
-              <p className="text-xs sm:text-sm text-slate-200 flex items-center gap-1.5 drop-shadow-sm">
-                <span className="material-symbols-outlined text-[18px] text-amber-400">
-                  location_on
+            </div>
+
+            {/* Left & Right Chevron Arrows */}
+            {slides.length > 1 && (
+              <>
+                {activeSlide > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => goToSlide(activeSlide - 1)}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-black/90 text-white backdrop-blur-md flex items-center justify-center shadow-lg transition-all active:scale-90"
+                    aria-label="Slide sebelumnya"
+                  >
+                    <span className="material-symbols-outlined text-[20px] sm:text-[24px]">chevron_left</span>
+                  </button>
+                )}
+
+                {activeSlide < slides.length - 1 && (
+                  <button
+                    type="button"
+                    onClick={() => goToSlide(activeSlide + 1)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-black/90 text-white backdrop-blur-md flex items-center justify-center shadow-lg transition-all active:scale-90"
+                    aria-label="Slide berikutnya (Video YT)"
+                  >
+                    <span className="material-symbols-outlined text-[20px] sm:text-[24px]">chevron_right</span>
+                  </button>
+                )}
+              </>
+            )}
+
+            {/* Bottom Hint on Image Slide: Geser ke Video */}
+            {slides[activeSlide]?.type === 'image' && slides.some((s) => s.type === 'video') && (
+              <button
+                type="button"
+                onClick={() => goToSlide(slides.findIndex((s) => s.type === 'video'))}
+                className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20 px-3.5 py-1.5 rounded-full bg-black/75 hover:bg-rose-600 text-white backdrop-blur-md text-xs font-bold shadow-md flex items-center gap-1.5 transition-all group/hint active:scale-95"
+              >
+                <span className="material-symbols-outlined text-[16px] text-rose-500 group-hover/hint:text-white transition-colors">
+                  play_circle
                 </span>
-                {destination.location}
-              </p>
+                <span>Geser untuk video YT</span>
+                <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+              </button>
+            )}
+
+            {/* Dot Indicators */}
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 p-1 rounded-full bg-black/40 backdrop-blur-sm pointer-events-none">
+              {slides.map((_, dotIdx) => (
+                <div
+                  key={dotIdx}
+                  className={`h-1.5 rounded-full transition-all ${
+                    activeSlide === dotIdx ? 'w-5 bg-white' : 'w-1.5 bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Destination Header Card (Clean, Always Accessible Info) */}
+          <div className="bg-surface-container-lowest p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-outline-variant/30 shadow-sm flex flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold shadow-sm">
+                {destination.categories[0]}
+              </span>
+              {destination.categories[1] && (
+                <span className="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-bold shadow-sm">
+                  {destination.categories[1]}
+                </span>
+              )}
+              {destination.gmapsUrl && (
+                <a
+                  href={destination.gmapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-1 rounded-full bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-colors ml-auto sm:ml-0"
+                >
+                  <span className="material-symbols-outlined text-[16px]">map</span>
+                  <span>Lihat Google Maps</span>
+                  <span className="material-symbols-outlined text-[13px]">open_in_new</span>
+                </a>
+              )}
+            </div>
+
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-on-surface leading-tight">
+              {destination.name}
+            </h1>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-on-surface-variant pt-2 border-t border-outline-variant/20">
+              <div className="flex items-center gap-1.5 text-primary font-medium">
+                <span className="material-symbols-outlined text-[18px]">location_on</span>
+                <span>{destination.location}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="flex items-center gap-1 text-amber-600 font-bold">
+                  <span className="material-symbols-outlined text-[16px]">star</span>
+                  {destination.rating}
+                </span>
+                <span className="text-outline">•</span>
+                <span className="font-mono text-outline">{destination.packSize}</span>
+              </div>
             </div>
           </div>
 
@@ -312,50 +496,6 @@ export default function DestinationDetailPage() {
                       <span><strong>Musim Terbaik:</strong> {destination.logistics.bestSeason}</span>
                     </div>
                   </div>
-
-                  {/* Video Documentation if available */}
-                  {destination.videoUrl && (
-                    <div className="bg-surface-container-lowest p-5 sm:p-6 rounded-2xl border border-outline-variant/30 shadow-sm flex flex-col gap-3">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2">
-                          <span className="material-symbols-outlined text-rose-600 text-[22px]">smart_display</span>
-                          Video Dokumentasi Lapangan
-                        </h3>
-                        {destination.videoUrl.startsWith('http') && (
-                          <a
-                            href={destination.videoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
-                          >
-                            <span>Tonton di YouTube</span>
-                            <span className="material-symbols-outlined text-[14px]">open_in_new</span>
-                          </a>
-                        )}
-                      </div>
-                      {destination.videoUrl.endsWith('.webm') || destination.videoUrl.endsWith('.mp4') ? (
-                        <div className="rounded-xl overflow-hidden bg-black shadow-inner">
-                          <video
-                            controls
-                            className="w-full max-h-[380px] object-contain"
-                            src={destination.videoUrl}
-                          >
-                            Browser tidak mendukung pemutar video.
-                          </video>
-                        </div>
-                      ) : (
-                        <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-900 shadow-sm">
-                          <iframe
-                            src={destination.videoUrl.replace('watch?v=', 'embed/')}
-                            title={`Dokumentasi ${destination.name}`}
-                            className="w-full h-full border-0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          />
-                        </div>
-                      )}
-                    </div>
-                  )}
 
                   {/* Photo Gallery if available */}
                   {destination.gallery && destination.gallery.length > 1 && (
