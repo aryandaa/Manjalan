@@ -164,6 +164,18 @@ export default function DestinationDetailPage() {
                     {destination.categories[1]}
                   </span>
                 )}
+                {destination.gmapsUrl && (
+                  <a
+                    href={destination.gmapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1 rounded-full bg-emerald-700/80 hover:bg-emerald-600 text-white text-xs font-bold flex items-center gap-1 shadow-sm transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-[15px]">map</span>
+                    <span>Google Maps</span>
+                    <span className="material-symbols-outlined text-[13px]">open_in_new</span>
+                  </a>
+                )}
                 {isDownloaded && (
                   <span className="px-3 py-1 rounded-full bg-white text-secondary text-xs font-bold flex items-center gap-1 shadow-sm">
                     <span className="material-symbols-outlined text-[15px]">verified</span>
@@ -300,6 +312,74 @@ export default function DestinationDetailPage() {
                       <span><strong>Musim Terbaik:</strong> {destination.logistics.bestSeason}</span>
                     </div>
                   </div>
+
+                  {/* Video Documentation if available */}
+                  {destination.videoUrl && (
+                    <div className="bg-surface-container-lowest p-5 sm:p-6 rounded-2xl border border-outline-variant/30 shadow-sm flex flex-col gap-3">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2">
+                          <span className="material-symbols-outlined text-rose-600 text-[22px]">smart_display</span>
+                          Video Dokumentasi Lapangan
+                        </h3>
+                        {destination.videoUrl.startsWith('http') && (
+                          <a
+                            href={destination.videoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+                          >
+                            <span>Tonton di YouTube</span>
+                            <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+                          </a>
+                        )}
+                      </div>
+                      {destination.videoUrl.endsWith('.webm') || destination.videoUrl.endsWith('.mp4') ? (
+                        <div className="rounded-xl overflow-hidden bg-black shadow-inner">
+                          <video
+                            controls
+                            className="w-full max-h-[380px] object-contain"
+                            src={destination.videoUrl}
+                          >
+                            Browser tidak mendukung pemutar video.
+                          </video>
+                        </div>
+                      ) : (
+                        <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-900 shadow-sm">
+                          <iframe
+                            src={destination.videoUrl.replace('watch?v=', 'embed/')}
+                            title={`Dokumentasi ${destination.name}`}
+                            className="w-full h-full border-0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Photo Gallery if available */}
+                  {destination.gallery && destination.gallery.length > 1 && (
+                    <div className="bg-surface-container-lowest p-5 sm:p-6 rounded-2xl border border-outline-variant/30 shadow-sm flex flex-col gap-3">
+                      <h3 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2">
+                        <span className="material-symbols-outlined text-secondary text-[22px]">photo_library</span>
+                        Galeri Foto Eksplorasi
+                      </h3>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {destination.gallery.map((photo, pIdx) => (
+                          <div
+                            key={pIdx}
+                            className="relative aspect-video rounded-xl overflow-hidden bg-surface-container group shadow-sm"
+                          >
+                            <img
+                              src={photo}
+                              alt={`${destination.name} ${pIdx + 1}`}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Emergency Radio Channels */}
                   <div className="bg-surface-container-lowest p-5 sm:p-6 rounded-2xl border border-outline-variant/30 shadow-sm flex flex-col gap-3">

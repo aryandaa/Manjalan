@@ -40,7 +40,7 @@ export default function UmkmDirectoryPage() {
   });
 
   const categories = [
-    { id: 'all', label: 'Semua (24)' },
+    { id: 'all', label: `Semua (${umkmList.length})` },
     { id: 'kuliner', label: 'Kuliner Khas' },
     { id: 'kelotok', label: 'Penginapan & Kelotok' },
     { id: 'souvenir', label: 'Oleh-oleh & Kerajinan' },

@@ -22,6 +22,9 @@ export interface Destination {
   categories: string[];
   rating: number;
   image: string;
+  gallery?: string[];
+  videoUrl?: string;
+  gmapsUrl?: string;
   packSize: string;
   packSizeBytes: number;
   overview: string;

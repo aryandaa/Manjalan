@@ -6,7 +6,7 @@ import { INITIAL_DESTINATIONS, INITIAL_UMKM } from '@/data/initialData';
 import { INITIAL_MANAGED_PLACES, INITIAL_PARTNER_REQUESTS } from '@/data/partnerData';
 
 const DB_NAME = 'manjalan_offline_db';
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 
 let dbPromise: Promise<IDBPDatabase> | null = null;
 
@@ -77,37 +77,33 @@ export async function seedInitialDataIfNeeded(): Promise<void> {
   const db = await getDB();
   if (!db) return;
 
-  const count = await db.count('destinations');
-  if (count < INITIAL_DESTINATIONS.length) {
-    const tx = db.transaction(['destinations'], 'readwrite');
-    for (const d of INITIAL_DESTINATIONS) {
-      await tx.objectStore('destinations').put(d);
-    }
+  // Always sync latest destinations and UMKM to ensure local DB matches official data
+  const tx = db.transaction(['destinations', 'umkm'], 'readwrite');
+  for (const d of INITIAL_DESTINATIONS) {
+    await tx.objectStore('destinations').put(d);
   }
+  for (const u of INITIAL_UMKM) {
+    await tx.objectStore('umkm').put(u);
+  }
+  await tx.done;
 
-  if (count === 0) {
-    const tx = db.transaction(['destinations', 'umkm', 'travel_packs'], 'readwrite');
-    for (const d of INITIAL_DESTINATIONS) {
-      await tx.objectStore('destinations').put(d);
-    }
-    for (const u of INITIAL_UMKM) {
-      await tx.objectStore('umkm').put(u);
-    }
-
-    // Pre-populate with Tanjung Puting & Sebangau travel pack to match the initial UI state
+  // Pre-populate with Tanjung Puting & Sebangau travel pack if travel_packs is empty
+  const packCount = await db.count('travel_packs');
+  if (packCount === 0) {
+    const packTx = db.transaction(['travel_packs'], 'readwrite');
     const tanjungPuting = INITIAL_DESTINATIONS[0];
     const tpUmkm = INITIAL_UMKM.filter(u => u.destinationId === 'tanjung-puting');
-    await tx.objectStore('travel_packs').put({
+    await packTx.objectStore('travel_packs').put({
       id: 'pack-tanjung-puting',
       destinationId: 'tanjung-puting',
       destinationName: tanjungPuting.name,
       location: tanjungPuting.location,
-      sizeMb: '14.2 MB',
+      sizeMb: tanjungPuting.packSize,
       downloadedAt: 'Tersimpan Hari Ini',
       itemCount: {
         routes: 4,
         umkm: tpUmkm.length,
-        emergency: 3,
+        emergency: tanjungPuting.emergencyContacts.length,
       },
       data: {
         destination: tanjungPuting,
@@ -117,45 +113,44 @@ export async function seedInitialDataIfNeeded(): Promise<void> {
 
     const sebangau = INITIAL_DESTINATIONS[1];
     const sebangauUmkm = INITIAL_UMKM.filter(u => u.destinationId === 'taman-nasional-sebangau');
-    await tx.objectStore('travel_packs').put({
+    await packTx.objectStore('travel_packs').put({
       id: 'pack-sebangau',
       destinationId: 'taman-nasional-sebangau',
       destinationName: sebangau.name,
       location: sebangau.location,
-      sizeMb: '10.4 MB',
+      sizeMb: sebangau.packSize,
       downloadedAt: 'Tersimpan Kemarin',
       itemCount: {
         routes: 2,
         umkm: sebangauUmkm.length,
-        emergency: 2,
+        emergency: sebangau.emergencyContacts.length,
       },
       data: {
         destination: sebangau,
         umkmList: sebangauUmkm,
       },
     });
-
-    await tx.done;
+    await packTx.done;
   }
 
   // Seed Managed Places if empty
   const placesCount = await db.count('managed_places');
   if (placesCount === 0) {
-    const tx = db.transaction(['managed_places'], 'readwrite');
+    const txPlaces = db.transaction(['managed_places'], 'readwrite');
     for (const p of INITIAL_MANAGED_PLACES) {
-      await tx.objectStore('managed_places').put(p);
+      await txPlaces.objectStore('managed_places').put(p);
     }
-    await tx.done;
+    await txPlaces.done;
   }
 
   // Seed Partner Requests if empty
   const reqCount = await db.count('partner_requests');
   if (reqCount === 0) {
-    const tx = db.transaction(['partner_requests'], 'readwrite');
+    const txReq = db.transaction(['partner_requests'], 'readwrite');
     for (const r of INITIAL_PARTNER_REQUESTS) {
-      await tx.objectStore('partner_requests').put(r);
+      await txReq.objectStore('partner_requests').put(r);
     }
-    await tx.done;
+    await txReq.done;
   }
 }
 
