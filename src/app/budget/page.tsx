@@ -235,7 +235,7 @@ Peserta: ${guests} orang | Durasi: ${durationDays}H ${durationDays - 1}M
 Gaya: ${travelStyle.toUpperCase()}
 Total Estimasi: Rp ${totalCost.toLocaleString('id-ID')} (Rp ${perPersonCost.toLocaleString('id-ID')}/orang)
 Peringatan Tunai: Siapkan tunai Rp ${emergencyCash.toLocaleString('id-ID')} untuk area sungai tanpa sinyal.
-Rencanakan Saat Online, Tetap Siap Saat Offline!`;
+Menjelajah Isen Mulang, Lebih Siap Setiap Langkah! Temukan Destinasi, Siapkan Perjalanan.`;
 
     if (navigator.share) {
       try {

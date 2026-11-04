@@ -3,7 +3,7 @@ import './globals.css';
 import MobileContainer from '@/components/MobileContainer';
 
 export const metadata: Metadata = {
-  title: 'MANJALAN — Rencanakan Saat Online, Tetap Siap Saat Offline',
+  title: 'MANJALAN — Menjelajah Isen Mulang, Lebih Siap Setiap Langkah',
   description:
     'Travel readiness platform pertama untuk ekowisata Kalimantan Tengah. Hitung budget realistik, verifikasi pembayaran digital QRIS/tunai UMKM sekitar, dan bawa Travel Pack offline tanpa sinyal.',
   icons: {

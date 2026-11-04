@@ -1,5 +1,6 @@
 # MANJALAN — Travel Readiness Platform
-> *"Rencanakan Saat Online, Tetap Siap Saat Offline."*
+> **Menjelajah Isen Mulang, Lebih Siap Setiap Langkah.**  
+> *"Temukan Destinasi, Siapkan Perjalanan."*
 
 Platform kesiapan perjalanan wisata pertama untuk Kalimantan Tengah yang menjembatani perencanaan di kota dengan eksekusi lapangan di pedalaman tanpa sinyal internet.
 

@@ -80,9 +80,12 @@ export default function HomePage() {
                 </div>
 
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-on-surface leading-[1.15]">
-                  Rencanakan Saat Online,<br />
-                  <span className="text-primary">Tetap Siap Saat Offline.</span>
+                  Menjelajah Isen Mulang,<br />
+                  <span className="text-primary">Lebih Siap Setiap Langkah.</span>
                 </h1>
+                <p className="mt-2.5 text-sm sm:text-base text-on-surface-variant font-medium">
+                  &ldquo;Temukan Destinasi, Siapkan Perjalanan.&rdquo;
+                </p>
               </div>
 
               {/* Search Bar */}
