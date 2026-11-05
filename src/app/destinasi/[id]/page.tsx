@@ -133,7 +133,7 @@ export default function DestinationDetailPage() {
           spread: 60,
           origin: { y: 0.7 },
         });
-        showToast('Berhasil! Travel Pack tersimpan di IndexedDB untuk mode tanpa sinyal.');
+        showToast(`${destination.name} berhasil disimpan untuk akses offline.`);
       }, 700);
     }
   };
